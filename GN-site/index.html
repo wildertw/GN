@@ -268,6 +268,7 @@ select:focus, input:focus { border-color: var(--accent); }
   <ul class="nav-links" id="navLinks">
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('home')" class="active" data-page="home">Home</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('standings')" data-page="standings">Standings</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('regular-season')" data-page="regular-season">Regular Season</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('championships')" data-page="championships">Championships</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('members')" data-page="members">Members</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('records')" data-page="records">Records</a></li>
@@ -298,6 +299,15 @@ select:focus, input:focus { border-color: var(--accent); }
     <h2 class="section-title">Season Standings</h2>
     <div class="controls" id="standingsControls"></div>
     <div class="table-wrap" id="standingsTable"></div>
+  </div>
+</div>
+
+<!-- Regular Season Page -->
+<div class="page" id="page-regular-season">
+  <div class="container">
+    <h2 class="section-title">Regular Season Results</h2>
+    <div class="controls" id="regularSeasonControls"></div>
+    <div class="table-wrap" id="regularSeasonTable"></div>
   </div>
 </div>
 
@@ -410,7 +420,7 @@ const MEMBER_PALETTES = {
 const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Waivers','t wood',
   'Shain Collins','Josh Hudson','Lee Galt','Ian Baro','cody clodfelter'];
 
-let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null };
+let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [] };
 let memberProfiles = {};
 
 async function fetchSheet(gid) {
@@ -430,13 +440,99 @@ async function fetchSheet(gid) {
   });
 }
 
+function normalizeCsvHeader(value) {
+  return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
+function parseCsv(text) {
+  const rows = [];
+  let row = [];
+  let cell = '';
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '"') {
+      if (inQuotes && text[i + 1] === '"') {
+        cell += '"';
+        i++;
+      } else {
+        inQuotes = !inQuotes;
+      }
+    } else if (ch === ',' && !inQuotes) {
+      row.push(cell);
+      cell = '';
+    } else if ((ch === '\n' || ch === '\r') && !inQuotes) {
+      if (ch === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell);
+      if (row.some(v => String(v).trim().length > 0)) rows.push(row);
+      row = [];
+      cell = '';
+    } else {
+      cell += ch;
+    }
+  }
+  if (cell.length > 0 || row.length > 0) {
+    row.push(cell);
+    if (row.some(v => String(v).trim().length > 0)) rows.push(row);
+  }
+  return rows;
+}
+
+function toNumber(value) {
+  const n = parseFloat(value);
+  return Number.isFinite(n) ? n : null;
+}
+
+function toInt(value) {
+  const n = parseInt(value, 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+async function fetchRegularSeasonCsv() {
+  try {
+    const res = await fetch('regular-season.csv');
+    if (!res.ok) throw new Error('regular-season.csv not found');
+    const text = await res.text();
+    const rows = parseCsv(text);
+    if (rows.length < 2) return [];
+
+    const header = rows[0];
+    const headerIndex = {};
+    header.forEach((h, i) => { headerIndex[normalizeCsvHeader(h)] = i; });
+
+    const yearIdx = headerIndex.year;
+    const weekIdx = headerIndex.week;
+    const teamIdx = headerIndex.team;
+    const pfIdx = headerIndex.pointsfor;
+    const wlIdx = headerIndex.wl;
+    const paIdx = headerIndex.pa;
+    const diffIdx = headerIndex.diff;
+    const opponentIdx = headerIndex.opponent;
+
+    return rows.slice(1).map(cols => ({
+      year: toInt(cols[yearIdx]),
+      week: toInt(cols[weekIdx]),
+      team: String(cols[teamIdx] || '').trim(),
+      pointsFor: toNumber(cols[pfIdx]),
+      wl: String(cols[wlIdx] || '').trim(),
+      pa: toNumber(cols[paIdx]),
+      diff: toNumber(cols[diffIdx]),
+      opponent: String(cols[opponentIdx] || '').trim()
+    })).filter(r => r.year && r.week && r.team);
+  } catch (err) {
+    console.warn('Regular season CSV load failed:', err);
+    return [];
+  }
+}
+
 async function loadAllData() {
   try {
-    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw] = await Promise.all([
+    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonRaw] = await Promise.all([
       fetchSheet(GIDS.yearByYear),
       fetchSheet(GIDS.playoffs),
       fetchSheet(GIDS.records),
-      fetchSheet(GIDS.toc)
+      fetchSheet(GIDS.toc),
+      fetchRegularSeasonCsv()
     ]);
     
     DATA.yby = ybyRaw.map(r => ({
@@ -468,6 +564,8 @@ async function loadAllData() {
     DATA.champs = tocRaw.filter(r => r.Year && r['1ST']).map(r => ({
       year: r.Year, first: r['1ST'], second: r['2ND'], third: r['3RD'], last: r['LAST']
     }));
+
+    DATA.regularSeason = regularSeasonRaw;
 
     buildMemberProfiles();
     renderAllPages();
@@ -515,6 +613,7 @@ function buildMemberProfiles() {
 function renderAllPages() {
   renderHome();
   renderStandingsDropdown();
+  renderRegularSeasonFilters();
   renderChampionships();
   renderMemberGrid();
   renderRecords();
@@ -593,6 +692,94 @@ function renderStandings() {
   });
   html += '</tbody></table>';
   document.getElementById('standingsTable').innerHTML = html;
+}
+
+function renderRegularSeasonFilters() {
+  const controlsEl = document.getElementById('regularSeasonControls');
+  const tableEl = document.getElementById('regularSeasonTable');
+  if (!controlsEl || !tableEl) return;
+
+  const years = [...new Set(DATA.regularSeason.map(r => r.year))].sort((a, b) => b - a);
+  if (!years.length) {
+    controlsEl.innerHTML = '';
+    tableEl.innerHTML = '<div class="card">No regular season CSV data found.</div>';
+    return;
+  }
+
+  let controlsHtml = '<select id="regularSeasonYear" onchange="updateRegularSeasonFilterOptions();renderRegularSeasonTable()">';
+  years.forEach(y => { controlsHtml += '<option value="' + y + '">' + y + '</option>'; });
+  controlsHtml += '</select>';
+  controlsHtml += '<select id="regularSeasonWeek" onchange="renderRegularSeasonTable()"></select>';
+  controlsHtml += '<select id="regularSeasonTeam" onchange="renderRegularSeasonTable()"></select>';
+  controlsEl.innerHTML = controlsHtml;
+
+  updateRegularSeasonFilterOptions();
+  renderRegularSeasonTable();
+}
+
+function updateRegularSeasonFilterOptions() {
+  const yearEl = document.getElementById('regularSeasonYear');
+  const weekEl = document.getElementById('regularSeasonWeek');
+  const teamEl = document.getElementById('regularSeasonTeam');
+  if (!yearEl || !weekEl || !teamEl) return;
+
+  const selectedYear = toInt(yearEl.value);
+  const rows = DATA.regularSeason.filter(r => r.year === selectedYear);
+
+  const prevWeek = weekEl.value;
+  const weeks = [...new Set(rows.map(r => r.week))].sort((a, b) => a - b);
+  let weekHtml = '<option value=\"all\">All Weeks</option>';
+  weeks.forEach(w => { weekHtml += '<option value=\"' + w + '\">Week ' + w + '</option>'; });
+  weekEl.innerHTML = weekHtml;
+  if (weeks.some(w => String(w) === prevWeek)) weekEl.value = prevWeek;
+
+  const prevTeam = teamEl.value;
+  const teams = [...new Set(rows.map(r => r.team))].sort((a, b) => a.localeCompare(b));
+  let teamHtml = '<option value=\"all\">All Teams</option>';
+  teams.forEach(t => { teamHtml += '<option value=\"' + escapeHtml(t) + '\">' + escapeHtml(t) + '</option>'; });
+  teamEl.innerHTML = teamHtml;
+  if (teams.includes(prevTeam)) teamEl.value = prevTeam;
+}
+
+function renderRegularSeasonTable() {
+  const tableEl = document.getElementById('regularSeasonTable');
+  const yearEl = document.getElementById('regularSeasonYear');
+  const weekEl = document.getElementById('regularSeasonWeek');
+  const teamEl = document.getElementById('regularSeasonTeam');
+  if (!tableEl || !yearEl || !weekEl || !teamEl) return;
+
+  const selectedYear = toInt(yearEl.value);
+  const selectedWeek = weekEl.value;
+  const selectedTeam = teamEl.value;
+
+  const rows = DATA.regularSeason
+    .filter(r => r.year === selectedYear)
+    .filter(r => selectedWeek === 'all' ? true : String(r.week) === selectedWeek)
+    .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam)
+    .sort((a, b) => a.week - b.week || a.team.localeCompare(b.team));
+
+  if (!rows.length) {
+    tableEl.innerHTML = '<div class="card">No games found for this filter.</div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Year</th><th>Week</th><th>Team</th><th>PF</th><th>W/L</th><th>PA</th><th>Diff</th><th>Opponent</th></tr></thead><tbody>';
+  rows.forEach(r => {
+    const wlClass = r.wl === 'W' ? 'win' : r.wl === 'L' ? 'loss' : '';
+    const diffColor = r.diff > 0 ? 'var(--success)' : r.diff < 0 ? 'var(--danger)' : 'var(--text)';
+    html += '<tr>';
+    html += '<td>' + r.year + '</td>';
+    html += '<td>' + r.week + '</td>';
+    html += '<td>' + renderTeamBadge(r.team) + '</td>';
+    html += '<td>' + (r.pointsFor !== null ? r.pointsFor.toFixed(1) : '-') + '</td>';
+    html += '<td class="' + wlClass + '">' + (r.wl || '-') + '</td>';
+    html += '<td>' + (r.pa !== null ? r.pa.toFixed(1) : '-') + '</td>';
+    html += '<td style="color:' + diffColor + '">' + (r.diff !== null ? (r.diff > 0 ? '+' : '') + r.diff.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (r.opponent ? renderTeamBadge(r.opponent) : '-') + '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  tableEl.innerHTML = html;
 }
 
 function renderChampionships() {
