@@ -286,6 +286,17 @@ select:focus, input[type="text"]:focus {
   </div>
 </div>
 
+<!-- Box Score Modal -->
+<div class="modal-overlay fixed inset-0 z-[2100] items-start justify-center overflow-y-auto bg-black/80 p-4 md:p-8" id="boxScoreModal" onclick="closeBoxScoreModal(event)">
+  <div class="mt-6 w-full max-w-5xl overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)]" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between border-b border-[var(--border)] px-6 py-5">
+      <h2 id="boxScoreModalTitle" class="font-[Oswald] text-xl"></h2>
+      <button class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent)]" onclick="closeBoxScoreModal()">&times;</button>
+    </div>
+    <div class="p-6 md:p-8" id="boxScoreModalBody"></div>
+  </div>
+</div>
+
 <!-- Loading Screen -->
 <div id="loadingScreen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg)]">
   <div class="text-center">
@@ -333,7 +344,7 @@ const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Wa
 
 let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [], draft: [], yearlyPlayer: [], weeklyPlayer: [], playersList: [] };
 let memberProfiles = {};
-let DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {} };
+let DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {}, weeklyByMatch: {} };
 
 async function fetchSheet(gid) {
   const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&gid=' + gid;
@@ -555,7 +566,10 @@ function parseWeeklyPlayerRows(rows) {
     player: String(getRowValue(r, ['PlayerNoSuffix', 'PlayerCleaned', 'Player'])),
     playerNorm: normalizePlayerName(getRowValue(r, ['PlayerNoSuffix', 'PlayerCleaned', 'Player'])),
     actual: toNumber(getRowValue(r, ['PlayerScore_Actual', 'Actual', 'Points'])),
-    projected: toNumber(getRowValue(r, ['PlayerScore_Projected', 'Projected']))
+    projected: toNumber(getRowValue(r, ['PlayerScore_Projected', 'Projected'])),
+    active: String(getRowValue(r, ['Active/Bench', 'Active_Bench'])).trim(),
+    slot: String(getRowValue(r, ['Roster_slot', 'PlayerRosterSlot'])).trim(),
+    playerTeamPos: String(getRowValue(r, ['Player_Team_Pos', 'PlayerTeamPos'])).trim()
   })).filter(r => r.year && r.week && r.manager && r.playerNorm);
 }
 
@@ -581,7 +595,7 @@ function parseRegularSeasonRows(rows) {
 }
 
 function buildDraftLookups() {
-  DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {} };
+  DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {}, weeklyByMatch: {} };
 
   DATA.yearlyPlayer.forEach(r => {
     DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm] = r;
@@ -594,10 +608,13 @@ function buildDraftLookups() {
   DATA.weeklyPlayer.forEach(r => {
     const byTeamKey = r.year + '|' + r.manager.toLowerCase() + '|' + r.playerNorm;
     const anyKey = r.year + '|' + r.playerNorm;
+    const matchKey = String(r.year) + '|' + String(r.week) + '|' + r.manager.toLowerCase();
     if (!DRAFT_LOOKUPS.weeklyByTeam[byTeamKey]) DRAFT_LOOKUPS.weeklyByTeam[byTeamKey] = [];
     if (!DRAFT_LOOKUPS.weeklyAny[anyKey]) DRAFT_LOOKUPS.weeklyAny[anyKey] = [];
+    if (!DRAFT_LOOKUPS.weeklyByMatch[matchKey]) DRAFT_LOOKUPS.weeklyByMatch[matchKey] = [];
     DRAFT_LOOKUPS.weeklyByTeam[byTeamKey].push(r);
     DRAFT_LOOKUPS.weeklyAny[anyKey].push(r);
+    DRAFT_LOOKUPS.weeklyByMatch[matchKey].push(r);
   });
 }
 
@@ -626,7 +643,8 @@ async function loadAllData() {
 
     DATA.playoffs = playoffsRaw.map(r => ({
       year: r.YEAR, round: r.ROUND, place: r.PLACE, team: r.TEAM,
-      score: r.SCORE, wl: r['W / L'], pa: r.PA, opponent: r.Opponent, diff: r.Dif
+      score: r.SCORE, wl: r['W / L'], pa: r.PA, opponent: r.Opponent, diff: r.Dif,
+      week: r.Week ? toInt(r.Week) : null
     })).filter(r => r.year && r.team);
 
     DATA.records = recordsRaw.filter(r => {
@@ -799,15 +817,15 @@ function renderRegularSeasonFilters() {
     return;
   }
 
-  let controlsHtml = '<select id="regularSeasonYear" onchange="updateRegularSeasonFilterOptions();renderRegularSeasonTable()">';
+  let controlsHtml = '<select id="regularSeasonYear" onchange="updateRegularSeasonFilterOptions();renderRegularSeasonScoreboard()">';
   years.forEach(y => { controlsHtml += '<option value="' + y + '">' + y + '</option>'; });
   controlsHtml += '</select>';
-  controlsHtml += '<select id="regularSeasonWeek" onchange="renderRegularSeasonTable()"></select>';
-  controlsHtml += '<select id="regularSeasonTeam" onchange="renderRegularSeasonTable()"></select>';
+  controlsHtml += '<select id="regularSeasonWeek" onchange="renderRegularSeasonScoreboard()"></select>';
+  controlsHtml += '<select id="regularSeasonTeam" onchange="renderRegularSeasonScoreboard()"></select>';
   controlsEl.innerHTML = controlsHtml;
 
   updateRegularSeasonFilterOptions();
-  renderRegularSeasonTable();
+  renderRegularSeasonScoreboard();
 }
 
 function updateRegularSeasonFilterOptions() {
@@ -834,7 +852,7 @@ function updateRegularSeasonFilterOptions() {
   if (teams.includes(prevTeam)) teamEl.value = prevTeam;
 }
 
-function renderRegularSeasonTable() {
+function renderRegularSeasonScoreboard() {
   const tableEl = document.getElementById('regularSeasonTable');
   const yearEl = document.getElementById('regularSeasonYear');
   const weekEl = document.getElementById('regularSeasonWeek');
@@ -845,33 +863,53 @@ function renderRegularSeasonTable() {
   const selectedWeek = weekEl.value;
   const selectedTeam = teamEl.value;
 
-  const rows = DATA.regularSeason
-    .filter(r => r.year === selectedYear)
+  const yearRows = DATA.regularSeason.filter(r => r.year === selectedYear);
+  const rows = yearRows
     .filter(r => selectedWeek === 'all' ? true : String(r.week) === selectedWeek)
-    .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam)
-    .sort((a, b) => a.week - b.week || a.team.localeCompare(b.team));
+    .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam || r.opponent === selectedTeam);
 
   if (!rows.length) {
     tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No games found for this filter.</div>';
     return;
   }
 
-  let html = '<table><thead><tr><th>Year</th><th>Week</th><th>Team</th><th>PF</th><th>W/L</th><th>PA</th><th>Diff</th><th>Opponent</th></tr></thead><tbody>';
+  // De-duplicate matchups (CSV has both sides of each game)
+  const seen = new Set();
+  const matchups = [];
   rows.forEach(r => {
-    const wlClass = r.wl === 'W' ? 'win' : r.wl === 'L' ? 'loss' : '';
-    const diffColor = r.diff > 0 ? 'var(--success)' : r.diff < 0 ? 'var(--danger)' : 'var(--text)';
-    html += '<tr>';
-    html += '<td>' + r.year + '</td>';
-    html += '<td>' + r.week + '</td>';
-    html += '<td>' + renderTeamBadge(r.team) + '</td>';
-    html += '<td>' + (r.pointsFor !== null ? r.pointsFor.toFixed(1) : '-') + '</td>';
-    html += '<td class="' + wlClass + '">' + (r.wl || '-') + '</td>';
-    html += '<td>' + (r.pa !== null ? r.pa.toFixed(1) : '-') + '</td>';
-    html += '<td style="color:' + diffColor + '">' + (r.diff !== null ? (r.diff > 0 ? '+' : '') + r.diff.toFixed(1) : '-') + '</td>';
-    html += '<td>' + (r.opponent ? renderTeamBadge(r.opponent) : '-') + '</td>';
-    html += '</tr>';
+    if (!r.opponent) return;
+    const key = [r.team, r.opponent].sort().join('|||') + '|' + r.week;
+    if (seen.has(key)) return;
+    seen.add(key);
+    const oppRow = yearRows.find(o => o.week === r.week && o.team === r.opponent && o.opponent === r.team);
+    matchups.push({
+      week: r.week,
+      team1: r.team,
+      score1: r.pointsFor,
+      wl1: r.wl,
+      team2: r.opponent,
+      score2: r.pa,
+      wl2: oppRow ? oppRow.wl : (r.wl === 'W' ? 'L' : r.wl === 'L' ? 'W' : '-'),
+      year: r.year
+    });
   });
-  html += '</tbody></table>';
+
+  // Group by week
+  const byWeek = {};
+  matchups.forEach(m => {
+    if (!byWeek[m.week]) byWeek[m.week] = [];
+    byWeek[m.week].push(m);
+  });
+
+  let html = '';
+  Object.keys(byWeek).sort((a, b) => Number(a) - Number(b)).forEach(week => {
+    html += '<div class="mb-8">';
+    html += '<h3 class="mb-3 font-[Oswald] text-base uppercase tracking-wide text-white border-b border-[var(--border)] pb-2">Week ' + week + '</h3>';
+    html += '<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">';
+    byWeek[week].forEach(m => { html += renderMatchupCard(m, selectedYear, false); });
+    html += '</div></div>';
+  });
+
   tableEl.innerHTML = html;
 }
 
@@ -1175,44 +1213,229 @@ function showResultsTab(tab) {
 
 function renderPlayoffDropdown() {
   const years = [...new Set(DATA.playoffs.map(r => r.year))].sort((a,b) => b - a);
-  let html = '<select id="playoffYear" onchange="renderPlayoffs()">';
+  let html = '<select id="playoffYear" onchange="renderPlayoffScoreboard()">';
   html += '<option value="all">All Years</option>';
   years.forEach(y => { html += '<option value="' + y + '">' + y + '</option>'; });
   html += '</select>';
   document.getElementById('playoffControls').innerHTML = html;
-  renderPlayoffs();
+  renderPlayoffScoreboard();
 }
 
-function renderPlayoffs() {
+function renderPlayoffScoreboard() {
   const yearVal = document.getElementById('playoffYear').value;
   let data = DATA.playoffs;
-  if (yearVal !== 'all') data = data.filter(r => r.year === parseInt(yearVal));
-  
+  if (yearVal !== 'all') data = data.filter(r => String(r.year) === String(yearVal));
+
+  if (!data.length) {
+    document.getElementById('playoffContent').innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No playoff data found.</div>';
+    return;
+  }
+
   // Group by year
   const byYear = {};
   data.forEach(r => {
-    if (!byYear[r.year]) byYear[r.year] = [];
-    byYear[r.year].push(r);
+    const y = String(r.year);
+    if (!byYear[y]) byYear[y] = [];
+    byYear[y].push(r);
   });
-  
+
+  const roundOrder = { 'QUARTERFINALS': 0, 'QUARTERS': 0, 'SEMIS': 1, 'SEMIFINALS': 1, 'FINALS': 2, 'FINAL': 2, '3RD': 3, '3RD PLACE': 3, 'CONSOLATION': 4 };
+
   let html = '';
-  Object.keys(byYear).sort((a,b) => b - a).forEach(year => {
+  Object.keys(byYear).sort((a, b) => Number(b) - Number(a)).forEach(year => {
     const games = byYear[year];
-    html += '<h3 class="mb-3 mt-6 font-[Oswald] text-xl text-[var(--accent)]">' + year + ' PLAYOFFS</h3>';
-    html += '<div class="table-wrap overflow-x-auto"><table><thead><tr><th>Round</th><th>Place</th><th>Team</th><th>Score</th><th>Result</th><th>Opponent</th><th>Opp Score</th><th>Margin</th></tr></thead><tbody>';
+
+    // De-duplicate matchups
+    const seen = new Set();
+    const matchups = [];
     games.forEach(g => {
-      const wlClass = g.wl === 'W' ? 'win' : 'loss';
-      const diffColor = g.diff > 0 ? 'var(--success)' : 'var(--danger)';
-      html += '<tr><td>' + g.round + '</td><td style="color:' + (g.place === '1st' ? 'var(--gold)' : g.place === '2nd' ? 'var(--silver)' : g.place === '3rd' ? 'var(--bronze)' : 'var(--text)') + ';font-weight:600">' + (g.place || '-') + '</td>';
-      html += '<td>' + renderTeamBadge(g.team) + '</td>';
-      html += '<td>' + (g.score || '-') + '</td><td class="' + wlClass + '">' + g.wl + '</td>';
-      html += '<td>' + renderTeamBadge(g.opponent) + '</td>';
-      html += '<td>' + (g.pa || '-') + '</td>';
-      html += '<td style="color:' + diffColor + '">' + (g.diff > 0 ? '+' : '') + (g.diff || '-') + '</td></tr>';
+      if (!g.opponent) return;
+      const key = [String(g.team), String(g.opponent)].sort().join('|||') + '|' + (g.round || '');
+      if (seen.has(key)) return;
+      seen.add(key);
+      const oppRow = games.find(o => String(o.team) === String(g.opponent) && String(o.opponent) === String(g.team) && o.round === g.round);
+      matchups.push({
+        week: g.week || null,
+        round: g.round || '',
+        team1: String(g.team),
+        score1: toNumber(g.score),
+        wl1: g.wl || '',
+        team2: String(g.opponent),
+        score2: toNumber(g.pa),
+        wl2: oppRow ? oppRow.wl : (g.wl === 'W' ? 'L' : g.wl === 'L' ? 'W' : ''),
+        year: toInt(year)
+      });
     });
-    html += '</tbody></table></div>';
+
+    // Sort and group by round
+    matchups.sort((a, b) => (roundOrder[(a.round || '').toUpperCase()] ?? 5) - (roundOrder[(b.round || '').toUpperCase()] ?? 5));
+    const byRound = {};
+    matchups.forEach(m => {
+      const key = m.round || 'Games';
+      if (!byRound[key]) byRound[key] = [];
+      byRound[key].push(m);
+    });
+
+    html += '<div class="mb-8">';
+    html += '<h3 class="mb-4 font-[Oswald] text-xl text-[var(--accent)] border-b border-[var(--border)] pb-2">' + year + ' PLAYOFFS</h3>';
+    Object.keys(byRound).forEach(round => {
+      html += '<div class="mb-5">';
+      html += '<h4 class="mb-3 font-[Oswald] text-sm uppercase tracking-widest text-[var(--text-muted)]">' + round + '</h4>';
+      html += '<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">';
+      byRound[round].forEach(m => { html += renderMatchupCard(m, toInt(year), true); });
+      html += '</div></div>';
+    });
+    html += '</div>';
   });
+
   document.getElementById('playoffContent').innerHTML = html;
+}
+
+function renderMatchupCard(m, year, isPlayoff) {
+  const t1Win = m.wl1 === 'W';
+  const t2Win = m.wl2 === 'W';
+  const t1Color = getMemberColor(m.team1);
+  const t2Color = getMemberColor(m.team2);
+  const label = isPlayoff ? (m.round || 'Playoff Game') : 'Week ' + m.week;
+  const esc = s => String(s || '').replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+  const weekArg = (m.week != null) ? m.week : 'null';
+  const btnClick = 'openMatchupBoxScore(' + year + ',' + weekArg + ',' +
+    "'" + esc(m.team1) + "'," +
+    (m.score1 != null ? m.score1 : 'null') + ',' +
+    "'" + esc(m.wl1) + "'," +
+    "'" + esc(m.team2) + "'," +
+    (m.score2 != null ? m.score2 : 'null') + ',' +
+    "'" + esc(m.wl2) + "'," +
+    isPlayoff + ')';
+  const fmtScore = s => (s != null ? (typeof s === 'number' ? s.toFixed(1) : s) : '-');
+  const teamRow = (name, score, wl, color, isWin) =>
+    '<div class="flex items-center justify-between py-2 px-4 ' + (isWin ? '' : 'opacity-60') + '">' +
+    '<div class="flex items-center gap-2 flex-1 min-w-0">' +
+    '<div class="w-1 h-6 rounded-full flex-shrink-0" style="background:' + color + '"></div>' +
+    '<span class="truncate text-sm font-semibold">' + escapeHtml(name) + '</span>' +
+    '</div>' +
+    '<div class="flex items-center gap-2 ml-2 flex-shrink-0">' +
+    '<span class="font-[Oswald] text-lg font-bold">' + fmtScore(score) + '</span>' +
+    (isWin
+      ? '<span class="text-xs font-bold text-[var(--success)] w-4">W</span>'
+      : '<span class="text-xs text-[var(--danger)] w-4">L</span>') +
+    '</div></div>';
+  return '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] overflow-hidden hover:border-[var(--accent)] transition-colors">' +
+    '<div class="px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] border-b border-[var(--border)] bg-black/20">' + escapeHtml(label) + '</div>' +
+    teamRow(m.team1, m.score1, m.wl1, t1Color, t1Win) +
+    '<div class="border-t border-[var(--border)]/30 mx-4"></div>' +
+    teamRow(m.team2, m.score2, m.wl2, t2Color, t2Win) +
+    '<div class="border-t border-[var(--border)] px-4 py-1.5">' +
+    '<button onclick="' + btnClick + '" class="w-full text-xs uppercase tracking-wider font-semibold text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors py-0.5">Box Score →</button>' +
+    '</div></div>';
+}
+
+function openMatchupBoxScore(year, week, team1, score1, wl1, team2, score2, wl2, isPlayoff) {
+  const matchKey1 = String(year) + '|' + String(week) + '|' + String(team1).toLowerCase();
+  const matchKey2 = String(year) + '|' + String(week) + '|' + String(team2).toLowerCase();
+  const players1 = DRAFT_LOOKUPS.weeklyByMatch[matchKey1] || [];
+  const players2 = DRAFT_LOOKUPS.weeklyByMatch[matchKey2] || [];
+  const label = isPlayoff ? 'Playoffs' : 'Week ' + week;
+
+  let html = '<div class="mb-4 text-xs text-[var(--text-muted)] flex items-center gap-2">';
+  html += '<span>' + year + '</span><span>•</span><span>' + label + '</span>';
+  if (isPlayoff) html += '<span>•</span><span class="text-[var(--accent)] font-semibold uppercase tracking-wide">Playoffs</span>';
+  html += '</div>';
+  html += '<div class="grid gap-4 md:grid-cols-2">';
+  html += renderBoxScoreTeam(team1, score1, wl1, players1);
+  html += renderBoxScoreTeam(team2, score2, wl2, players2);
+  html += '</div>';
+
+  const t1Color = getMemberColor(team1);
+  const t2Color = getMemberColor(team2);
+  const titleEl = document.getElementById('boxScoreModalTitle');
+  if (titleEl) {
+    titleEl.innerHTML =
+      '<span style="color:' + t1Color + ';font-family:Oswald,sans-serif">' + escapeHtml(team1) + '</span>' +
+      '<span class="text-[var(--text-muted)] mx-3 font-normal text-xl">vs</span>' +
+      '<span style="color:' + t2Color + ';font-family:Oswald,sans-serif">' + escapeHtml(team2) + '</span>';
+  }
+  const bodyEl = document.getElementById('boxScoreModalBody');
+  if (bodyEl) bodyEl.innerHTML = html;
+  const modal = document.getElementById('boxScoreModal');
+  if (modal) modal.classList.add('open');
+}
+
+function renderBoxScoreTeam(teamName, score, wl, players) {
+  const primary = getMemberColor(teamName);
+  const primaryText = contrastColor(primary);
+  const isWinner = wl === 'W';
+  const isBench = p => {
+    const a = (p.active || '').toLowerCase();
+    return a === 'bench' || a === 'bn' || !a;
+  };
+  const slotOrder = ['QB','RB','RB2','WR','WR2','TE','W/R/T','W/T','FLEX','K','D/ST','DST','DEF','P'];
+  const slotIdx = s => { const i = slotOrder.indexOf((s || '').toUpperCase()); return i === -1 ? 50 : i; };
+  const active = players.filter(p => !isBench(p)).sort((a, b) => slotIdx(a.slot) - slotIdx(b.slot));
+  const bench = players.filter(p => isBench(p)).sort((a, b) => slotIdx(a.slot) - slotIdx(b.slot));
+  const totalActual = active.reduce((s, p) => s + (p.actual || 0), 0);
+  const totalProj = active.reduce((s, p) => s + (p.projected || 0), 0);
+  const fmtScore = s => (s != null ? (typeof s === 'number' ? s.toFixed(1) : s) : '-');
+
+  let html = '<div class="rounded-xl overflow-hidden border-2" style="border-color:' + primary + '">';
+  html += '<div class="flex items-center justify-between px-4 py-3" style="background:' + primary + '">';
+  html += '<span class="font-[Oswald] text-base font-bold leading-tight truncate mr-2" style="color:' + primaryText + '">' + escapeHtml(teamName) + '</span>';
+  html += '<div class="flex items-center gap-2 flex-shrink-0">';
+  html += '<span class="font-[Oswald] text-2xl font-bold" style="color:' + primaryText + '">' + fmtScore(score) + '</span>';
+  if (isWinner) html += '<span class="text-xs font-bold px-1.5 py-0.5 rounded" style="background:rgba(255,255,255,0.25);color:' + primaryText + '">W</span>';
+  else html += '<span class="text-xs px-1.5 py-0.5 rounded opacity-70" style="background:rgba(0,0,0,0.3);color:' + primaryText + '">L</span>';
+  html += '</div></div>';
+
+  if (!players.length) {
+    html += '<div class="p-5 text-sm text-[var(--text-muted)] text-center italic">No player data available for this matchup.</div></div>';
+    return html;
+  }
+
+  const playerRow = (p, dim) => {
+    const photo = getDraftPlayerPhoto(p.playerNorm);
+    return '<tr class="' + (dim ? 'opacity-50' : '') + '">' +
+      '<td class="py-1.5 px-3 text-xs font-bold text-[var(--text-muted)] whitespace-nowrap w-12">' + escapeHtml(p.slot || '-') + '</td>' +
+      '<td class="py-1.5 px-3"><div class="flex items-center gap-2">' +
+      (photo
+        ? '<img src="' + escapeHtml(photo) + '" class="h-7 w-7 rounded-full object-cover border border-white/20 flex-shrink-0" loading="lazy">'
+        : '<div class="h-7 w-7 rounded-full bg-white/10 flex-shrink-0"></div>') +
+      '<div><div class="text-sm font-medium leading-tight whitespace-nowrap">' + escapeHtml(p.player || p.playerNorm) + '</div>' +
+      (p.playerTeamPos ? '<div class="text-xs text-[var(--text-muted)]">' + escapeHtml(p.playerTeamPos) + '</div>' : '') +
+      '</div></div></td>' +
+      '<td class="py-1.5 px-3 text-right text-sm font-bold whitespace-nowrap w-14">' + (p.actual != null ? p.actual.toFixed(1) : '-') + '</td>' +
+      '<td class="py-1.5 px-3 text-right text-sm text-[var(--text-muted)] whitespace-nowrap w-14">' + (p.projected != null ? p.projected.toFixed(1) : '-') + '</td>' +
+      '</tr>';
+  };
+
+  html += '<div class="overflow-x-auto"><table class="w-full text-sm">';
+  html += '<thead><tr style="background:rgba(0,0,0,0.3)">';
+  html += '<th class="py-1.5 px-3 text-left text-xs font-[Oswald] uppercase">Slot</th>';
+  html += '<th class="py-1.5 px-3 text-left text-xs font-[Oswald] uppercase">Player</th>';
+  html += '<th class="py-1.5 px-3 text-right text-xs font-[Oswald] uppercase">Pts</th>';
+  html += '<th class="py-1.5 px-3 text-right text-xs font-[Oswald] uppercase">Proj</th>';
+  html += '</tr></thead><tbody>';
+
+  active.forEach(p => { html += playerRow(p, false); });
+
+  if (bench.length) {
+    html += '<tr style="background:rgba(0,0,0,0.2)"><td colspan="4" class="py-1 px-3 text-xs font-[Oswald] uppercase tracking-widest text-[var(--text-muted)] border-t border-white/10">Bench</td></tr>';
+    bench.forEach(p => { html += playerRow(p, true); });
+  }
+
+  html += '<tr style="background:rgba(0,0,0,0.3);border-top:1px solid rgba(255,255,255,0.15)">';
+  html += '<td colspan="2" class="py-2 px-3 text-xs font-[Oswald] font-bold uppercase text-[var(--text-muted)]">Total (Active)</td>';
+  html += '<td class="py-2 px-3 text-right font-[Oswald] font-bold text-sm">' + totalActual.toFixed(1) + '</td>';
+  html += '<td class="py-2 px-3 text-right text-sm text-[var(--text-muted)]">' + totalProj.toFixed(1) + '</td>';
+  html += '</tr>';
+
+  html += '</tbody></table></div></div>';
+  return html;
+}
+
+function closeBoxScoreModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  const modal = document.getElementById('boxScoreModal');
+  if (modal) modal.classList.remove('open');
 }
 
 function renderH2HDropdown() {
