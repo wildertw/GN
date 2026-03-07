@@ -144,6 +144,14 @@ tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 .member-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; color: #fff; }
 .member-card .record { color: var(--text-muted); font-size: 0.9rem; }
 .member-card .titles { color: var(--gold); margin-top: 0.5rem; font-size: 0.85rem; }
+.team-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  font-weight: 700;
+  line-height: 1.2;
+}
 
 /* Filters & Controls */
 .controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
@@ -388,14 +396,14 @@ const MEMBER_PALETTES = {
   'Michael Waivers': { primary: '#1D1160', secondary: '#00788C' },
   'Mark Potter': { primary: '#13274F', secondary: '#CE1141' },
   'Taylor Hardee': { primary: '#E03A3E', secondary: '#000000' },
-  'Josh Johnston': { primary: '#607D8B', secondary: '#90A4AE' },
-  'Mark Lindsay': { primary: '#795548', secondary: '#A1887F' },
-  'Keith Spinner': { primary: '#FF9800', secondary: '#FFC107' },
+  'Josh Johnston': { primary: '#F9D71C', secondary: '#ED1C24' },
+  'Mark Lindsay': { primary: '#E03E52', secondary: '#1A2238' },
+  'Keith Spinner': { primary: '#002244', secondary: '#00338D' },
   'taylor ward': { primary: '#4CAF50', secondary: '#8BC34A' },
-  'Andrew Scercy': { primary: '#673AB7', secondary: '#9575CD' },
-  'Chris W': { primary: '#9E9E9E', secondary: '#BDBDBD' },
+  'Andrew Scercy': { primary: '#0085CA', secondary: '#BFC0BF' },
+  'Chris W': { primary: '#FF7900', secondary: '#DC4405' },
   'Zack Bullock': { primary: '#FF5722', secondary: '#FF8A65' },
-  'Travis Albea': { primary: '#3F51B5', secondary: '#7986CB' },
+  'Travis Albea': { primary: '#000000', secondary: '#C4CED4' },
   'Maddy': { primary: '#EC407A', secondary: '#F06292' }
 };
 
@@ -535,7 +543,7 @@ function renderHome() {
   let html = '<table><thead><tr><th>#</th><th>Member</th><th>Seasons</th><th>W</th><th>L</th><th>Win%</th><th>Titles</th><th>PF</th><th>Best</th></tr></thead><tbody>';
   sorted.forEach((p, i) => {
     const pct = p.totalWins + p.totalLosses > 0 ? (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1) : '0.0';
-    html += '<tr><td>' + (i+1) + '</td><td style="color:' + getMemberColor(p.name) + ';font-weight:600">' + p.name + '</td>';
+    html += '<tr><td>' + (i+1) + '</td><td>' + renderTeamBadge(p.name) + '</td>';
     html += '<td>' + p.seasons.length + '</td><td class="win">' + p.totalWins + '</td><td class="loss">' + p.totalLosses + '</td>';
     html += '<td>' + pct + '%</td><td style="color:var(--gold)">' + (p.titles > 0 ? '🏆'.repeat(p.titles) : '-') + '</td>';
     html += '<td>' + Math.round(p.totalPF).toLocaleString() + '</td><td>' + ordinal(p.bestFinish) + '</td></tr>';
@@ -575,7 +583,7 @@ function renderStandings() {
     const rankClass = r.rank === 1 ? 'rank-1' : r.rank === 2 ? 'rank-2' : r.rank === 3 ? 'rank-3' : '';
     const diffColor = r.diff > 0 ? 'var(--success)' : r.diff < 0 ? 'var(--danger)' : 'var(--text)';
     html += '<tr><td class="' + rankClass + '">' + ordinal(r.rank) + '</td>';
-    html += '<td style="color:' + getMemberColor(r.team) + ';font-weight:600">' + r.team + '</td>';
+    html += '<td>' + renderTeamBadge(r.team) + '</td>';
     html += '<td class="win">' + r.wins + '</td><td class="loss">' + r.losses + '</td>';
     html += '<td>' + (r.winPct * 100).toFixed(0) + '%</td>';
     html += '<td>' + (r.pf ? r.pf.toFixed(1) : '-') + '</td>';
@@ -629,7 +637,7 @@ function renderMemberGrid() {
     const secondary = getMemberSecondaryColor(p.name);
     return '<div class="member-card" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
       '<div class="member-avatar" style="background:linear-gradient(135deg,' + color + ',' + secondary + ')">' + initials + '</div>' +
-      '<h3>' + p.name + '</h3>' +
+      '<h3>' + renderTeamBadge(p.name) + '</h3>' +
       '<div class="record">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
       '<div class="record">' + p.seasons.length + ' seasons</div>' +
       (p.titles > 0 ? '<div class="titles">' + '🏆'.repeat(p.titles) + ' ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
@@ -643,7 +651,7 @@ function openMemberModal(name) {
   const p = memberProfiles[name];
   if (!p) return;
   
-  document.getElementById('modalTitle').textContent = p.name;
+  document.getElementById('modalTitle').innerHTML = renderTeamBadge(p.name);
   const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
   
   let html = '<div class="stats-grid" style="margin-bottom:1.5rem">' +
@@ -799,9 +807,9 @@ function renderPlayoffs() {
       const wlClass = g.wl === 'W' ? 'win' : 'loss';
       const diffColor = g.diff > 0 ? 'var(--success)' : 'var(--danger)';
       html += '<tr><td>' + g.round + '</td><td style="color:' + (g.place === '1st' ? 'var(--gold)' : g.place === '2nd' ? 'var(--silver)' : g.place === '3rd' ? 'var(--bronze)' : 'var(--text)') + ';font-weight:600">' + (g.place || '-') + '</td>';
-      html += '<td style="color:' + getMemberColor(g.team) + ';font-weight:600">' + g.team + '</td>';
+      html += '<td>' + renderTeamBadge(g.team) + '</td>';
       html += '<td>' + (g.score || '-') + '</td><td class="' + wlClass + '">' + g.wl + '</td>';
-      html += '<td style="color:' + getMemberColor(g.opponent) + '">' + g.opponent + '</td>';
+      html += '<td>' + renderTeamBadge(g.opponent) + '</td>';
       html += '<td>' + (g.pa || '-') + '</td>';
       html += '<td style="color:' + diffColor + '">' + (g.diff > 0 ? '+' : '') + (g.diff || '-') + '</td></tr>';
     });
@@ -838,7 +846,7 @@ function renderH2H() {
     }
   });
   
-  let html = '<h3 style="color:#fff;margin-bottom:1rem;font-family:Oswald,sans-serif">PLAYOFF HEAD-TO-HEAD FOR ' + selected.toUpperCase() + '</h3>';
+  let html = '<h3 style="color:#fff;margin-bottom:1rem;font-family:Oswald,sans-serif">PLAYOFF HEAD-TO-HEAD FOR ' + renderTeamBadge(selected) + '</h3>';
   html += '<div class="h2h-grid">';
   
   const opponents = Object.keys(h2hData).sort();
@@ -942,7 +950,22 @@ function getMemberColor(name) {
 
 function getMemberSecondaryColor(name) {
   if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].secondary;
-  return getMemberColor(name);
+  return '#FFFFFF';
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function renderTeamBadge(name) {
+  const primary = getMemberColor(name);
+  const secondary = getMemberSecondaryColor(name);
+  return '<span class="team-badge" style="background:' + secondary + ';border-color:' + primary + ';color:' + primary + '">' + escapeHtml(name) + '</span>';
 }
 
 // Initialize
