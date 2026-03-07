@@ -5,6 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Greenville Natives Fantasy Football League</title>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        duke: '#003087',
+        royal: '#00539B',
+        copper: '#C84E00',
+        persimmon: '#E89923',
+        dandelion: '#FFD960',
+        ironweed: '#993399'
+      }
+    }
+  }
+};
+</script>
 <style>
 :root {
   --primary: #003087;
@@ -25,125 +42,60 @@
   --success: #ffd960;
   --danger: #993399;
 }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { 
-  font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text);
-  min-height: 100vh; overflow-x: hidden;
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
 }
-h1,h2,h3,h4,h5,h6 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
-/* Navigation */
 .navbar {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
-  padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
-  box-shadow: 0 2px 20px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 1000;
   border-bottom: 3px solid var(--accent);
 }
-.navbar .logo { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700;
-  color: #fff; padding: 1rem 0; cursor: pointer; }
-.navbar .logo span { color: var(--accent); }
-.nav-links { display: flex; list-style: none; gap: 0; }
 .nav-links li a {
-  color: var(--text); padding: 1.2rem 1.2rem; display: block;
-  font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;
-  transition: all 0.3s; border-bottom: 3px solid transparent;
+  color: var(--text);
+  display: block;
+  padding: 1rem 1rem;
+  font-weight: 500;
+  font-size: 0.86rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.25s;
+}
+.nav-links li a:hover,
+.nav-links li a.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+  background: rgba(200,78,0,0.1);
   text-decoration: none;
 }
-.nav-links li a:hover, .nav-links li a.active {
-  color: var(--accent); border-bottom-color: var(--accent); background: rgba(200,78,0,0.1);
-  text-decoration: none;
-}
-.hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
-
-/* Hero */
-.hero {
-  background: linear-gradient(135deg, rgba(0,48,135,0.95), rgba(0,83,155,0.9)),
-    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="50" opacity="0.03">🏈</text></svg>');
-  padding: 4rem 2rem; text-align: center; 
-  border-bottom: 3px solid var(--accent);
-}
-.hero h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #fff; }
-.hero h1 span { color: var(--accent); }
-.hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
-.hero .badge { 
-  display: inline-block; background: var(--accent); color: #fff; padding: 0.3rem 1rem;
-  border-radius: 20px; font-size: 0.85rem; margin-top: 1rem; font-weight: 500;
+.hamburger { display: none; }
+.nav-links.open {
+  display: flex !important;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--primary);
+  border-top: 1px solid var(--border);
 }
 
-/* Container & Cards */
-.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-.section-title { font-size: 1.8rem; margin-bottom: 1.5rem; color: #fff; 
-  border-left: 4px solid var(--accent); padding-left: 1rem; }
-.card {
-  background: var(--card); border-radius: 12px; padding: 1.5rem;
-  border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
-}
-.card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+.page { display: none; }
+.page.active { display: block; }
 
-/* Stats Grid */
-.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-.stat-card {
-  background: linear-gradient(135deg, var(--card), var(--secondary));
-  border-radius: 12px; padding: 1.5rem; text-align: center;
-  border: 1px solid var(--border);
-}
-.stat-card .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); font-family: 'Oswald', sans-serif; }
-.stat-card .stat-label { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
-
-/* Tables */
-.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
-table { width: 100%; border-collapse: collapse; }
-th { background: var(--secondary); color: var(--accent); padding: 0.8rem 1rem; 
-  text-align: left; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
-  text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
-td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
-tr:hover { background: rgba(200,78,0,0.05); }
-tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-.rank-1 { color: var(--gold); font-weight: 700; }
-.rank-2 { color: var(--silver); font-weight: 600; }
-.rank-3 { color: var(--bronze); font-weight: 600; }
-.win { color: var(--success); font-weight: 600; }
-.loss { color: var(--danger); font-weight: 600; }
-
-/* Championship Cards */
-.champ-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
-.champ-card {
-  background: linear-gradient(135deg, var(--card), var(--secondary));
-  border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
-  transition: transform 0.3s;
-}
-.champ-card:hover { transform: translateY(-4px); }
-.champ-card .year-banner {
-  background: linear-gradient(135deg, var(--accent), var(--persimmon));
-  padding: 1rem 1.5rem; font-family: 'Oswald', sans-serif; font-size: 1.8rem;
-  color: #fff; display: flex; align-items: center; justify-content: space-between;
-}
-.champ-card .year-banner .trophy { font-size: 2rem; }
-.champ-card .details { padding: 1.2rem 1.5rem; }
-.champ-card .winner { font-size: 1.3rem; font-weight: 700; color: var(--gold); 
-  margin-bottom: 0.8rem; font-family: 'Oswald', sans-serif; }
-.champ-card .finisher { display: flex; justify-content: space-between; 
-  padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
-.champ-card .finisher:last-child { border-bottom: none; }
-
-/* Member Grid */
-.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
-.member-card {
-  background: var(--card); border-radius: 16px; padding: 1.5rem; text-align: center;
-  border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;
-}
-.member-card:hover { border-color: var(--accent); transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(200,78,0,0.15); }
-.member-avatar {
-  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2rem; font-weight: 700; color: #fff; font-family: 'Oswald', sans-serif;
-}
-.member-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; color: #fff; }
-.member-card .record { color: var(--text-muted); font-size: 0.9rem; }
-.member-card .titles { color: var(--gold); margin-top: 0.5rem; font-size: 0.85rem; }
 .team-badge {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -153,119 +105,66 @@ tr:nth-child(even) { background: rgba(255,255,255,0.02); }
   line-height: 1.2;
 }
 
-/* Filters & Controls */
-.controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
-select, input[type="text"] {
-  background: var(--secondary); color: var(--text); border: 1px solid var(--border);
-  padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.9rem; outline: none;
-}
-select:focus, input:focus { border-color: var(--accent); }
-.btn {
-  background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.5rem;
-  border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s;
-  font-size: 0.9rem;
-}
-.btn:hover { background: var(--persimmon); transform: translateY(-1px); }
-.btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
-.btn-outline:hover { background: var(--accent); color: #fff; }
-
-/* Modal */
-.modal-overlay {
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8);
-  display: none; z-index: 2000; justify-content: center; align-items: flex-start;
-  padding: 2rem; overflow-y: auto;
-}
-.modal-overlay.open { display: flex; }
-.modal {
-  background: var(--card); border-radius: 16px; max-width: 800px; width: 100%;
-  border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; margin-top: 2rem;
-}
-.modal-header {
-  padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: space-between;
-}
-.modal-header h2 { color: #fff; }
-.modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem;
-  cursor: pointer; padding: 0.5rem; }
-.modal-close:hover { color: var(--accent); }
-.modal-body { padding: 2rem; }
-
-/* Charts Container */
-.chart-container { background: var(--card); border-radius: 12px; padding: 1.5rem;
-  border: 1px solid var(--border); margin-bottom: 2rem; }
-
-/* Tabs */
-.tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
-.tab {
-  padding: 0.8rem 1.5rem; cursor: pointer; color: var(--text-muted);
-  font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -2px;
-  transition: all 0.3s; font-size: 0.9rem; text-transform: uppercase;
-}
-.tab:hover { color: var(--text); }
-.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-
-/* H2H Grid */
-.h2h-grid {
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.8rem;
-}
-.h2h-cell {
-  background: var(--secondary); border-radius: 8px; padding: 0.8rem; text-align: center;
+.table-wrap {
   border: 1px solid var(--border);
+  border-radius: 0.75rem;
 }
-.h2h-cell .opponent { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
-.h2h-cell .record { font-size: 1.1rem; font-weight: 700; }
-.h2h-cell.positive .record { color: var(--success); }
-.h2h-cell.negative .record { color: var(--danger); }
-.h2h-cell.even .record { color: var(--text-muted); }
-
-/* Page visibility */
-.page { display: none; }
-.page.active { display: block; }
-
-/* Loading */
-.loading { text-align: center; padding: 4rem; }
-.spinner { 
-  width: 50px; height: 50px; border: 4px solid var(--border);
-  border-top-color: var(--accent); border-radius: 50%;
-  animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+table { width: 100%; border-collapse: collapse; }
+th {
+  background: rgba(0, 83, 155, 0.45);
+  color: var(--dandelion);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: left;
+  padding: 0.75rem 0.9rem;
+  white-space: nowrap;
 }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* Record Categories */
-.record-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }
-.record-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+td {
+  padding: 0.65rem 0.9rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  white-space: nowrap;
 }
-.record-item .label { color: var(--text-muted); font-size: 0.85rem; flex: 1; }
-.record-item .value { font-weight: 700; color: var(--accent); margin: 0 1rem; white-space: nowrap; }
-.record-item .holder { color: var(--gold); font-size: 0.85rem; white-space: nowrap; }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+tr:hover { background: rgba(200,78,0,0.06); }
 
-/* Responsive */
+.rank-1 { color: var(--gold); font-weight: 700; }
+.rank-2 { color: var(--silver); font-weight: 600; }
+.rank-3 { color: var(--bronze); font-weight: 600; }
+.win { color: var(--success); font-weight: 600; }
+.loss { color: var(--danger); font-weight: 600; }
+.positive { color: var(--success); }
+.negative { color: var(--danger); }
+.even { color: var(--text); }
+
+select, input[type="text"] {
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--secondary);
+  color: var(--text);
+  padding: 0.55rem 0.9rem;
+}
+select:focus, input[type="text"]:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.modal-overlay { display: none; }
+.modal-overlay.open { display: flex; }
+
 @media (max-width: 768px) {
-  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
-    background: var(--primary); flex-direction: column; border-top: 1px solid var(--border); }
-  .nav-links.open { display: flex; }
-  .hamburger { display: block; }
-  .hero h1 { font-size: 2rem; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .champ-grid { grid-template-columns: 1fr; }
-  .member-grid { grid-template-columns: repeat(2, 1fr); }
-  .controls { flex-direction: column; }
-  .container { padding: 1rem; }
-}
-@media (max-width: 480px) {
-  .stats-grid { grid-template-columns: 1fr; }
-  .member-grid { grid-template-columns: 1fr; }
+  .nav-links { display: none !important; }
+  .hamburger { display: block; color: #fff; cursor: pointer; font-size: 1.4rem; }
 }
 </style>
 </head>
-<body>
+<body class="antialiased bg-[var(--bg)] text-[var(--text)]">
 <!-- Navigation -->
-<nav class="navbar">
-  <div class="logo" onclick="event.preventDefault();showPage('home')">GREENVILLE <span>NATIVES</span></div>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-  <ul class="nav-links" id="navLinks">
+<nav class="navbar sticky top-0 z-50 px-4 md:px-8 flex items-center justify-between">
+  <div class="cursor-pointer py-4 text-xl font-bold tracking-wide text-white md:text-2xl" onclick="event.preventDefault();showPage('home')">GREENVILLE <span class="text-[var(--accent)]">NATIVES</span></div>
+  <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+  <ul class="nav-links hidden items-center md:flex" id="navLinks">
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('home')" class="active" data-page="home">Home</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('standings')" data-page="standings">Standings</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('regular-season')" data-page="regular-season">Regular Season</a></li>
@@ -279,110 +178,109 @@ select:focus, input:focus { border-color: var(--accent); }
 
 <!-- Home Page -->
 <div class="page active" id="page-home">
-  <div class="hero">
-    <h1>GREENVILLE <span>NATIVES</span></h1>
-    <p>Fantasy Football League - Est. 2009</p>
-    <div class="badge">16 Seasons of Competition</div>
+  <div class="border-b-4 border-[var(--accent)] bg-gradient-to-br from-[#003087] to-[#00539B] px-4 py-16 text-center">
+    <h1 class="text-4xl font-bold text-white md:text-6xl">GREENVILLE <span class="text-[var(--accent)]">NATIVES</span></h1>
+    <p class="mt-2 text-lg text-[var(--text-muted)]">Fantasy Football League - Est. 2009</p>
+    <div class="mt-4 inline-block rounded-full bg-[var(--accent)] px-4 py-1 text-sm font-semibold text-white">16 Seasons of Competition</div>
   </div>
-  <div class="container">
-    <div class="stats-grid" id="homeStats"></div>
-    <h2 class="section-title">Recent Champions</h2>
-    <div class="champ-grid" id="recentChamps"></div>
-    <h2 class="section-title" style="margin-top:2rem">All-Time Leaderboard</h2>
-    <div class="table-wrap" id="leaderboardTable"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="homeStats"></div>
+    <h2 class="mb-6 mt-2 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Recent Champions</h2>
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4" id="recentChamps"></div>
+    <h2 class="mb-6 mt-8 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">All-Time Leaderboard</h2>
+    <div class="table-wrap overflow-x-auto" id="leaderboardTable"></div>
   </div>
 </div>
 
 <!-- Standings Page -->
 <div class="page" id="page-standings">
-  <div class="container">
-    <h2 class="section-title">Season Standings</h2>
-    <div class="controls" id="standingsControls"></div>
-    <div class="table-wrap" id="standingsTable"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Season Standings</h2>
+    <div class="controls flex flex-wrap gap-3" id="standingsControls"></div>
+    <div class="table-wrap overflow-x-auto" id="standingsTable"></div>
   </div>
 </div>
 
 <!-- Regular Season Page -->
 <div class="page" id="page-regular-season">
-  <div class="container">
-    <h2 class="section-title">Regular Season Results</h2>
-    <div class="controls" id="regularSeasonControls"></div>
-    <div class="table-wrap" id="regularSeasonTable"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Regular Season Results</h2>
+    <div class="controls flex flex-wrap gap-3" id="regularSeasonControls"></div>
+    <div class="table-wrap overflow-x-auto" id="regularSeasonTable"></div>
   </div>
 </div>
 
 <!-- Championships Page -->
 <div class="page" id="page-championships">
-  <div class="container">
-    <h2 class="section-title">Championship History</h2>
-    <div class="stats-grid" id="champStats"></div>
-    <div class="champ-grid" id="allChamps"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Championship History</h2>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="champStats"></div>
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4" id="allChamps"></div>
   </div>
 </div>
 
 <!-- Members Page -->
 <div class="page" id="page-members">
-  <div class="container">
-    <h2 class="section-title">League Members</h2>
-    <div class="controls">
-      <input type="text" id="memberSearch" placeholder="Search members..." oninput="filterMembers()">
-      <select id="memberSort" onchange="renderMemberGrid()">
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">League Members</h2>
+    <div class="controls mb-6 flex flex-wrap gap-3">
+      <input class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-4 py-2 text-white outline-none focus:border-[var(--accent)]" type="text" id="memberSearch" placeholder="Search members..." oninput="filterMembers()">
+      <select class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-4 py-2 text-white outline-none focus:border-[var(--accent)]" id="memberSort" onchange="renderMemberGrid()">
         <option value="wins">Sort by Wins</option>
         <option value="winpct">Sort by Win %</option>
         <option value="titles">Sort by Titles</option>
         <option value="alpha">Alphabetical</option>
       </select>
     </div>
-    <div class="member-grid" id="memberGrid"></div>
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="memberGrid"></div>
   </div>
 </div>
 
 <!-- Records Page -->
 <div class="page" id="page-records">
-  <div class="container">
-    <h2 class="section-title">League Records</h2>
-    <div class="tabs" id="recordTabs"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">League Records</h2>
+    <div class="mb-6 flex flex-wrap border-b border-[var(--border)]" id="recordTabs"></div>
     <div id="recordContent"></div>
   </div>
 </div>
 
 <!-- Playoffs Page -->
 <div class="page" id="page-playoffs">
-  <div class="container">
-    <h2 class="section-title">Playoff History</h2>
-    <div class="controls" id="playoffControls"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Playoff History</h2>
+    <div class="controls flex flex-wrap gap-3" id="playoffControls"></div>
     <div id="playoffContent"></div>
   </div>
 </div>
 
 <!-- H2H Page -->
 <div class="page" id="page-h2h">
-  <div class="container">
-    <h2 class="section-title">Head to Head Records</h2>
-    <div class="controls" id="h2hControls"></div>
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Head to Head Records</h2>
+    <div class="controls flex flex-wrap gap-3" id="h2hControls"></div>
     <div id="h2hContent"></div>
   </div>
 </div>
 
 <!-- Member Modal -->
-<div class="modal-overlay" id="memberModal" onclick="closeModal(event)">
-  <div class="modal" onclick="event.stopPropagation()">
-    <div class="modal-header">
+<div class="modal-overlay fixed inset-0 z-[2000] items-start justify-center overflow-y-auto bg-black/80 p-4 md:p-8" id="memberModal" onclick="closeModal(event)">
+  <div class="mt-6 w-full max-w-4xl overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)]" onclick="event.stopPropagation()">
+    <div class="flex items-center justify-between border-b border-[var(--border)] px-6 py-5">
       <h2 id="modalTitle"></h2>
-      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <button class="text-2xl text-[var(--text-muted)] hover:text-[var(--accent)]" onclick="closeModal()">&times;</button>
     </div>
-    <div class="modal-body" id="modalBody"></div>
+    <div class="p-6 md:p-8" id="modalBody"></div>
   </div>
 </div>
 
 <!-- Loading Screen -->
-<div id="loadingScreen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center">
-  <div class="loading">
-    <div class="spinner"></div>
-    <p style="color:var(--text-muted)">Loading league data...</p>
+<div id="loadingScreen" class="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg)]">
+  <div class="text-center">
+    <div class="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-[var(--border)] border-t-[var(--accent)]"></div>
+    <p class="text-[var(--text-muted)]">Loading league data...</p>
   </div>
 </div>
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>
 const SHEET_ID = '1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw';
@@ -573,7 +471,7 @@ async function loadAllData() {
   } catch (err) {
     console.error('Data loading error:', err);
     document.getElementById('loadingScreen').innerHTML = 
-      '<div class="loading"><p style="color:var(--accent)">Error loading data. Please refresh.</p><p style="color:var(--text-muted);margin-top:0.5rem">' + err.message + '</p></div>';
+      '<div class="text-center p-8"><p style="color:var(--accent)">Error loading data. Please refresh.</p><p style="color:var(--text-muted);margin-top:0.5rem">' + err.message + '</p></div>';
   }
 }
 
@@ -652,15 +550,19 @@ function renderHome() {
 }
 
 function statBox(value, label) {
-  return '<div class="stat-card"><div class="stat-value">' + value + '</div><div class="stat-label">' + label + '</div></div>';
+  return '<div class="rounded-xl border border-[var(--border)] bg-gradient-to-br from-[var(--card)] to-[var(--secondary)] p-5 text-center">' +
+    '<div class="font-[Oswald] text-4xl font-bold text-[var(--accent)]">' + value + '</div>' +
+    '<div class="mt-1 text-xs uppercase tracking-wider text-[var(--text-muted)]">' + label + '</div></div>';
 }
 
 function champCard(c) {
-  return '<div class="champ-card"><div class="year-banner"><span>' + c.year + '</span><span class="trophy">🏆</span></div>' +
-    '<div class="details"><div class="winner">👑 ' + c.first + '</div>' +
-    '<div class="finisher"><span style="color:var(--silver)">🥈 2nd</span><span>' + c.second + '</span></div>' +
-    '<div class="finisher"><span style="color:var(--bronze)">🥉 3rd</span><span>' + c.third + '</span></div>' +
-    '<div class="finisher"><span style="color:var(--text-muted)">📉 Last</span><span>' + c.last + '</span></div></div></div>';
+  return '<div class="overflow-hidden rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--card)] to-[var(--secondary)] transition-transform duration-200 hover:-translate-y-1">' +
+    '<div class="flex items-center justify-between bg-gradient-to-br from-[var(--accent)] to-[var(--persimmon)] px-6 py-4 text-white">' +
+    '<span class="font-[Oswald] text-3xl">' + c.year + '</span><span class="text-3xl">🏆</span></div>' +
+    '<div class="space-y-2 px-6 py-5"><div class="mb-3 font-[Oswald] text-xl font-bold text-[var(--gold)]">👑 ' + c.first + '</div>' +
+    '<div class="flex items-center justify-between border-b border-white/10 pb-1"><span style="color:var(--silver)">🥈 2nd</span><span>' + c.second + '</span></div>' +
+    '<div class="flex items-center justify-between border-b border-white/10 pb-1"><span style="color:var(--bronze)">🥉 3rd</span><span>' + c.third + '</span></div>' +
+    '<div class="flex items-center justify-between"><span style="color:var(--text-muted)">📉 Last</span><span>' + c.last + '</span></div></div></div>';
 }
 
 function renderStandingsDropdown() {
@@ -702,7 +604,7 @@ function renderRegularSeasonFilters() {
   const years = [...new Set(DATA.regularSeason.map(r => r.year))].sort((a, b) => b - a);
   if (!years.length) {
     controlsEl.innerHTML = '';
-    tableEl.innerHTML = '<div class="card">No regular season CSV data found.</div>';
+    tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No regular season CSV data found.</div>';
     return;
   }
 
@@ -759,7 +661,7 @@ function renderRegularSeasonTable() {
     .sort((a, b) => a.week - b.week || a.team.localeCompare(b.team));
 
   if (!rows.length) {
-    tableEl.innerHTML = '<div class="card">No games found for this filter.</div>';
+    tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No games found for this filter.</div>';
     return;
   }
 
@@ -822,12 +724,12 @@ function renderMemberGrid() {
     const initials = p.name.split(' ').map(w => w[0].toUpperCase()).join('');
     const color = getMemberColor(p.name);
     const secondary = getMemberSecondaryColor(p.name);
-    return '<div class="member-card" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
-      '<div class="member-avatar" style="background:linear-gradient(135deg,' + color + ',' + secondary + ')">' + initials + '</div>' +
+    return '<div class="cursor-pointer rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-xl hover:shadow-black/20" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
+      '<div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-3xl font-bold text-white" style="background:linear-gradient(135deg,' + color + ',' + secondary + ')">' + initials + '</div>' +
       '<h3>' + renderTeamBadge(p.name) + '</h3>' +
-      '<div class="record">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
-      '<div class="record">' + p.seasons.length + ' seasons</div>' +
-      (p.titles > 0 ? '<div class="titles">' + '🏆'.repeat(p.titles) + ' ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
+      '<div class="mt-2 text-sm text-[var(--text-muted)]">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
+      '<div class="text-sm text-[var(--text-muted)]">' + p.seasons.length + ' seasons</div>' +
+      (p.titles > 0 ? '<div class="mt-2 text-sm text-[var(--gold)]">' + '🏆'.repeat(p.titles) + ' ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
     '</div>';
   }).join('');
 }
@@ -841,15 +743,15 @@ function openMemberModal(name) {
   document.getElementById('modalTitle').innerHTML = renderTeamBadge(p.name);
   const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
   
-  let html = '<div class="stats-grid" style="margin-bottom:1.5rem">' +
+  let html = '<div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">' +
     statBox(p.totalWins + '-' + p.totalLosses, 'Record') +
     statBox(pct + '%', 'Win Rate') +
     statBox(p.titles, 'Championships') +
     statBox(p.seasons.length, 'Seasons') +
   '</div>';
   
-  html += '<h3 style="color:var(--accent);margin-bottom:1rem;font-family:Oswald,sans-serif">SEASON BY SEASON</h3>';
-  html += '<div class="table-wrap"><table><thead><tr><th>Year</th><th>Rank</th><th>W</th><th>L</th><th>Win%</th><th>PF</th><th>PA</th><th>Diff</th></tr></thead><tbody>';
+  html += '<h3 class="mb-4 font-[Oswald] text-xl text-[var(--accent)]">SEASON BY SEASON</h3>';
+  html += '<div class="table-wrap overflow-x-auto"><table><thead><tr><th>Year</th><th>Rank</th><th>W</th><th>L</th><th>Win%</th><th>PF</th><th>PA</th><th>Diff</th></tr></thead><tbody>';
   p.seasons.sort((a,b) => b.year - a.year).forEach(s => {
     const rankClass = s.rank === 1 ? 'rank-1' : s.rank === 2 ? 'rank-2' : s.rank === 3 ? 'rank-3' : '';
     const diffColor = s.diff > 0 ? 'var(--success)' : 'var(--danger)';
@@ -862,7 +764,7 @@ function openMemberModal(name) {
   html += '</tbody></table></div>';
   
   // Win chart
-  html += '<div class="chart-container" style="margin-top:1.5rem"><canvas id="memberChart"></canvas></div>';
+  html += '<div class="mt-6 rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"><canvas id="memberChart"></canvas></div>';
   
   document.getElementById('modalBody').innerHTML = html;
   document.getElementById('memberModal').classList.add('open');
@@ -930,7 +832,7 @@ function renderRecords() {
   
   // Render tabs
   document.getElementById('recordTabs').innerHTML = catKeys.slice(0, 8).map((k, i) => 
-    '<div class="tab' + (i === 0 ? ' active' : '') + '" onclick="switchRecordTab(this, ' + i + ')">' + k + '</div>'
+    '<button class="record-tab ' + (i === 0 ? 'active' : '') + ' border-b-2 border-transparent px-4 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:text-white" onclick="switchRecordTab(this, ' + i + ')">' + k + '</button>'
   ).join('');
   
   // Render first tab content
@@ -944,20 +846,28 @@ function switchRecordTab(el, idx) {
   const cats = window._recordCategories;
   if (!keys || !keys[idx]) return;
   
-  document.querySelectorAll('#recordTabs .tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('#recordTabs .record-tab').forEach(t => {
+    t.classList.remove('active', 'text-[var(--accent)]', 'border-[var(--accent)]');
+    t.classList.add('text-[var(--text-muted)]', 'border-transparent');
+  });
   if (el) el.classList.add('active');
-  else document.querySelectorAll('#recordTabs .tab')[idx]?.classList.add('active');
+  else document.querySelectorAll('#recordTabs .record-tab')[idx]?.classList.add('active');
+  const active = el || document.querySelectorAll('#recordTabs .record-tab')[idx];
+  if (active) {
+    active.classList.remove('text-[var(--text-muted)]', 'border-transparent');
+    active.classList.add('text-[var(--accent)]', 'border-[var(--accent)]');
+  }
   
   const records = cats[keys[idx]] || [];
-  let html = '<div class="record-cats">';
+  let html = '<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">';
   records.forEach(r => {
     let val = r.record;
     if (typeof val === 'number') val = val % 1 === 0 ? val : val.toFixed(1);
-    html += '<div class="card" style="padding:1rem"><div class="record-item">' +
-      '<span class="label">' + r.category + '</span>' +
-      '<span class="value">' + val + '</span>' +
-      '<span class="holder">' + r.team + (r.year ? ' (' + r.year + ')' : '') + '</span>' +
-    '</div></div>';
+    html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4">' +
+      '<div class="mb-2 text-xs uppercase tracking-wider text-[var(--text-muted)]">' + r.category + '</div>' +
+      '<div class="text-2xl font-bold text-[var(--accent)]">' + val + '</div>' +
+      '<div class="mt-2 text-sm text-[var(--gold)]">' + r.team + (r.year ? ' (' + r.year + ')' : '') + '</div>' +
+    '</div>';
   });
   html += '</div>';
   document.getElementById('recordContent').innerHTML = html;
@@ -988,8 +898,8 @@ function renderPlayoffs() {
   let html = '';
   Object.keys(byYear).sort((a,b) => b - a).forEach(year => {
     const games = byYear[year];
-    html += '<h3 style="color:var(--accent);margin:1.5rem 0 0.8rem;font-family:Oswald,sans-serif">' + year + ' PLAYOFFS</h3>';
-    html += '<div class="table-wrap"><table><thead><tr><th>Round</th><th>Place</th><th>Team</th><th>Score</th><th>Result</th><th>Opponent</th><th>Opp Score</th><th>Margin</th></tr></thead><tbody>';
+    html += '<h3 class="mb-3 mt-6 font-[Oswald] text-xl text-[var(--accent)]">' + year + ' PLAYOFFS</h3>';
+    html += '<div class="table-wrap overflow-x-auto"><table><thead><tr><th>Round</th><th>Place</th><th>Team</th><th>Score</th><th>Result</th><th>Opponent</th><th>Opp Score</th><th>Margin</th></tr></thead><tbody>';
     games.forEach(g => {
       const wlClass = g.wl === 'W' ? 'win' : 'loss';
       const diffColor = g.diff > 0 ? 'var(--success)' : 'var(--danger)';
@@ -1007,53 +917,90 @@ function renderPlayoffs() {
 
 function renderH2HDropdown() {
   const members = CURRENT_MEMBERS.sort();
-  let html = '<select id="h2hMember" onchange="renderH2H()">';
+  let html = '<select id="h2hMember" onchange="updateH2HYearOptions();renderH2H()">';
   members.forEach(m => { html += '<option value="' + m + '">' + m + '</option>'; });
   html += '</select>';
+  html += '<select id="h2hType" onchange="updateH2HYearOptions();renderH2H()">';
+  html += '<option value="all">All Matchups</option>';
+  html += '<option value="regular">Regular Season</option>';
+  html += '<option value="playoffs">Playoffs</option>';
+  html += '</select>';
+  html += '<select id="h2hYear" onchange="renderH2H()"></select>';
   document.getElementById('h2hControls').innerHTML = html;
+  updateH2HYearOptions();
   renderH2H();
+}
+
+function updateH2HYearOptions() {
+  const yearEl = document.getElementById('h2hYear');
+  const typeEl = document.getElementById('h2hType');
+  if (!yearEl || !typeEl) return;
+
+  const prev = yearEl.value;
+  const years = new Set();
+  if (typeEl.value !== 'playoffs') DATA.regularSeason.forEach(g => years.add(g.year));
+  if (typeEl.value !== 'regular') DATA.playoffs.forEach(g => years.add(g.year));
+
+  const sorted = [...years].filter(Boolean).sort((a, b) => b - a);
+  let html = '<option value="all">All Years</option>';
+  sorted.forEach(y => { html += '<option value="' + y + '">' + y + '</option>'; });
+  yearEl.innerHTML = html;
+  if (prev === 'all' || sorted.some(y => String(y) === prev)) yearEl.value = prev;
 }
 
 function renderH2H() {
   const selected = document.getElementById('h2hMember').value;
+  const typeVal = document.getElementById('h2hType').value;
+  const yearVal = document.getElementById('h2hYear').value;
   const p = memberProfiles[selected];
   if (!p) { document.getElementById('h2hContent').innerHTML = '<p>No data available</p>'; return; }
   
-  // Calculate H2H from year-by-year data and playoffs
-  // We need to compute this from the regular season + playoff data
-  // For now, we compute approximate H2H from the playoffs data
   const h2hData = {};
-  
-  // Count wins/losses against each opponent from playoffs
-  DATA.playoffs.forEach(game => {
-    if (game.team === selected) {
-      if (!h2hData[game.opponent]) h2hData[game.opponent] = { w: 0, l: 0 };
-      if (game.wl === 'W') h2hData[game.opponent].w++;
-      else h2hData[game.opponent].l++;
-    }
+
+  const filteredRegular = (typeVal === 'playoffs' ? [] : DATA.regularSeason)
+    .filter(g => g.team === selected && (g.wl === 'W' || g.wl === 'L'))
+    .filter(g => yearVal === 'all' ? true : g.year === parseInt(yearVal, 10))
+    .map(g => ({ opponent: g.opponent, wl: g.wl, source: 'regular' }));
+
+  const filteredPlayoffs = (typeVal === 'regular' ? [] : DATA.playoffs)
+    .filter(g => g.team === selected && (g.wl === 'W' || g.wl === 'L'))
+    .filter(g => yearVal === 'all' ? true : g.year === parseInt(yearVal, 10))
+    .map(g => ({ opponent: g.opponent, wl: g.wl, source: 'playoffs' }));
+
+  const games = filteredRegular.concat(filteredPlayoffs);
+  games.forEach(game => {
+    if (!game.opponent) return;
+    if (!h2hData[game.opponent]) h2hData[game.opponent] = { w: 0, l: 0, regular: 0, playoffs: 0 };
+    if (game.wl === 'W') h2hData[game.opponent].w++;
+    if (game.wl === 'L') h2hData[game.opponent].l++;
+    if (game.source === 'regular') h2hData[game.opponent].regular++;
+    if (game.source === 'playoffs') h2hData[game.opponent].playoffs++;
   });
-  
-  let html = '<h3 style="color:#fff;margin-bottom:1rem;font-family:Oswald,sans-serif">PLAYOFF HEAD-TO-HEAD FOR ' + renderTeamBadge(selected) + '</h3>';
-  html += '<div class="h2h-grid">';
+
+  const typeLabel = typeVal === 'regular' ? 'REGULAR SEASON' : typeVal === 'playoffs' ? 'PLAYOFF' : 'ALL';
+  const yearLabel = yearVal === 'all' ? 'ALL YEARS' : yearVal;
+  let html = '<h3 style="color:#fff;margin-bottom:1rem;font-family:Oswald,sans-serif">' + typeLabel + ' HEAD-TO-HEAD FOR ' + renderTeamBadge(selected) + ' (' + yearLabel + ')</h3>';
+  html += '<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">';
   
   const opponents = Object.keys(h2hData).sort();
   if (opponents.length === 0) {
-    html += '<p style="color:var(--text-muted)">No playoff matchup data available for this member.</p>';
+    html += '<p style="color:var(--text-muted)">No matchup data available for this filter.</p>';
   } else {
     opponents.forEach(opp => {
       const rec = h2hData[opp];
       const cls = rec.w > rec.l ? 'positive' : rec.w < rec.l ? 'negative' : 'even';
-      html += '<div class="h2h-cell ' + cls + '">' +
-        '<div class="opponent">' + opp + '</div>' +
-        '<div class="record">' + rec.w + '-' + rec.l + '</div>' +
+      html += '<div class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] p-3 text-center ' + cls + '">' +
+        '<div class="mb-1 text-xs text-[var(--text-muted)]">' + renderTeamBadge(opp) + '</div>' +
+        '<div class="text-xl font-bold">' + rec.w + '-' + rec.l + '</div>' +
+        '<div class="mt-1 text-xs text-[var(--text-muted)]">RS: ' + rec.regular + ' | PO: ' + rec.playoffs + '</div>' +
       '</div>';
     });
   }
   html += '</div>';
   
   // Also show season-by-season comparison
-  html += '<h3 style="color:#fff;margin:2rem 0 1rem;font-family:Oswald,sans-serif">SEASON PERFORMANCE COMPARISON</h3>';
-  html += '<div class="chart-container"><canvas id="h2hChart"></canvas></div>';
+  html += '<h3 class="mb-4 mt-8 font-[Oswald] text-xl text-white">SEASON PERFORMANCE COMPARISON</h3>';
+  html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"><canvas id="h2hChart"></canvas></div>';
   
   document.getElementById('h2hContent').innerHTML = html;
   
@@ -1160,3 +1107,9 @@ document.addEventListener('DOMContentLoaded', loadAllData);
 </script>
 </body>
 </html>
+
+
+
+
+
+
