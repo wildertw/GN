@@ -351,7 +351,7 @@ async function fetchSheet(gid) {
 }
 
 async function fetchSheetByName(sheetName) {
-  const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(sheetName);
+  const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&headers=1&sheet=' + encodeURIComponent(sheetName);
   const res = await fetch(url);
   const text = await res.text();
   const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
