@@ -168,6 +168,7 @@ select:focus, input[type="text"]:focus {
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('home')" class="active" data-page="home">Home</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('standings')" data-page="standings">Standings</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('regular-season')" data-page="regular-season">Regular Season</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('draft')" data-page="draft">Draft</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('championships')" data-page="championships">Championships</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('members')" data-page="members">Members</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('records')" data-page="records">Records</a></li>
@@ -207,6 +208,16 @@ select:focus, input[type="text"]:focus {
     <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Regular Season Results</h2>
     <div class="controls flex flex-wrap gap-3" id="regularSeasonControls"></div>
     <div class="table-wrap overflow-x-auto" id="regularSeasonTable"></div>
+  </div>
+</div>
+
+<!-- Draft Page -->
+<div class="page" id="page-draft">
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Draft History</h2>
+    <div class="controls flex flex-wrap gap-3" id="draftControls"></div>
+    <div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="draftSummary"></div>
+    <div class="table-wrap overflow-x-auto" id="draftTable"></div>
   </div>
 </div>
 
@@ -318,8 +329,9 @@ const MEMBER_PALETTES = {
 const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Waivers','t wood',
   'Shain Collins','Josh Hudson','Lee Galt','Ian Baro','cody clodfelter'];
 
-let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [] };
+let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [], draft: [], yearlyPlayer: [], weeklyPlayer: [], playersList: [] };
 let memberProfiles = {};
+let DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {} };
 
 async function fetchSheet(gid) {
   const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&gid=' + gid;
@@ -423,14 +435,125 @@ async function fetchRegularSeasonCsv() {
   }
 }
 
+async function fetchCsvObjects(path) {
+  const res = await fetch(path);
+  if (!res.ok) throw new Error(path + ' not found');
+  const text = await res.text();
+  const rows = parseCsv(text);
+  if (rows.length < 2) return [];
+  const headers = rows[0].map(h => String(h || '').trim());
+  return rows.slice(1).map(cols => {
+    const out = {};
+    headers.forEach((h, i) => { out[h] = cols[i] !== undefined ? String(cols[i]).trim() : ''; });
+    return out;
+  });
+}
+
+function normalizePlayerName(name) {
+  return String(name || '')
+    .toLowerCase()
+    .replace(/\*/g, '')
+    .replace(/\+/g, '')
+    .replace(/\./g, '')
+    .replace(/'/g, '')
+    .replace(/-/g, ' ')
+    .replace(/\bjr\b/g, '')
+    .replace(/\biii\b/g, '')
+    .replace(/\bii\b/g, '')
+    .replace(/\bsr\b/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function parseDraftRows(rows) {
+  return rows.map(r => {
+    const year = toInt(r.Year);
+    const player = (r.Player || '').trim();
+    const team = (r.TEAM || '').trim();
+    return {
+      year,
+      roundPick: r.Round_Pick || '',
+      round: toInt(r.Round),
+      pick: toInt(r.Pick),
+      position: (r.Position || '').trim(),
+      nflTeam: (r[''] || '').trim(),
+      team,
+      player,
+      fantasyPoints: toNumber(r['Fantasy Points']),
+      vbd: toNumber(r.VBD),
+      posRank: toInt(r.PosRank),
+      ovRank: toInt(r.OvRank),
+      playerNorm: normalizePlayerName(player)
+    };
+  }).filter(r => r.year && r.player && r.team && r.roundPick);
+}
+
+function parseYearlyPlayerRows(rows) {
+  return rows.map(r => ({
+    year: toInt(r.Year),
+    player: r.PlayerCleaned || r.Player || '',
+    playerNorm: normalizePlayerName(r.PlayerCleaned || r.Player || ''),
+    ppr: toNumber(r.PPR),
+    fantPt: toNumber(r.FantPt),
+    posRank: toInt(r.PosRank),
+    ovRank: toInt(r.OvRank)
+  })).filter(r => r.year && r.playerNorm);
+}
+
+function parseWeeklyPlayerRows(rows) {
+  return rows.map(r => ({
+    year: toInt(r.Year),
+    week: toInt(r.Week),
+    manager: (r.Manager || '').trim(),
+    opponent: (r.Opponent || '').trim(),
+    player: r.PlayerNoSuffix || r.Player || '',
+    playerNorm: normalizePlayerName(r.PlayerNoSuffix || r.Player || ''),
+    actual: toNumber(r.PlayerScore_Actual),
+    projected: toNumber(r.PlayerScore_Projected)
+  })).filter(r => r.year && r.week && r.manager && r.playerNorm);
+}
+
+function parsePlayersListRows(rows) {
+  return rows.map(r => ({
+    player: r.Player || '',
+    playerNorm: normalizePlayerName(r.Player || ''),
+    pictureUrl: r.PictureURL || ''
+  })).filter(r => r.playerNorm);
+}
+
+function buildDraftLookups() {
+  DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {} };
+
+  DATA.yearlyPlayer.forEach(r => {
+    DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm] = r;
+  });
+
+  DATA.playersList.forEach(r => {
+    if (!DRAFT_LOOKUPS.photos[r.playerNorm] && r.pictureUrl) DRAFT_LOOKUPS.photos[r.playerNorm] = r.pictureUrl;
+  });
+
+  DATA.weeklyPlayer.forEach(r => {
+    const byTeamKey = r.year + '|' + r.manager.toLowerCase() + '|' + r.playerNorm;
+    const anyKey = r.year + '|' + r.playerNorm;
+    if (!DRAFT_LOOKUPS.weeklyByTeam[byTeamKey]) DRAFT_LOOKUPS.weeklyByTeam[byTeamKey] = [];
+    if (!DRAFT_LOOKUPS.weeklyAny[anyKey]) DRAFT_LOOKUPS.weeklyAny[anyKey] = [];
+    DRAFT_LOOKUPS.weeklyByTeam[byTeamKey].push(r);
+    DRAFT_LOOKUPS.weeklyAny[anyKey].push(r);
+  });
+}
+
 async function loadAllData() {
   try {
-    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonRaw] = await Promise.all([
+    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonRaw, draftRaw, yearlyRaw, weeklyRaw, playersRaw] = await Promise.all([
       fetchSheet(GIDS.yearByYear),
       fetchSheet(GIDS.playoffs),
       fetchSheet(GIDS.records),
       fetchSheet(GIDS.toc),
-      fetchRegularSeasonCsv()
+      fetchRegularSeasonCsv(),
+      fetchCsvObjects('draft.csv'),
+      fetchCsvObjects('yearly-playerstats.csv'),
+      fetchCsvObjects('weekly-playerstats-projections.csv'),
+      fetchCsvObjects('players-list.csv')
     ]);
     
     DATA.yby = ybyRaw.map(r => ({
@@ -464,6 +587,11 @@ async function loadAllData() {
     }));
 
     DATA.regularSeason = regularSeasonRaw;
+    DATA.draft = parseDraftRows(draftRaw);
+    DATA.yearlyPlayer = parseYearlyPlayerRows(yearlyRaw);
+    DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklyRaw);
+    DATA.playersList = parsePlayersListRows(playersRaw);
+    buildDraftLookups();
 
     buildMemberProfiles();
     renderAllPages();
@@ -512,6 +640,7 @@ function renderAllPages() {
   renderHome();
   renderStandingsDropdown();
   renderRegularSeasonFilters();
+  renderDraft();
   renderChampionships();
   renderMemberGrid();
   renderRecords();
@@ -678,6 +807,97 @@ function renderRegularSeasonTable() {
     html += '<td>' + (r.pa !== null ? r.pa.toFixed(1) : '-') + '</td>';
     html += '<td style="color:' + diffColor + '">' + (r.diff !== null ? (r.diff > 0 ? '+' : '') + r.diff.toFixed(1) : '-') + '</td>';
     html += '<td>' + (r.opponent ? renderTeamBadge(r.opponent) : '-') + '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  tableEl.innerHTML = html;
+}
+
+function getDraftWeeklyAggregate(row, weekVal) {
+  const teamKey = row.year + '|' + row.team.toLowerCase() + '|' + row.playerNorm;
+  const anyKey = row.year + '|' + row.playerNorm;
+  let rows = DRAFT_LOOKUPS.weeklyByTeam[teamKey] || DRAFT_LOOKUPS.weeklyAny[anyKey] || [];
+  if (weekVal !== 'all') rows = rows.filter(r => r.week === toInt(weekVal));
+  if (!rows.length) return { games: 0, avgActual: null, avgProj: null };
+  const actual = rows.reduce((s, r) => s + (r.actual || 0), 0);
+  const proj = rows.reduce((s, r) => s + (r.projected || 0), 0);
+  return { games: rows.length, avgActual: actual / rows.length, avgProj: proj / rows.length };
+}
+
+function getDraftPlayerPhoto(playerNorm) {
+  return DRAFT_LOOKUPS.photos[playerNorm] || '';
+}
+
+function renderDraft() {
+  const controlsEl = document.getElementById('draftControls');
+  const summaryEl = document.getElementById('draftSummary');
+  const tableEl = document.getElementById('draftTable');
+  if (!controlsEl || !summaryEl || !tableEl) return;
+
+  if (!DATA.draft.length) {
+    controlsEl.innerHTML = '';
+    summaryEl.innerHTML = '';
+    tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No draft data found.</div>';
+    return;
+  }
+
+  const years = [...new Set(DATA.draft.map(r => r.year))].sort((a, b) => b - a);
+  let selectedYear = document.getElementById('draftYear') ? toInt(document.getElementById('draftYear').value) : years[0];
+  if (!selectedYear) selectedYear = years[0];
+  const yearRows = DATA.draft.filter(r => r.year === selectedYear);
+  const teams = [...new Set(yearRows.map(r => r.team))].sort((a, b) => a.localeCompare(b));
+  const weeks = [...new Set(DATA.weeklyPlayer.filter(r => r.year === selectedYear).map(r => r.week))].sort((a, b) => a - b);
+
+  const selectedTeam = document.getElementById('draftTeam') ? document.getElementById('draftTeam').value : 'all';
+  const selectedWeek = document.getElementById('draftWeek') ? document.getElementById('draftWeek').value : 'all';
+
+  let controlsHtml = '<select id="draftYear" onchange="renderDraft()">';
+  years.forEach(y => { controlsHtml += '<option value="' + y + '"' + (y === selectedYear ? ' selected' : '') + '>' + y + '</option>'; });
+  controlsHtml += '</select>';
+  controlsHtml += '<select id="draftTeam" onchange="renderDraft()"><option value="all">All Teams</option>';
+  teams.forEach(t => { controlsHtml += '<option value="' + escapeHtml(t) + '"' + (selectedTeam === t ? ' selected' : '') + '>' + escapeHtml(t) + '</option>'; });
+  controlsHtml += '</select>';
+  controlsHtml += '<select id="draftWeek" onchange="renderDraft()"><option value="all">All Weeks</option>';
+  weeks.forEach(w => { controlsHtml += '<option value="' + w + '"' + (String(w) === selectedWeek ? ' selected' : '') + '>Week ' + w + '</option>'; });
+  controlsHtml += '</select>';
+  controlsEl.innerHTML = controlsHtml;
+
+  const filtered = yearRows
+    .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam)
+    .sort((a, b) => (a.round || 999) - (b.round || 999) || (a.pick || 999) - (b.pick || 999));
+
+  const summaryPicks = filtered.length;
+  const summaryDraftPts = filtered.reduce((s, r) => s + (r.fantasyPoints || 0), 0);
+  const summaryAvgDraftPts = summaryPicks ? (summaryDraftPts / summaryPicks) : 0;
+  const summaryWithWeekly = filtered.filter(r => getDraftWeeklyAggregate(r, selectedWeek).games > 0).length;
+  summaryEl.innerHTML =
+    statBox(summaryPicks, 'Draft Picks') +
+    statBox(summaryAvgDraftPts.toFixed(1), 'Avg Draft FP') +
+    statBox(summaryWithWeekly, 'With Matchup Data') +
+    statBox(selectedWeek === 'all' ? 'All' : 'W' + selectedWeek, 'Week Filter');
+
+  if (!filtered.length) {
+    tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No draft rows match this filter.</div>';
+    return;
+  }
+
+  let html = '<table><thead><tr><th>Pick</th><th>Team</th><th>Player</th><th>Pos</th><th>Draft FP</th><th>Yearly PPR</th><th>Final OvRank</th><th>Matchup Avg (A/P)</th><th>Games</th></tr></thead><tbody>';
+  filtered.forEach(r => {
+    const yearly = DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm];
+    const agg = getDraftWeeklyAggregate(r, selectedWeek);
+    const photo = getDraftPlayerPhoto(r.playerNorm);
+    html += '<tr>';
+    html += '<td>' + (r.roundPick || '-') + '</td>';
+    html += '<td>' + renderTeamBadge(r.team) + '</td>';
+    html += '<td><div class="flex items-center gap-2">' +
+      (photo ? '<img src="' + escapeHtml(photo) + '" alt="' + escapeHtml(r.player) + '" class="h-8 w-8 rounded-full object-cover border border-white/20" loading="lazy">' : '<div class="h-8 w-8 rounded-full bg-white/10"></div>') +
+      '<span>' + escapeHtml(r.player) + '</span></div></td>';
+    html += '<td>' + (r.position || '-') + '</td>';
+    html += '<td>' + (r.fantasyPoints !== null ? r.fantasyPoints.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (yearly && yearly.ppr !== null ? yearly.ppr.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (yearly && yearly.ovRank ? yearly.ovRank : '-') + '</td>';
+    html += '<td>' + (agg.avgActual !== null ? agg.avgActual.toFixed(1) : '-') + ' / ' + (agg.avgProj !== null ? agg.avgProj.toFixed(1) : '-') + '</td>';
+    html += '<td>' + agg.games + '</td>';
     html += '</tr>';
   });
   html += '</tbody></table>';
