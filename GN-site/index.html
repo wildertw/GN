@@ -751,7 +751,7 @@ function renderHome() {
     const pct = p.totalWins + p.totalLosses > 0 ? (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1) : '0.0';
     html += '<tr><td>' + (i+1) + '</td><td>' + renderTeamBadge(p.name) + '</td>';
     html += '<td>' + p.seasons.length + '</td><td class="win">' + p.totalWins + '</td><td class="loss">' + p.totalLosses + '</td>';
-    html += '<td>' + pct + '%</td><td style="color:var(--gold)">' + (p.titles > 0 ? '🏆'.repeat(p.titles) : '-') + '</td>';
+    html += '<td>' + pct + '%</td><td style="color:var(--gold)">' + (p.titles > 0 ? '<img src="trophy.svg" class="inline h-5 w-5 align-middle" alt="trophy">'.repeat(p.titles) : '-') + '</td>';
     html += '<td>' + Math.round(p.totalPF).toLocaleString() + '</td><td>' + ordinal(p.bestFinish) + '</td></tr>';
   });
   html += '</tbody></table>';
@@ -767,7 +767,7 @@ function statBox(value, label) {
 function champCard(c) {
   return '<div class="overflow-hidden rounded-2xl border border-[var(--border)] bg-gradient-to-br from-[var(--card)] to-[var(--secondary)] transition-transform duration-200 hover:-translate-y-1">' +
     '<div class="flex items-center justify-between bg-gradient-to-br from-[var(--accent)] to-[var(--persimmon)] px-6 py-4 text-white">' +
-    '<span class="font-[Oswald] text-3xl">' + c.year + '</span><span class="text-3xl">🏆</span></div>' +
+    '<span class="font-[Oswald] text-3xl">' + c.year + '</span><img src="trophy.svg" class="h-10 w-10" alt="Trophy"></div>' +
     '<div class="space-y-2 px-6 py-5"><div class="mb-3 font-[Oswald] text-xl font-bold text-[var(--gold)]">👑 ' + c.first + '</div>' +
     '<div class="flex items-center justify-between border-b border-white/10 pb-1"><span style="color:var(--silver)">🥈 2nd</span><span>' + c.second + '</span></div>' +
     '<div class="flex items-center justify-between border-b border-white/10 pb-1"><span style="color:var(--bronze)">🥉 3rd</span><span>' + c.third + '</span></div>' +
@@ -1051,7 +1051,7 @@ function renderMemberGrid() {
       '<h3 class="text-lg font-bold" style="color:' + cardText + '">' + escapeHtml(p.name) + '</h3>' +
       '<div class="mt-2 text-sm" style="color:' + cardText + ';opacity:0.8">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
       '<div class="text-sm" style="color:' + cardText + ';opacity:0.7">' + p.seasons.length + ' seasons</div>' +
-      (p.titles > 0 ? '<div class="mt-2 text-sm font-bold" style="color:' + cardText + '">🏆 ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
+      (p.titles > 0 ? '<div class="mt-2 text-sm font-bold flex items-center justify-center gap-1" style="color:' + cardText + '"><img src="trophy.svg" class="inline h-5 w-5" alt="trophy"> ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
     '</div>';
   }).join('');
 }
@@ -1184,7 +1184,15 @@ function switchRecordTab(el, idx) {
   let html = '<div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">';
   records.forEach(r => {
     let val = r.record;
-    if (typeof val === 'number') val = val % 1 === 0 ? val : val.toFixed(1);
+    const isPercent = r.category && (r.category.toLowerCase().includes('%') || r.category.toLowerCase().includes('percent') || r.category.toLowerCase().includes('pct'));
+    if (typeof val === 'number') {
+      if (isPercent && val > 0 && val <= 1) val = (val * 100).toFixed(1) + '%';
+      else if (isPercent) val = val.toFixed(1) + '%';
+      else val = val % 1 === 0 ? val : val.toFixed(1);
+    } else if (typeof val === 'string' && isPercent && !val.includes('%')) {
+      const num = parseFloat(val);
+      if (!isNaN(num) && num > 0 && num <= 1) val = (num * 100).toFixed(1) + '%';
+    }
     html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4">' +
       '<div class="mb-2 text-xs uppercase tracking-wider text-[var(--text-muted)]">' + r.category + '</div>' +
       '<div class="text-2xl font-bold text-[var(--accent)]">' + val + '</div>' +
