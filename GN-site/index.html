@@ -11,12 +11,12 @@ tailwind.config = {
   theme: {
     extend: {
       colors: {
-        duke: '#003087',
-        royal: '#00539B',
-        copper: '#C84E00',
-        persimmon: '#E89923',
-        dandelion: '#FFD960',
-        ironweed: '#993399'
+        duke: '#005A2B',
+        royal: '#0B6836',
+        copper: '#564207',
+        persimmon: '#989EA5',
+        dandelion: '#EDEDEE',
+        ironweed: '#414042'
       }
     }
   }
@@ -24,23 +24,23 @@ tailwind.config = {
 </script>
 <style>
 :root {
-  --primary: #003087;
-  --secondary: #00539b;
-  --accent: #c84e00;
-  --copper: #c84e00;
-  --persimmon: #e89923;
-  --dandelion: #ffd960;
-  --ironweed: #993399;
-  --gold: #ffd960;
-  --silver: #ffffff;
-  --bronze: #e89923;
-  --bg: #00286f;
-  --card: #003087;
+  --primary: #005A2B;
+  --secondary: #0B6836;
+  --accent: #EDEDEE;
+  --copper: #564207;
+  --persimmon: #989EA5;
+  --dandelion: #EDEDEE;
+  --ironweed: #414042;
+  --gold: #EDEDEE;
+  --silver: #989EA5;
+  --bronze: #564207;
+  --bg: #001A0D;
+  --card: #002E17;
   --text: #ffffff;
-  --text-muted: #c1d3f3;
-  --border: #2d66b5;
-  --success: #ffd960;
-  --danger: #993399;
+  --text-muted: #EDEDEE;
+  --border: #0B6836;
+  --success: #4ade80;
+  --danger: #f87171;
 }
 * { box-sizing: border-box; }
 body {
@@ -78,7 +78,7 @@ a:hover { text-decoration: underline; }
 .nav-links li a.active {
   color: var(--accent);
   border-bottom-color: var(--accent);
-  background: rgba(200,78,0,0.1);
+  background: rgba(237,237,238,0.1);
   text-decoration: none;
 }
 .hamburger { display: none; }
@@ -111,7 +111,7 @@ a:hover { text-decoration: underline; }
 }
 table { width: 100%; border-collapse: collapse; }
 th {
-  background: rgba(0, 83, 155, 0.45);
+  background: rgba(0, 90, 43, 0.45);
   color: var(--dandelion);
   font-family: 'Oswald', sans-serif;
   font-size: 0.82rem;
@@ -127,7 +127,7 @@ td {
   white-space: nowrap;
 }
 tr:nth-child(even) { background: rgba(255,255,255,0.02); }
-tr:hover { background: rgba(200,78,0,0.06); }
+tr:hover { background: rgba(11,104,54,0.15); }
 
 .rank-1 { color: var(--gold); font-weight: 700; }
 .rank-2 { color: var(--silver); font-weight: 600; }
@@ -179,7 +179,7 @@ select:focus, input[type="text"]:focus {
 
 <!-- Home Page -->
 <div class="page active" id="page-home">
-  <div class="border-b-4 border-[var(--accent)] bg-gradient-to-br from-[#003087] to-[#00539B] px-4 py-16 text-center">
+  <div class="border-b-4 border-[var(--accent)] bg-gradient-to-br from-[#005A2B] to-[#0B6836] px-4 py-16 text-center">
     <h1 class="text-4xl font-bold text-white md:text-6xl">GREENVILLE <span class="text-[var(--accent)]">NATIVES</span></h1>
     <p class="mt-2 text-lg text-[var(--text-muted)]">Fantasy Football League - Est. 2009</p>
     <div class="mt-4 inline-block rounded-full bg-[var(--accent)] px-4 py-1 text-sm font-semibold text-white">16 Seasons of Competition</div>
