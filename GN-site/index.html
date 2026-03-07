@@ -306,6 +306,7 @@ const GIDS = {
 const MEMBER_PALETTES = {
   'Ian Baro': { primary: '#003087', secondary: '#00539B' },
   't wood': { primary: '#F47321', secondary: '#005030' },
+  'T Wood': { primary: '#F47321', secondary: '#005030' },
   'Trey Wilder': { primary: '#782F40', secondary: '#CEB888' },
   'Josh Hudson': { primary: '#7BAFD4', secondary: '#13294B' },
   'Cody Clodfelter': { primary: '#592A8A', secondary: '#FEC923' },
@@ -1365,11 +1366,15 @@ function ordinal(n) {
 
 function getMemberColor(name) {
   if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].primary;
+  const key = Object.keys(MEMBER_PALETTES).find(k => k.toLowerCase() === name.toLowerCase());
+  if (key) return MEMBER_PALETTES[key].primary;
   return '#' + Math.floor(Math.abs(Math.sin(name.split('').reduce((a,c) => a + c.charCodeAt(0), 0)) * 16777215)).toString(16).padStart(6, '0');
 }
 
 function getMemberSecondaryColor(name) {
   if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].secondary;
+  const key = Object.keys(MEMBER_PALETTES).find(k => k.toLowerCase() === name.toLowerCase());
+  if (key) return MEMBER_PALETTES[key].secondary;
   return '#FFFFFF';
 }
 
