@@ -367,6 +367,18 @@ async function fetchSheetByName(sheetName) {
   });
 }
 
+async function fetchFirstAvailableSheet(sheetNames) {
+  for (const name of sheetNames) {
+    try {
+      const rows = await fetchSheetByName(name);
+      if (Array.isArray(rows) && rows.length > 0) return rows;
+    } catch (_) {
+      // try next alias
+    }
+  }
+  throw new Error('No sheet tab found for: ' + sheetNames.join(', '));
+}
+
 function normalizeCsvHeader(value) {
   return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
 }
@@ -594,11 +606,11 @@ async function loadAllData() {
       fetchSheet(GIDS.playoffs),
       fetchSheet(GIDS.records),
       fetchSheet(GIDS.toc),
-      fetchSheetByName('REGULAR SEASON').catch(() => fetchRegularSeasonCsv()),
-      fetchSheetByName('Draft').catch(() => fetchCsvObjects('draft.csv')),
-      fetchSheetByName('YEARLYPlayerStats').catch(() => fetchCsvObjects('yearly-playerstats.csv')),
-      fetchSheetByName('WEEKLYPLAYERStats&Projections').catch(() => fetchCsvObjects('weekly-playerstats-projections.csv')),
-      fetchSheetByName('PlayersList').catch(() => fetchCsvObjects('players-list.csv'))
+      fetchFirstAvailableSheet(['REGULAR SEASON', 'Regular Season', 'RegularSeason', 'Regular_Season']).catch(() => fetchRegularSeasonCsv()),
+      fetchFirstAvailableSheet(['Draft', 'DRAFT']).catch(() => fetchCsvObjects('draft.csv')),
+      fetchFirstAvailableSheet(['YEARLYPlayerStats', 'YEARLY PLAYER STATS', 'YearlyPlayerStats']).catch(() => fetchCsvObjects('yearly-playerstats.csv')),
+      fetchFirstAvailableSheet(['WEEKLYPLAYERStats&Projections', 'WEEKLYPLAYERStats', 'WeeklyPlayerStats&Projections']).catch(() => fetchCsvObjects('weekly-playerstats-projections.csv')),
+      fetchFirstAvailableSheet(['PlayersList', 'Players List', 'PLAYERSLIST']).catch(() => fetchCsvObjects('players-list.csv'))
     ]);
     
     DATA.yby = ybyRaw.map(r => ({
