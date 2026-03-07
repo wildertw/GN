@@ -350,6 +350,23 @@ async function fetchSheet(gid) {
   });
 }
 
+async function fetchSheetByName(sheetName) {
+  const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&sheet=' + encodeURIComponent(sheetName);
+  const res = await fetch(url);
+  const text = await res.text();
+  const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+  if (!match) throw new Error('Failed to parse sheet data for ' + sheetName);
+  const json = JSON.parse(match[1]);
+  const cols = json.table.cols.map(c => c.label);
+  return json.table.rows.map(r => {
+    const obj = {};
+    r.c.forEach((cell, i) => {
+      if (cols[i]) obj[cols[i]] = cell ? (cell.v !== null && cell.v !== undefined ? cell.v : '') : '';
+    });
+    return obj;
+  });
+}
+
 function normalizeCsvHeader(value) {
   return String(value || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
 }
@@ -465,24 +482,39 @@ function normalizePlayerName(name) {
     .trim();
 }
 
+function getRowValue(row, candidates) {
+  for (const key of candidates) {
+    if (row[key] !== undefined && row[key] !== null && String(row[key]).trim() !== '') return row[key];
+  }
+  const normalized = Object.keys(row).reduce((m, k) => {
+    m[normalizeCsvHeader(k)] = row[k];
+    return m;
+  }, {});
+  for (const key of candidates) {
+    const n = normalizeCsvHeader(key);
+    if (normalized[n] !== undefined && normalized[n] !== null && String(normalized[n]).trim() !== '') return normalized[n];
+  }
+  return '';
+}
+
 function parseDraftRows(rows) {
   return rows.map(r => {
-    const year = toInt(r.Year);
-    const player = (r.Player || '').trim();
-    const team = (r.TEAM || '').trim();
+    const year = toInt(getRowValue(r, ['Year']));
+    const player = String(getRowValue(r, ['Player'])).trim();
+    const team = String(getRowValue(r, ['TEAM', 'Team', 'Manager'])).trim();
     return {
       year,
-      roundPick: r.Round_Pick || '',
-      round: toInt(r.Round),
-      pick: toInt(r.Pick),
-      position: (r.Position || '').trim(),
-      nflTeam: (r[''] || '').trim(),
+      roundPick: String(getRowValue(r, ['Round_Pick', 'Round Pick'])).trim(),
+      round: toInt(getRowValue(r, ['Round'])),
+      pick: toInt(getRowValue(r, ['Pick'])),
+      position: String(getRowValue(r, ['Position', 'Postion'])).trim(),
+      nflTeam: String(getRowValue(r, ['', 'Tm', 'NFL Team'])).trim(),
       team,
       player,
-      fantasyPoints: toNumber(r['Fantasy Points']),
-      vbd: toNumber(r.VBD),
-      posRank: toInt(r.PosRank),
-      ovRank: toInt(r.OvRank),
+      fantasyPoints: toNumber(getRowValue(r, ['Fantasy Points', 'FantPt'])),
+      vbd: toNumber(getRowValue(r, ['VBD'])),
+      posRank: toInt(getRowValue(r, ['PosRank'])),
+      ovRank: toInt(getRowValue(r, ['OvRank'])),
       playerNorm: normalizePlayerName(player)
     };
   }).filter(r => r.year && r.player && r.team && r.roundPick);
@@ -490,35 +522,48 @@ function parseDraftRows(rows) {
 
 function parseYearlyPlayerRows(rows) {
   return rows.map(r => ({
-    year: toInt(r.Year),
-    player: r.PlayerCleaned || r.Player || '',
-    playerNorm: normalizePlayerName(r.PlayerCleaned || r.Player || ''),
-    ppr: toNumber(r.PPR),
-    fantPt: toNumber(r.FantPt),
-    posRank: toInt(r.PosRank),
-    ovRank: toInt(r.OvRank)
+    year: toInt(getRowValue(r, ['Year'])),
+    player: String(getRowValue(r, ['PlayerCleaned', 'Player'])),
+    playerNorm: normalizePlayerName(getRowValue(r, ['PlayerCleaned', 'Player'])),
+    ppr: toNumber(getRowValue(r, ['PPR'])),
+    fantPt: toNumber(getRowValue(r, ['FantPt', 'Fantasy Points'])),
+    posRank: toInt(getRowValue(r, ['PosRank'])),
+    ovRank: toInt(getRowValue(r, ['OvRank']))
   })).filter(r => r.year && r.playerNorm);
 }
 
 function parseWeeklyPlayerRows(rows) {
   return rows.map(r => ({
-    year: toInt(r.Year),
-    week: toInt(r.Week),
-    manager: (r.Manager || '').trim(),
-    opponent: (r.Opponent || '').trim(),
-    player: r.PlayerNoSuffix || r.Player || '',
-    playerNorm: normalizePlayerName(r.PlayerNoSuffix || r.Player || ''),
-    actual: toNumber(r.PlayerScore_Actual),
-    projected: toNumber(r.PlayerScore_Projected)
+    year: toInt(getRowValue(r, ['Year'])),
+    week: toInt(getRowValue(r, ['Week'])),
+    manager: String(getRowValue(r, ['Manager', 'TEAM'])).trim(),
+    opponent: String(getRowValue(r, ['Opponent'])).trim(),
+    player: String(getRowValue(r, ['PlayerNoSuffix', 'PlayerCleaned', 'Player'])),
+    playerNorm: normalizePlayerName(getRowValue(r, ['PlayerNoSuffix', 'PlayerCleaned', 'Player'])),
+    actual: toNumber(getRowValue(r, ['PlayerScore_Actual', 'Actual', 'Points'])),
+    projected: toNumber(getRowValue(r, ['PlayerScore_Projected', 'Projected']))
   })).filter(r => r.year && r.week && r.manager && r.playerNorm);
 }
 
 function parsePlayersListRows(rows) {
   return rows.map(r => ({
-    player: r.Player || '',
-    playerNorm: normalizePlayerName(r.Player || ''),
-    pictureUrl: r.PictureURL || ''
+    player: String(getRowValue(r, ['Player'])),
+    playerNorm: normalizePlayerName(getRowValue(r, ['Player'])),
+    pictureUrl: String(getRowValue(r, ['PictureURL', 'Picture Url', 'Picture URL', 'J']))
   })).filter(r => r.playerNorm);
+}
+
+function parseRegularSeasonRows(rows) {
+  return rows.map(r => ({
+    year: toInt(getRowValue(r, ['YEAR', 'Year'])),
+    week: toInt(getRowValue(r, ['Week'])),
+    team: String(getRowValue(r, ['TEAM', 'Team', 'Manager'])).trim(),
+    pointsFor: toNumber(getRowValue(r, ['POINTS FOR', 'PF', 'Points For'])),
+    wl: String(getRowValue(r, ['W / L', 'WL', 'W/L'])).trim(),
+    pa: toNumber(getRowValue(r, ['PA'])),
+    diff: toNumber(getRowValue(r, ['DIFF', 'Diff'])),
+    opponent: String(getRowValue(r, ['Opponent', 'OPPONENT'])).trim()
+  })).filter(r => r.year && r.week && r.team);
 }
 
 function buildDraftLookups() {
@@ -544,16 +589,16 @@ function buildDraftLookups() {
 
 async function loadAllData() {
   try {
-    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonRaw, draftRaw, yearlyRaw, weeklyRaw, playersRaw] = await Promise.all([
+    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonSheetRaw, draftSheetRaw, yearlySheetRaw, weeklySheetRaw, playersSheetRaw] = await Promise.all([
       fetchSheet(GIDS.yearByYear),
       fetchSheet(GIDS.playoffs),
       fetchSheet(GIDS.records),
       fetchSheet(GIDS.toc),
-      fetchRegularSeasonCsv(),
-      fetchCsvObjects('draft.csv'),
-      fetchCsvObjects('yearly-playerstats.csv'),
-      fetchCsvObjects('weekly-playerstats-projections.csv'),
-      fetchCsvObjects('players-list.csv')
+      fetchSheetByName('REGULAR SEASON').catch(() => fetchRegularSeasonCsv()),
+      fetchSheetByName('Draft').catch(() => fetchCsvObjects('draft.csv')),
+      fetchSheetByName('YEARLYPlayerStats').catch(() => fetchCsvObjects('yearly-playerstats.csv')),
+      fetchSheetByName('WEEKLYPLAYERStats&Projections').catch(() => fetchCsvObjects('weekly-playerstats-projections.csv')),
+      fetchSheetByName('PlayersList').catch(() => fetchCsvObjects('players-list.csv'))
     ]);
     
     DATA.yby = ybyRaw.map(r => ({
@@ -586,11 +631,11 @@ async function loadAllData() {
       year: r.Year, first: r['1ST'], second: r['2ND'], third: r['3RD'], last: r['LAST']
     }));
 
-    DATA.regularSeason = regularSeasonRaw;
-    DATA.draft = parseDraftRows(draftRaw);
-    DATA.yearlyPlayer = parseYearlyPlayerRows(yearlyRaw);
-    DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklyRaw);
-    DATA.playersList = parsePlayersListRows(playersRaw);
+    DATA.regularSeason = parseRegularSeasonRows(regularSeasonSheetRaw);
+    DATA.draft = parseDraftRows(draftSheetRaw);
+    DATA.yearlyPlayer = parseYearlyPlayerRows(yearlySheetRaw);
+    DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklySheetRaw);
+    DATA.playersList = parsePlayersListRows(playersSheetRaw);
     buildDraftLookups();
 
     buildMemberProfiles();
@@ -1136,7 +1181,17 @@ function renderPlayoffs() {
 }
 
 function renderH2HDropdown() {
-  const members = CURRENT_MEMBERS.sort();
+  const memberSet = new Set();
+  DATA.regularSeason.forEach(r => {
+    if (r.team) memberSet.add(r.team);
+    if (r.opponent) memberSet.add(r.opponent);
+  });
+  DATA.playoffs.forEach(r => {
+    if (r.team) memberSet.add(r.team);
+    if (r.opponent) memberSet.add(r.opponent);
+  });
+  const members = [...memberSet].sort((a, b) => a.localeCompare(b));
+  if (!members.length) members.push(...CURRENT_MEMBERS.slice().sort((a, b) => a.localeCompare(b)));
   let html = '<select id="h2hMember" onchange="updateH2HYearOptions();renderH2H()">';
   members.forEach(m => { html += '<option value="' + m + '">' + m + '</option>'; });
   html += '</select>';
@@ -1172,8 +1227,7 @@ function renderH2H() {
   const selected = document.getElementById('h2hMember').value;
   const typeVal = document.getElementById('h2hType').value;
   const yearVal = document.getElementById('h2hYear').value;
-  const p = memberProfiles[selected];
-  if (!p) { document.getElementById('h2hContent').innerHTML = '<p>No data available</p>'; return; }
+  const p = memberProfiles[selected] || { seasons: [], name: selected };
   
   const h2hData = {};
 
@@ -1228,7 +1282,7 @@ function renderH2H() {
   setTimeout(() => {
     const ctx = document.getElementById('h2hChart');
     if (!ctx) return;
-    const seasons = p.seasons.sort((a,b) => a.year - b.year);
+    const seasons = (p.seasons || []).slice().sort((a,b) => a.year - b.year);
     const years = seasons.map(s => s.year);
     
     // Get top rivals (most playoff matchups)
