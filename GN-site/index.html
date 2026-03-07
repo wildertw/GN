@@ -167,12 +167,11 @@ select:focus, input[type="text"]:focus {
   <ul class="nav-links hidden items-center md:flex" id="navLinks">
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('home')" class="active" data-page="home">Home</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('standings')" data-page="standings">Standings</a></li>
-    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('regular-season')" data-page="regular-season">Regular Season</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('results')" data-page="results">Results</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('draft')" data-page="draft">Draft</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('championships')" data-page="championships">Championships</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('members')" data-page="members">Members</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('records')" data-page="records">Records</a></li>
-    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('playoffs')" data-page="playoffs">Playoffs</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('h2h')" data-page="h2h">H2H</a></li>
   </ul>
 </nav>
@@ -202,12 +201,22 @@ select:focus, input[type="text"]:focus {
   </div>
 </div>
 
-<!-- Regular Season Page -->
-<div class="page" id="page-regular-season">
+<!-- Results Page -->
+<div class="page" id="page-results">
   <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
-    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Regular Season Results</h2>
-    <div class="controls flex flex-wrap gap-3" id="regularSeasonControls"></div>
-    <div class="table-wrap overflow-x-auto" id="regularSeasonTable"></div>
+    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Results</h2>
+    <div class="mb-6 flex flex-wrap border-b border-[var(--border)]">
+      <button id="results-tab-regular-season" class="results-subtab active border-b-2 border-[var(--accent)] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--accent)] transition-colors" onclick="showResultsTab('regular-season')">Regular Season</button>
+      <button id="results-tab-playoffs" class="results-subtab border-b-2 border-transparent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:text-white" onclick="showResultsTab('playoffs')">Playoffs</button>
+    </div>
+    <div id="results-panel-regular-season">
+      <div class="controls flex flex-wrap gap-3" id="regularSeasonControls"></div>
+      <div class="table-wrap overflow-x-auto" id="regularSeasonTable"></div>
+    </div>
+    <div id="results-panel-playoffs" class="hidden">
+      <div class="controls flex flex-wrap gap-3" id="playoffControls"></div>
+      <div id="playoffContent"></div>
+    </div>
   </div>
 </div>
 
@@ -256,14 +265,6 @@ select:focus, input[type="text"]:focus {
   </div>
 </div>
 
-<!-- Playoffs Page -->
-<div class="page" id="page-playoffs">
-  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
-    <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Playoff History</h2>
-    <div class="controls flex flex-wrap gap-3" id="playoffControls"></div>
-    <div id="playoffContent"></div>
-  </div>
-</div>
 
 <!-- H2H Page -->
 <div class="page" id="page-h2h">
@@ -1156,6 +1157,22 @@ function switchRecordTab(el, idx) {
   document.getElementById('recordContent').innerHTML = html;
 }
 
+function showResultsTab(tab) {
+  document.querySelectorAll('.results-subtab').forEach(btn => {
+    btn.classList.remove('active', 'text-[var(--accent)]', 'border-[var(--accent)]');
+    btn.classList.add('text-[var(--text-muted)]', 'border-transparent');
+  });
+  const activeBtn = document.getElementById('results-tab-' + tab);
+  if (activeBtn) {
+    activeBtn.classList.add('active', 'text-[var(--accent)]', 'border-[var(--accent)]');
+    activeBtn.classList.remove('text-[var(--text-muted)]', 'border-transparent');
+  }
+  ['regular-season', 'playoffs'].forEach(p => {
+    const panel = document.getElementById('results-panel-' + p);
+    if (panel) panel.classList.toggle('hidden', p !== tab);
+  });
+}
+
 function renderPlayoffDropdown() {
   const years = [...new Set(DATA.playoffs.map(r => r.year))].sort((a,b) => b - a);
   let html = '<select id="playoffYear" onchange="renderPlayoffs()">';
@@ -1344,6 +1361,11 @@ function renderH2H() {
 }
 
 function showPage(page) {
+  if (page === 'regular-season' || page === 'playoffs') {
+    showPage('results');
+    showResultsTab(page);
+    return;
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
   const pageEl = document.getElementById('page-' + page);
@@ -1352,7 +1374,7 @@ function showPage(page) {
   if (navEl) navEl.classList.add('active');
   document.getElementById('navLinks').classList.remove('open');
   window.scrollTo(0, 0);
-  
+
   // Destroy any existing charts to prevent memory leaks
   Chart.helpers?.each(Chart.instances, (instance) => {});
 }
