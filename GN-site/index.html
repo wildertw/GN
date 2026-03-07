@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Greenville Natives Fantasy Football League</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --primary: #1a1a2e;
+  --secondary: #16213e;
+  --accent: #e94560;
+  --gold: #f5a623;
+  --silver: #c0c0c0;
+  --bronze: #cd7f32;
+  --bg: #0f0f1a;
+  --card: #1a1a2e;
+  --text: #e0e0e0;
+  --text-muted: #888;
+  --border: #2a2a4a;
+  --success: #27ae60;
+  --danger: #e74c3c;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Roboto', sans-serif; background: var(--bg); color: var(--text);
+  min-height: 100vh; overflow-x: hidden;
+}
+h1,h2,h3,h4,h5,h6 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Navigation */
+.navbar {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  padding: 0 2rem; display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.5); position: sticky; top: 0; z-index: 1000;
+  border-bottom: 3px solid var(--accent);
+}
+.navbar .logo { font-family: 'Oswald', sans-serif; font-size: 1.5rem; font-weight: 700;
+  color: #fff; padding: 1rem 0; cursor: pointer; }
+.navbar .logo span { color: var(--accent); }
+.nav-links { display: flex; list-style: none; gap: 0; }
+.nav-links li a {
+  color: var(--text); padding: 1.2rem 1.2rem; display: block;
+  font-weight: 500; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;
+  transition: all 0.3s; border-bottom: 3px solid transparent;
+  text-decoration: none;
+}
+.nav-links li a:hover, .nav-links li a.active {
+  color: var(--accent); border-bottom-color: var(--accent); background: rgba(233,69,96,0.1);
+  text-decoration: none;
+}
+.hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
+
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.9)),
+    url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="50" opacity="0.03">🏈</text></svg>');
+  padding: 4rem 2rem; text-align: center; 
+  border-bottom: 3px solid var(--accent);
+}
+.hero h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #fff; }
+.hero h1 span { color: var(--accent); }
+.hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto; }
+.hero .badge { 
+  display: inline-block; background: var(--accent); color: #fff; padding: 0.3rem 1rem;
+  border-radius: 20px; font-size: 0.85rem; margin-top: 1rem; font-weight: 500;
+}
+
+/* Container & Cards */
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+.section-title { font-size: 1.8rem; margin-bottom: 1.5rem; color: #fff; 
+  border-left: 4px solid var(--accent); padding-left: 1rem; }
+.card {
+  background: var(--card); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid var(--border); transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+
+/* Stats Grid */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+.stat-card {
+  background: linear-gradient(135deg, var(--card), var(--secondary));
+  border-radius: 12px; padding: 1.5rem; text-align: center;
+  border: 1px solid var(--border);
+}
+.stat-card .stat-value { font-size: 2.5rem; font-weight: 700; color: var(--accent); font-family: 'Oswald', sans-serif; }
+.stat-card .stat-label { color: var(--text-muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 0.3rem; }
+
+/* Tables */
+.table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; }
+th { background: var(--secondary); color: var(--accent); padding: 0.8rem 1rem; 
+  text-align: left; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
+  text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+tr:hover { background: rgba(233,69,96,0.05); }
+tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+.rank-1 { color: var(--gold); font-weight: 700; }
+.rank-2 { color: var(--silver); font-weight: 600; }
+.rank-3 { color: var(--bronze); font-weight: 600; }
+.win { color: var(--success); font-weight: 600; }
+.loss { color: var(--danger); font-weight: 600; }
+
+/* Championship Cards */
+.champ-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+.champ-card {
+  background: linear-gradient(135deg, var(--card), var(--secondary));
+  border-radius: 16px; overflow: hidden; border: 1px solid var(--border);
+  transition: transform 0.3s;
+}
+.champ-card:hover { transform: translateY(-4px); }
+.champ-card .year-banner {
+  background: linear-gradient(135deg, var(--accent), #c0392b);
+  padding: 1rem 1.5rem; font-family: 'Oswald', sans-serif; font-size: 1.8rem;
+  color: #fff; display: flex; align-items: center; justify-content: space-between;
+}
+.champ-card .year-banner .trophy { font-size: 2rem; }
+.champ-card .details { padding: 1.2rem 1.5rem; }
+.champ-card .winner { font-size: 1.3rem; font-weight: 700; color: var(--gold); 
+  margin-bottom: 0.8rem; font-family: 'Oswald', sans-serif; }
+.champ-card .finisher { display: flex; justify-content: space-between; 
+  padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+.champ-card .finisher:last-child { border-bottom: none; }
+
+/* Member Grid */
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+.member-card {
+  background: var(--card); border-radius: 16px; padding: 1.5rem; text-align: center;
+  border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;
+}
+.member-card:hover { border-color: var(--accent); transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(233,69,96,0.15); }
+.member-avatar {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: 700; color: #fff; font-family: 'Oswald', sans-serif;
+}
+.member-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; color: #fff; }
+.member-card .record { color: var(--text-muted); font-size: 0.9rem; }
+.member-card .titles { color: var(--gold); margin-top: 0.5rem; font-size: 0.85rem; }
+
+/* Filters & Controls */
+.controls { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+select, input[type="text"] {
+  background: var(--secondary); color: var(--text); border: 1px solid var(--border);
+  padding: 0.6rem 1rem; border-radius: 8px; font-size: 0.9rem; outline: none;
+}
+select:focus, input:focus { border-color: var(--accent); }
+.btn {
+  background: var(--accent); color: #fff; border: none; padding: 0.6rem 1.5rem;
+  border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s;
+  font-size: 0.9rem;
+}
+.btn:hover { background: #c0392b; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
+.btn-outline:hover { background: var(--accent); color: #fff; }
+
+/* Modal */
+.modal-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8);
+  display: none; z-index: 2000; justify-content: center; align-items: flex-start;
+  padding: 2rem; overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--card); border-radius: 16px; max-width: 800px; width: 100%;
+  border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; margin-top: 2rem;
+}
+.modal-header {
+  padding: 1.5rem 2rem; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.modal-header h2 { color: #fff; }
+.modal-close { background: none; border: none; color: var(--text-muted); font-size: 1.5rem;
+  cursor: pointer; padding: 0.5rem; }
+.modal-close:hover { color: var(--accent); }
+.modal-body { padding: 2rem; }
+
+/* Charts Container */
+.chart-container { background: var(--card); border-radius: 12px; padding: 1.5rem;
+  border: 1px solid var(--border); margin-bottom: 2rem; }
+
+/* Tabs */
+.tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); }
+.tab {
+  padding: 0.8rem 1.5rem; cursor: pointer; color: var(--text-muted);
+  font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -2px;
+  transition: all 0.3s; font-size: 0.9rem; text-transform: uppercase;
+}
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* H2H Grid */
+.h2h-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.8rem;
+}
+.h2h-cell {
+  background: var(--secondary); border-radius: 8px; padding: 0.8rem; text-align: center;
+  border: 1px solid var(--border);
+}
+.h2h-cell .opponent { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+.h2h-cell .record { font-size: 1.1rem; font-weight: 700; }
+.h2h-cell.positive .record { color: var(--success); }
+.h2h-cell.negative .record { color: var(--danger); }
+.h2h-cell.even .record { color: var(--text-muted); }
+
+/* Page visibility */
+.page { display: none; }
+.page.active { display: block; }
+
+/* Loading */
+.loading { text-align: center; padding: 4rem; }
+.spinner { 
+  width: 50px; height: 50px; border: 4px solid var(--border);
+  border-top-color: var(--accent); border-radius: 50%;
+  animation: spin 0.8s linear infinite; margin: 0 auto 1rem;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Record Categories */
+.record-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1rem; }
+.record-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+}
+.record-item .label { color: var(--text-muted); font-size: 0.85rem; flex: 1; }
+.record-item .value { font-weight: 700; color: var(--accent); margin: 0 1rem; white-space: nowrap; }
+.record-item .holder { color: var(--gold); font-size: 0.85rem; white-space: nowrap; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--primary); flex-direction: column; border-top: 1px solid var(--border); }
+  .nav-links.open { display: flex; }
+  .hamburger { display: block; }
+  .hero h1 { font-size: 2rem; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .champ-grid { grid-template-columns: 1fr; }
+  .member-grid { grid-template-columns: repeat(2, 1fr); }
+  .controls { flex-direction: column; }
+  .container { padding: 1rem; }
+}
+@media (max-width: 480px) {
+  .stats-grid { grid-template-columns: 1fr; }
+  .member-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="logo" onclick="event.preventDefault();showPage('home')">GREENVILLE <span>NATIVES</span></div>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('home')" class="active" data-page="home">Home</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('standings')" data-page="standings">Standings</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('championships')" data-page="championships">Championships</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('members')" data-page="members">Members</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('records')" data-page="records">Records</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('playoffs')" data-page="playoffs">Playoffs</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('h2h')" data-page="h2h">H2H</a></li>
+  </ul>
+</nav>
+
+<!-- Home Page -->
+<div class="page active" id="page-home">
+  <div class="hero">
+    <h1>GREENVILLE <span>NATIVES</span></h1>
+    <p>Fantasy Football League - Est. 2009</p>
+    <div class="badge">16 Seasons of Competition</div>
+  </div>
+  <div class="container">
+    <div class="stats-grid" id="homeStats"></div>
+    <h2 class="section-title">Recent Champions</h2>
+    <div class="champ-grid" id="recentChamps"></div>
+    <h2 class="section-title" style="margin-top:2rem">All-Time Leaderboard</h2>
+    <div class="table-wrap" id="leaderboardTable"></div>
+  </div>
+</div>
+
+<!-- Standings Page -->
+<div class="page" id="page-standings">
+  <div class="container">
+    <h2 class="section-title">Season Standings</h2>
+    <div class="controls" id="standingsControls"></div>
+    <div class="table-wrap" id="standingsTable"></div>
+  </div>
+</div>
+
+<!-- Championships Page -->
+<div class="page" id="page-championships">
+  <div class="container">
+    <h2 class="section-title">Championship History</h2>
+    <div class="stats-grid" id="champStats"></div>
+    <div class="champ-grid" id="allChamps"></div>
+  </div>
+</div>
+
+<!-- Members Page -->
+<div class="page" id="page-members">
+  <div class="container">
+    <h2 class="section-title">League Members</h2>
+    <div class="controls">
+      <input type="text" id="memberSearch" placeholder="Search members..." oninput="filterMembers()">
+      <select id="memberSort" onchange="renderMemberGrid()">
+        <option value="wins">Sort by Wins</option>
+        <option value="winpct">Sort by Win %</option>
+        <option value="titles">Sort by Titles</option>
+        <option value="alpha">Alphabetical</option>
+      </select>
+    </div>
+    <div class="member-grid" id="memberGrid"></div>
+  </div>
+</div>
+
+<!-- Records Page -->
+<div class="page" id="page-records">
+  <div class="container">
+    <h2 class="section-title">League Records</h2>
+    <div class="tabs" id="recordTabs"></div>
+    <div id="recordContent"></div>
+  </div>
+</div>
+
+<!-- Playoffs Page -->
+<div class="page" id="page-playoffs">
+  <div class="container">
+    <h2 class="section-title">Playoff History</h2>
+    <div class="controls" id="playoffControls"></div>
+    <div id="playoffContent"></div>
+  </div>
+</div>
+
+<!-- H2H Page -->
+<div class="page" id="page-h2h">
+  <div class="container">
+    <h2 class="section-title">Head to Head Records</h2>
+    <div class="controls" id="h2hControls"></div>
+    <div id="h2hContent"></div>
+  </div>
+</div>
+
+<!-- Member Modal -->
+<div class="modal-overlay" id="memberModal" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <h2 id="modalTitle"></h2>
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- Loading Screen -->
+<div id="loadingScreen" style="position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center">
+  <div class="loading">
+    <div class="spinner"></div>
+    <p style="color:var(--text-muted)">Loading league data...</p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const SHEET_ID = '1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw';
+const GIDS = {
+  yearByYear: 2011731131,
+  playoffs: 881244753,
+  records: 166394726,
+  toc: 1298114778,
+  h2h: 918810170
+};
+
+const MEMBER_COLORS = {
+  'Mark Potter': '#e74c3c', 'Trey Wilder': '#3498db', 'Taylor Hardee': '#e67e22',
+  'Michael Waivers': '#9b59b6', 't wood': '#27ae60', 'Shain Collins': '#f1c40f',
+  'Josh Hudson': '#1abc9c', 'Lee Galt': '#8b4513', 'Ian Baro': '#e91e63',
+  'Cody Clodfelter': '#00bcd4', 'cody clodfelter': '#00bcd4',
+  'Josh Johnston': '#607d8b', 'Mark Lindsay': '#795548', 'Keith Spinner': '#ff9800',
+  'taylor ward': '#4caf50', 'Andrew Scercy': '#673ab7', 'Chris W': '#9e9e9e',
+  'Zack Bullock': '#ff5722', 'Travis Albea': '#3f51b5', 'Maddy': '#ec407a'
+};
+
+const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Waivers','t wood',
+  'Shain Collins','Josh Hudson','Lee Galt','Ian Baro','cody clodfelter'];
+
+let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null };
+let memberProfiles = {};
+
+async function fetchSheet(gid) {
+  const url = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:json&gid=' + gid;
+  const res = await fetch(url);
+  const text = await res.text();
+  const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\)/);
+  if (!match) throw new Error('Failed to parse sheet data');
+  const json = JSON.parse(match[1]);
+  const cols = json.table.cols.map(c => c.label);
+  return json.table.rows.map(r => {
+    const obj = {};
+    r.c.forEach((cell, i) => {
+      if (cols[i]) obj[cols[i]] = cell ? (cell.v !== null && cell.v !== undefined ? cell.v : '') : '';
+    });
+    return obj;
+  });
+}
+
+async function loadAllData() {
+  try {
+    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw] = await Promise.all([
+      fetchSheet(GIDS.yearByYear),
+      fetchSheet(GIDS.playoffs),
+      fetchSheet(GIDS.records),
+      fetchSheet(GIDS.toc)
+    ]);
+    
+    DATA.yby = ybyRaw.map(r => ({
+      team: r.TEAM, year: r.YEAR, rank: r.RANK, wins: r.Wins, losses: r.Losses,
+      ties: r.Ties || 0, winPct: r['Win %'], pf: r.PF, pa: r.PA,
+      diff: r.DIFF, high: r['High Score'], low: r['Low Score'],
+      rsWins: r['Reg Season Wins'], rsLosses: r['Reg Season Losses'],
+      pWins: r['Playoff Wins'], pLosses: r['Playoff Losses'],
+      winningSeason: r['Winning Season y/n']
+    })).filter(r => r.team && r.year);
+
+    DATA.playoffs = playoffsRaw.map(r => ({
+      year: r.YEAR, round: r.ROUND, place: r.PLACE, team: r.TEAM,
+      score: r.SCORE, wl: r['W / L'], pa: r.PA, opponent: r.Opponent, diff: r.Dif
+    })).filter(r => r.year && r.team);
+
+    DATA.records = recordsRaw.filter(r => {
+      const cat = r['Category Wins / Losses'] || r['Category'] || '';
+      return cat.length > 0;
+    }).map(r => ({
+      category: r['Category Wins / Losses'] || r['Category'] || '',
+      record: r['Record '] || r['Record'] || '',
+      team: r['Team '] || r['Team'] || '',
+      year: r['Year(s) '] || r['Year(s)'] || '',
+      week: r['Week '] || r['Week'] || '',
+      opponent: r['Opponent '] || r['Opponent'] || ''
+    }));
+
+    DATA.champs = tocRaw.filter(r => r.Year && r['1ST']).map(r => ({
+      year: r.Year, first: r['1ST'], second: r['2ND'], third: r['3RD'], last: r['LAST']
+    }));
+
+    buildMemberProfiles();
+    renderAllPages();
+    document.getElementById('loadingScreen').style.display = 'none';
+  } catch (err) {
+    console.error('Data loading error:', err);
+    document.getElementById('loadingScreen').innerHTML = 
+      '<div class="loading"><p style="color:var(--accent)">Error loading data. Please refresh.</p><p style="color:var(--text-muted);margin-top:0.5rem">' + err.message + '</p></div>';
+  }
+}
+
+function buildMemberProfiles() {
+  memberProfiles = {};
+  DATA.yby.forEach(row => {
+    const name = row.team;
+    if (!memberProfiles[name]) {
+      memberProfiles[name] = { 
+        name, seasons: [], totalWins: 0, totalLosses: 0, totalPF: 0, totalPA: 0,
+        titles: 0, runnerUp: 0, playoffApps: 0, bestFinish: 99, worstFinish: 0,
+        isCurrent: CURRENT_MEMBERS.map(m => m.toLowerCase()).includes(name.toLowerCase())
+      };
+    }
+    const p = memberProfiles[name];
+    p.seasons.push(row);
+    p.totalWins += (row.wins || 0);
+    p.totalLosses += (row.losses || 0);
+    p.totalPF += (row.pf || 0);
+    p.totalPA += (row.pa || 0);
+    if (row.rank < p.bestFinish) p.bestFinish = row.rank;
+    if (row.rank > p.worstFinish) p.worstFinish = row.rank;
+  });
+  
+  DATA.champs.forEach(c => {
+    if (memberProfiles[c.first]) { memberProfiles[c.first].titles++; memberProfiles[c.first].playoffApps++; }
+    if (memberProfiles[c.second]) { memberProfiles[c.second].runnerUp++; memberProfiles[c.second].playoffApps++; }
+  });
+  
+  DATA.playoffs.forEach(p => {
+    if (p.round === 'SEMIS' && memberProfiles[p.team]) {
+      // counted via unique year appearances
+    }
+  });
+}
+
+function renderAllPages() {
+  renderHome();
+  renderStandingsDropdown();
+  renderChampionships();
+  renderMemberGrid();
+  renderRecords();
+  renderPlayoffDropdown();
+  renderH2HDropdown();
+}
+
+function renderHome() {
+  const profiles = Object.values(memberProfiles);
+  const totalGames = profiles.reduce((s, p) => s + p.totalWins + p.totalLosses, 0) / 2;
+  const totalSeasons = new Set(DATA.yby.map(r => r.year)).size;
+  const currentChamp = DATA.champs.length > 0 ? DATA.champs[DATA.champs.length - 1] : null;
+  
+  document.getElementById('homeStats').innerHTML = 
+    statBox(totalSeasons, 'Seasons Played') +
+    statBox(profiles.filter(p => p.isCurrent).length, 'Active Members') +
+    statBox(Math.round(totalGames), 'Total Games') +
+    statBox(currentChamp ? currentChamp.first : '-', 'Reigning Champ');
+
+  // Recent 4 champions
+  const recent = DATA.champs.slice(-4).reverse();
+  document.getElementById('recentChamps').innerHTML = recent.map(c => champCard(c)).join('');
+  
+  // All-time leaderboard
+  const sorted = profiles.filter(p => p.seasons.length >= 3).sort((a, b) => b.totalWins - a.totalWins);
+  let html = '<table><thead><tr><th>#</th><th>Member</th><th>Seasons</th><th>W</th><th>L</th><th>Win%</th><th>Titles</th><th>PF</th><th>Best</th></tr></thead><tbody>';
+  sorted.forEach((p, i) => {
+    const pct = p.totalWins + p.totalLosses > 0 ? (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1) : '0.0';
+    html += '<tr><td>' + (i+1) + '</td><td style="color:' + getMemberColor(p.name) + ';font-weight:600">' + p.name + '</td>';
+    html += '<td>' + p.seasons.length + '</td><td class="win">' + p.totalWins + '</td><td class="loss">' + p.totalLosses + '</td>';
+    html += '<td>' + pct + '%</td><td style="color:var(--gold)">' + (p.titles > 0 ? '🏆'.repeat(p.titles) : '-') + '</td>';
+    html += '<td>' + Math.round(p.totalPF).toLocaleString() + '</td><td>' + ordinal(p.bestFinish) + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('leaderboardTable').innerHTML = html;
+}
+
+function statBox(value, label) {
+  return '<div class="stat-card"><div class="stat-value">' + value + '</div><div class="stat-label">' + label + '</div></div>';
+}
+
+function champCard(c) {
+  return '<div class="champ-card"><div class="year-banner"><span>' + c.year + '</span><span class="trophy">🏆</span></div>' +
+    '<div class="details"><div class="winner">👑 ' + c.first + '</div>' +
+    '<div class="finisher"><span style="color:var(--silver)">🥈 2nd</span><span>' + c.second + '</span></div>' +
+    '<div class="finisher"><span style="color:var(--bronze)">🥉 3rd</span><span>' + c.third + '</span></div>' +
+    '<div class="finisher"><span style="color:var(--text-muted)">📉 Last</span><span>' + c.last + '</span></div></div></div>';
+}
+
+function renderStandingsDropdown() {
+  const years = [...new Set(DATA.yby.map(r => r.year))].sort((a,b) => b - a);
+  let html = '<select id="standingsYear" onchange="renderStandings()">';
+  years.forEach(y => { html += '<option value="' + y + '">' + y + '</option>'; });
+  html += '</select>';
+  document.getElementById('standingsControls').innerHTML = html;
+  renderStandings();
+}
+
+function renderStandings() {
+  const year = parseInt(document.getElementById('standingsYear').value);
+  const data = DATA.yby.filter(r => r.year === year).sort((a,b) => a.rank - b.rank);
+  
+  let html = '<table><thead><tr><th>Rank</th><th>Team</th><th>W</th><th>L</th><th>Win%</th>';
+  html += '<th>PF</th><th>PA</th><th>Diff</th><th>High</th><th>Low</th></tr></thead><tbody>';
+  data.forEach(r => {
+    const rankClass = r.rank === 1 ? 'rank-1' : r.rank === 2 ? 'rank-2' : r.rank === 3 ? 'rank-3' : '';
+    const diffColor = r.diff > 0 ? 'var(--success)' : r.diff < 0 ? 'var(--danger)' : 'var(--text)';
+    html += '<tr><td class="' + rankClass + '">' + ordinal(r.rank) + '</td>';
+    html += '<td style="color:' + getMemberColor(r.team) + ';font-weight:600">' + r.team + '</td>';
+    html += '<td class="win">' + r.wins + '</td><td class="loss">' + r.losses + '</td>';
+    html += '<td>' + (r.winPct * 100).toFixed(0) + '%</td>';
+    html += '<td>' + (r.pf ? r.pf.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (r.pa ? r.pa.toFixed(1) : '-') + '</td>';
+    html += '<td style="color:' + diffColor + '">' + (r.diff > 0 ? '+' : '') + (r.diff ? r.diff.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (r.high || '-') + '</td><td>' + (r.low || '-') + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('standingsTable').innerHTML = html;
+}
+
+function renderChampionships() {
+  // Championship stats
+  const champCounts = {};
+  DATA.champs.forEach(c => { champCounts[c.first] = (champCounts[c.first] || 0) + 1; });
+  const topChamp = Object.entries(champCounts).sort((a,b) => b[1] - a[1])[0];
+  
+  document.getElementById('champStats').innerHTML =
+    statBox(DATA.champs.length, 'Championships') +
+    statBox(topChamp ? topChamp[0] : '-', 'Most Titles') +
+    statBox(topChamp ? topChamp[1] : '-', 'Title Count') +
+    statBox(Object.keys(champCounts).length, 'Unique Champions');
+
+  // All championship cards
+  document.getElementById('allChamps').innerHTML = 
+    DATA.champs.slice().reverse().map(c => champCard(c)).join('');
+}
+
+function renderMemberGrid() {
+  const search = (document.getElementById('memberSearch').value || '').toLowerCase();
+  const sort = document.getElementById('memberSort').value;
+  
+  let profiles = Object.values(memberProfiles).filter(p => p.isCurrent);
+  if (search) profiles = profiles.filter(p => p.name.toLowerCase().includes(search));
+  
+  switch(sort) {
+    case 'wins': profiles.sort((a,b) => b.totalWins - a.totalWins); break;
+    case 'winpct': profiles.sort((a,b) => {
+      const aP = a.totalWins/(a.totalWins+a.totalLosses);
+      const bP = b.totalWins/(b.totalWins+b.totalLosses);
+      return bP - aP;
+    }); break;
+    case 'titles': profiles.sort((a,b) => b.titles - a.titles || b.totalWins - a.totalWins); break;
+    case 'alpha': profiles.sort((a,b) => a.name.localeCompare(b.name)); break;
+  }
+  
+  document.getElementById('memberGrid').innerHTML = profiles.map(p => {
+    const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
+    const initials = p.name.split(' ').map(w => w[0].toUpperCase()).join('');
+    const color = getMemberColor(p.name);
+    return '<div class="member-card" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
+      '<div class="member-avatar" style="background:' + color + '">' + initials + '</div>' +
+      '<h3>' + p.name + '</h3>' +
+      '<div class="record">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
+      '<div class="record">' + p.seasons.length + ' seasons</div>' +
+      (p.titles > 0 ? '<div class="titles">' + '🏆'.repeat(p.titles) + ' ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function filterMembers() { renderMemberGrid(); }
+
+function openMemberModal(name) {
+  const p = memberProfiles[name];
+  if (!p) return;
+  
+  document.getElementById('modalTitle').textContent = p.name;
+  const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
+  
+  let html = '<div class="stats-grid" style="margin-bottom:1.5rem">' +
+    statBox(p.totalWins + '-' + p.totalLosses, 'Record') +
+    statBox(pct + '%', 'Win Rate') +
+    statBox(p.titles, 'Championships') +
+    statBox(p.seasons.length, 'Seasons') +
+  '</div>';
+  
+  html += '<h3 style="color:var(--accent);margin-bottom:1rem;font-family:Oswald,sans-serif">SEASON BY SEASON</h3>';
+  html += '<div class="table-wrap"><table><thead><tr><th>Year</th><th>Rank</th><th>W</th><th>L</th><th>Win%</th><th>PF</th><th>PA</th><th>Diff</th></tr></thead><tbody>';
+  p.seasons.sort((a,b) => b.year - a.year).forEach(s => {
+    const rankClass = s.rank === 1 ? 'rank-1' : s.rank === 2 ? 'rank-2' : s.rank === 3 ? 'rank-3' : '';
+    const diffColor = s.diff > 0 ? 'var(--success)' : 'var(--danger)';
+    html += '<tr><td>' + s.year + '</td><td class="' + rankClass + '">' + ordinal(s.rank) + '</td>';
+    html += '<td class="win">' + s.wins + '</td><td class="loss">' + s.losses + '</td>';
+    html += '<td>' + (s.winPct * 100).toFixed(0) + '%</td>';
+    html += '<td>' + (s.pf ? s.pf.toFixed(1) : '-') + '</td><td>' + (s.pa ? s.pa.toFixed(1) : '-') + '</td>';
+    html += '<td style="color:' + diffColor + '">' + (s.diff > 0 ? '+' : '') + (s.diff ? s.diff.toFixed(1) : '-') + '</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  
+  // Win chart
+  html += '<div class="chart-container" style="margin-top:1.5rem"><canvas id="memberChart"></canvas></div>';
+  
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('memberModal').classList.add('open');
+  
+  // Render chart after modal is visible
+  setTimeout(() => {
+    const ctx = document.getElementById('memberChart');
+    if (ctx) {
+      const sortedSeasons = p.seasons.sort((a,b) => a.year - b.year);
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: sortedSeasons.map(s => s.year),
+          datasets: [{
+            label: 'Wins',
+            data: sortedSeasons.map(s => s.wins),
+            borderColor: getMemberColor(p.name),
+            backgroundColor: getMemberColor(p.name) + '33',
+            fill: true, tension: 0.3, pointRadius: 5
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#e0e0e0' } } },
+          scales: {
+            y: { ticks: { color: '#888' }, grid: { color: '#2a2a4a' } },
+            x: { ticks: { color: '#888' }, grid: { color: '#2a2a4a' } }
+          }
+        }
+      });
+    }
+  }, 100);
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget && !e) return;
+  document.getElementById('memberModal').classList.remove('open');
+}
+
+function renderRecords() {
+  // Group records by category section
+  const categories = {};
+  let currentCat = 'General';
+  DATA.records.forEach(r => {
+    if (r.category && !r.record && !r.team) {
+      currentCat = r.category.replace(/:/g, '');
+    } else if (r.category) {
+      if (!categories[currentCat]) categories[currentCat] = [];
+      categories[currentCat].push(r);
+    }
+  });
+  
+  // If no category sections found, just use the category field
+  if (Object.keys(categories).length <= 1) {
+    const grouped = {};
+    DATA.records.forEach(r => {
+      const key = r.category.includes(',') ? r.category.split(',')[0].trim() : 'League Records';
+      if (!grouped[key]) grouped[key] = [];
+      grouped[key].push(r);
+    });
+    Object.assign(categories, grouped);
+  }
+  
+  const catKeys = Object.keys(categories).filter(k => categories[k].length > 0);
+  
+  // Render tabs
+  document.getElementById('recordTabs').innerHTML = catKeys.slice(0, 8).map((k, i) => 
+    '<div class="tab' + (i === 0 ? ' active' : '') + '" onclick="switchRecordTab(this, ' + i + ')">' + k + '</div>'
+  ).join('');
+  
+  // Render first tab content
+  window._recordCategories = categories;
+  window._recordKeys = catKeys;
+  switchRecordTab(null, 0);
+}
+
+function switchRecordTab(el, idx) {
+  const keys = window._recordKeys;
+  const cats = window._recordCategories;
+  if (!keys || !keys[idx]) return;
+  
+  document.querySelectorAll('#recordTabs .tab').forEach(t => t.classList.remove('active'));
+  if (el) el.classList.add('active');
+  else document.querySelectorAll('#recordTabs .tab')[idx]?.classList.add('active');
+  
+  const records = cats[keys[idx]] || [];
+  let html = '<div class="record-cats">';
+  records.forEach(r => {
+    let val = r.record;
+    if (typeof val === 'number') val = val % 1 === 0 ? val : val.toFixed(1);
+    html += '<div class="card" style="padding:1rem"><div class="record-item">' +
+      '<span class="label">' + r.category + '</span>' +
+      '<span class="value">' + val + '</span>' +
+      '<span class="holder">' + r.team + (r.year ? ' (' + r.year + ')' : '') + '</span>' +
+    '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('recordContent').innerHTML = html;
+}
+
+function renderPlayoffDropdown() {
+  const years = [...new Set(DATA.playoffs.map(r => r.year))].sort((a,b) => b - a);
+  let html = '<select id="playoffYear" onchange="renderPlayoffs()">';
+  html += '<option value="all">All Years</option>';
+  years.forEach(y => { html += '<option value="' + y + '">' + y + '</option>'; });
+  html += '</select>';
+  document.getElementById('playoffControls').innerHTML = html;
+  renderPlayoffs();
+}
+
+function renderPlayoffs() {
+  const yearVal = document.getElementById('playoffYear').value;
+  let data = DATA.playoffs;
+  if (yearVal !== 'all') data = data.filter(r => r.year === parseInt(yearVal));
+  
+  // Group by year
+  const byYear = {};
+  data.forEach(r => {
+    if (!byYear[r.year]) byYear[r.year] = [];
+    byYear[r.year].push(r);
+  });
+  
+  let html = '';
+  Object.keys(byYear).sort((a,b) => b - a).forEach(year => {
+    const games = byYear[year];
+    html += '<h3 style="color:var(--accent);margin:1.5rem 0 0.8rem;font-family:Oswald,sans-serif">' + year + ' PLAYOFFS</h3>';
+    html += '<div class="table-wrap"><table><thead><tr><th>Round</th><th>Place</th><th>Team</th><th>Score</th><th>Result</th><th>Opponent</th><th>Opp Score</th><th>Margin</th></tr></thead><tbody>';
+    games.forEach(g => {
+      const wlClass = g.wl === 'W' ? 'win' : 'loss';
+      const diffColor = g.diff > 0 ? 'var(--success)' : 'var(--danger)';
+      html += '<tr><td>' + g.round + '</td><td style="color:' + (g.place === '1st' ? 'var(--gold)' : g.place === '2nd' ? 'var(--silver)' : g.place === '3rd' ? 'var(--bronze)' : 'var(--text)') + ';font-weight:600">' + (g.place || '-') + '</td>';
+      html += '<td style="color:' + getMemberColor(g.team) + ';font-weight:600">' + g.team + '</td>';
+      html += '<td>' + (g.score || '-') + '</td><td class="' + wlClass + '">' + g.wl + '</td>';
+      html += '<td style="color:' + getMemberColor(g.opponent) + '">' + g.opponent + '</td>';
+      html += '<td>' + (g.pa || '-') + '</td>';
+      html += '<td style="color:' + diffColor + '">' + (g.diff > 0 ? '+' : '') + (g.diff || '-') + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+  });
+  document.getElementById('playoffContent').innerHTML = html;
+}
+
+function renderH2HDropdown() {
+  const members = CURRENT_MEMBERS.sort();
+  let html = '<select id="h2hMember" onchange="renderH2H()">';
+  members.forEach(m => { html += '<option value="' + m + '">' + m + '</option>'; });
+  html += '</select>';
+  document.getElementById('h2hControls').innerHTML = html;
+  renderH2H();
+}
+
+function renderH2H() {
+  const selected = document.getElementById('h2hMember').value;
+  const p = memberProfiles[selected];
+  if (!p) { document.getElementById('h2hContent').innerHTML = '<p>No data available</p>'; return; }
+  
+  // Calculate H2H from year-by-year data and playoffs
+  // We need to compute this from the regular season + playoff data
+  // For now, we compute approximate H2H from the playoffs data
+  const h2hData = {};
+  
+  // Count wins/losses against each opponent from playoffs
+  DATA.playoffs.forEach(game => {
+    if (game.team === selected) {
+      if (!h2hData[game.opponent]) h2hData[game.opponent] = { w: 0, l: 0 };
+      if (game.wl === 'W') h2hData[game.opponent].w++;
+      else h2hData[game.opponent].l++;
+    }
+  });
+  
+  let html = '<h3 style="color:#fff;margin-bottom:1rem;font-family:Oswald,sans-serif">PLAYOFF HEAD-TO-HEAD FOR ' + selected.toUpperCase() + '</h3>';
+  html += '<div class="h2h-grid">';
+  
+  const opponents = Object.keys(h2hData).sort();
+  if (opponents.length === 0) {
+    html += '<p style="color:var(--text-muted)">No playoff matchup data available for this member.</p>';
+  } else {
+    opponents.forEach(opp => {
+      const rec = h2hData[opp];
+      const cls = rec.w > rec.l ? 'positive' : rec.w < rec.l ? 'negative' : 'even';
+      html += '<div class="h2h-cell ' + cls + '">' +
+        '<div class="opponent">' + opp + '</div>' +
+        '<div class="record">' + rec.w + '-' + rec.l + '</div>' +
+      '</div>';
+    });
+  }
+  html += '</div>';
+  
+  // Also show season-by-season comparison
+  html += '<h3 style="color:#fff;margin:2rem 0 1rem;font-family:Oswald,sans-serif">SEASON PERFORMANCE COMPARISON</h3>';
+  html += '<div class="chart-container"><canvas id="h2hChart"></canvas></div>';
+  
+  document.getElementById('h2hContent').innerHTML = html;
+  
+  // Render comparison chart
+  setTimeout(() => {
+    const ctx = document.getElementById('h2hChart');
+    if (!ctx) return;
+    const seasons = p.seasons.sort((a,b) => a.year - b.year);
+    const years = seasons.map(s => s.year);
+    
+    // Get top rivals (most playoff matchups)
+    const rivals = opponents.slice(0, 3);
+    const datasets = [{
+      label: selected,
+      data: seasons.map(s => s.wins),
+      borderColor: getMemberColor(selected),
+      backgroundColor: getMemberColor(selected) + '33',
+      fill: false, tension: 0.3, pointRadius: 4
+    }];
+    
+    rivals.forEach(rival => {
+      const rp = memberProfiles[rival];
+      if (rp) {
+        datasets.push({
+          label: rival,
+          data: years.map(y => {
+            const rs = rp.seasons.find(s => s.year === y);
+            return rs ? rs.wins : null;
+          }),
+          borderColor: getMemberColor(rival),
+          fill: false, tension: 0.3, pointRadius: 4, borderDash: [5, 5]
+        });
+      }
+    });
+    
+    new Chart(ctx, {
+      type: 'line',
+      data: { labels: years, datasets },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#e0e0e0' } }, title: { display: true, text: 'Wins Per Season', color: '#e0e0e0' } },
+        scales: {
+          y: { ticks: { color: '#888' }, grid: { color: '#2a2a4a' }, title: { display: true, text: 'Wins', color: '#888' } },
+          x: { ticks: { color: '#888' }, grid: { color: '#2a2a4a' } }
+        }
+      }
+    });
+  }, 100);
+}
+
+function showPage(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const pageEl = document.getElementById('page-' + page);
+  if (pageEl) pageEl.classList.add('active');
+  const navEl = document.querySelector('[data-page="' + page + '"]');
+  if (navEl) navEl.classList.add('active');
+  document.getElementById('navLinks').classList.remove('open');
+  window.scrollTo(0, 0);
+  
+  // Destroy any existing charts to prevent memory leaks
+  Chart.helpers?.each(Chart.instances, (instance) => {});
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+function ordinal(n) {
+  n = parseInt(n);
+  if (isNaN(n)) return '-';
+  const s = ['th', 'st', 'nd', 'rd'];
+  const v = n % 100;
+  return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+function getMemberColor(name) {
+  return MEMBER_COLORS[name] || '#' + Math.floor(Math.abs(Math.sin(name.split('').reduce((a,c) => a + c.charCodeAt(0), 0)) * 16777215)).toString(16).padStart(6, '0');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', loadAllData);
+</script>
+</body>
+</html>
