@@ -173,6 +173,7 @@ select:focus, input[type="text"]:focus {
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('members')" data-page="members">Members</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('records')" data-page="records">Records</a></li>
     <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('h2h')" data-page="h2h">H2H</a></li>
+    <li><a href="javascript:void(0)" onclick="event.preventDefault();showPage('teams')" data-page="teams">Teams</a></li>
   </ul>
 </nav>
 
@@ -272,6 +273,74 @@ select:focus, input[type="text"]:focus {
     <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Head to Head Records</h2>
     <div class="controls flex flex-wrap gap-3" id="h2hControls"></div>
     <div id="h2hContent"></div>
+  </div>
+</div>
+
+<!-- Teams Page -->
+<div class="page" id="page-teams">
+  <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
+
+    <!-- Selector View -->
+    <div id="teamSelectorView">
+      <h2 class="mb-2 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Teams</h2>
+      <p class="mb-6 ml-5 text-sm text-[var(--text-muted)]">Select a team to view their full profile and statistics</p>
+      <div class="mb-6 flex flex-wrap gap-3">
+        <input type="text" id="teamSearch" placeholder="Search teams..." oninput="renderTeamSelector()"
+               class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-4 py-2 text-white outline-none focus:border-[var(--accent)]">
+        <select id="teamSortMetric" onchange="renderTeamSelector()"
+                class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-4 py-2 text-white outline-none focus:border-[var(--accent)]">
+          <option value="wins">Sort by Wins</option>
+          <option value="winpct">Sort by Win %</option>
+          <option value="titles">Sort by Titles</option>
+          <option value="pf">Sort by Points For</option>
+          <option value="seasons">Sort by Seasons</option>
+          <option value="alpha">Alphabetical</option>
+        </select>
+        <select id="teamFilterStatus" onchange="renderTeamSelector()"
+                class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-4 py-2 text-white outline-none focus:border-[var(--accent)]">
+          <option value="all">All Members</option>
+          <option value="current">Current Members</option>
+          <option value="former">Former Members</option>
+        </select>
+      </div>
+      <div id="teamSelectorGrid" class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></div>
+    </div>
+
+    <!-- Profile View -->
+    <div id="teamProfileView" class="hidden">
+      <button onclick="clearTeamSelection()"
+              class="mb-5 flex items-center gap-2 rounded-lg border border-[var(--border)] bg-[var(--card)] px-4 py-2 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:border-[var(--accent)] hover:text-[var(--accent)]">
+        &#8592; Back to Teams
+      </button>
+
+      <div id="teamHeroHeader" class="mb-6 overflow-hidden rounded-2xl"></div>
+
+      <!-- Year range filter -->
+      <div class="mb-5 flex flex-wrap items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--card)] px-5 py-3">
+        <span class="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">Filter by Year</span>
+        <select id="teamYearFrom" onchange="refreshTeamProfile()"
+                class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-1.5 text-sm text-white outline-none focus:border-[var(--accent)]"></select>
+        <span class="text-[var(--text-muted)]">to</span>
+        <select id="teamYearTo" onchange="refreshTeamProfile()"
+                class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-1.5 text-sm text-white outline-none focus:border-[var(--accent)]"></select>
+        <button onclick="resetTeamYearFilter()"
+                class="rounded-lg border border-[var(--border)] bg-[var(--secondary)] px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[var(--text-muted)] hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors">All Years</button>
+      </div>
+
+      <!-- Sub-tabs -->
+      <div class="mb-6 flex flex-wrap border-b border-[var(--border)]">
+        <button id="team-tab-btn-overview" onclick="showTeamTab('overview')" class="team-subtab border-b-2 border-[var(--accent)] px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--accent)] transition-colors">Overview</button>
+        <button id="team-tab-btn-stats" onclick="showTeamTab('stats')" class="team-subtab border-b-2 border-transparent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:text-white">Statistics</button>
+        <button id="team-tab-btn-h2h" onclick="showTeamTab('h2h')" class="team-subtab border-b-2 border-transparent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:text-white">Head-to-Head</button>
+        <button id="team-tab-btn-draft" onclick="showTeamTab('draft')" class="team-subtab border-b-2 border-transparent px-6 py-3 text-sm font-semibold uppercase tracking-wide text-[var(--text-muted)] transition-colors hover:text-white">Draft</button>
+      </div>
+
+      <div id="team-panel-overview"></div>
+      <div id="team-panel-stats" class="hidden"></div>
+      <div id="team-panel-h2h" class="hidden"></div>
+      <div id="team-panel-draft" class="hidden"></div>
+    </div>
+
   </div>
 </div>
 
@@ -726,6 +795,7 @@ function renderAllPages() {
   renderRecords();
   renderPlayoffDropdown();
   renderH2HDropdown();
+  renderTeamsPage();
 }
 
 function renderHome() {
@@ -1663,6 +1733,627 @@ function renderTeamBadge(name) {
   const primary = getMemberColor(name);
   const secondary = getMemberSecondaryColor(name);
   return '<span class="team-badge" style="background:' + secondary + ';border-color:' + primary + ';color:' + primary + '">' + escapeHtml(name) + '</span>';
+}
+
+// ===== TEAMS PAGE =====
+let _selectedTeam = null;
+
+function renderTeamsPage() {
+  renderTeamSelector();
+}
+
+function renderTeamSelector() {
+  const search = (document.getElementById('teamSearch')?.value || '').toLowerCase();
+  const sortBy = document.getElementById('teamSortMetric')?.value || 'wins';
+  const filterStatus = document.getElementById('teamFilterStatus')?.value || 'all';
+
+  let profiles = Object.values(memberProfiles);
+  if (filterStatus === 'current') profiles = profiles.filter(p => p.isCurrent);
+  if (filterStatus === 'former') profiles = profiles.filter(p => !p.isCurrent);
+  if (search) profiles = profiles.filter(p => p.name.toLowerCase().includes(search));
+
+  switch (sortBy) {
+    case 'wins': profiles.sort((a, b) => b.totalWins - a.totalWins); break;
+    case 'winpct': profiles.sort((a, b) => {
+      const ap = a.totalWins / (a.totalWins + a.totalLosses) || 0;
+      const bp = b.totalWins / (b.totalWins + b.totalLosses) || 0;
+      return bp - ap;
+    }); break;
+    case 'titles': profiles.sort((a, b) => b.titles - a.titles || b.totalWins - a.totalWins); break;
+    case 'pf': profiles.sort((a, b) => b.totalPF - a.totalPF); break;
+    case 'seasons': profiles.sort((a, b) => b.seasons.length - a.seasons.length); break;
+    case 'alpha': profiles.sort((a, b) => a.name.localeCompare(b.name)); break;
+  }
+
+  const grid = document.getElementById('teamSelectorGrid');
+  if (!grid) return;
+
+  if (!profiles.length) {
+    grid.innerHTML = '<div class="col-span-full rounded-xl border border-[var(--border)] bg-[var(--card)] p-8 text-center text-[var(--text-muted)]">No teams found matching your search.</div>';
+    return;
+  }
+
+  grid.innerHTML = profiles.map(p => {
+    const pct = p.totalWins + p.totalLosses > 0 ? (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1) : '0.0';
+    const primary = getMemberColor(p.name);
+    const secondary = getMemberSecondaryColor(p.name);
+    const cardText = contrastColor(secondary);
+    const avatarText = contrastColor(primary);
+    const initials = p.name.split(' ').map(w => w[0]?.toUpperCase() || '').join('');
+    const safeN = p.name.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return '<div class="cursor-pointer rounded-2xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:scale-[1.02]" style="border:3px solid ' + primary + ';background:' + secondary + '" onclick="selectTeam(\'' + safeN + '\')">' +
+      '<div class="px-5 py-4 flex items-center gap-4" style="background:' + primary + '">' +
+        '<div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full text-xl font-bold" style="background:rgba(255,255,255,0.2);color:' + avatarText + '">' + initials + '</div>' +
+        '<div class="min-w-0 flex-1">' +
+          '<div class="font-[Oswald] text-base font-bold leading-tight truncate" style="color:' + avatarText + '">' + escapeHtml(p.name) + '</div>' +
+          '<div class="text-xs" style="color:' + avatarText + ';opacity:0.8">' + p.seasons.length + ' seasons' + (p.isCurrent ? ' \u2022 Active' : '') + '</div>' +
+        '</div>' +
+        (p.titles > 0 ? '<img src="trophy.svg" class="h-6 w-6 flex-shrink-0" alt="champion">' : '') +
+      '</div>' +
+      '<div class="px-5 py-4">' +
+        '<div class="grid grid-cols-3 gap-2 text-center">' +
+          '<div><div class="font-[Oswald] text-lg font-bold" style="color:' + cardText + '">' + p.totalWins + '-' + p.totalLosses + '</div><div class="text-xs uppercase tracking-wide" style="color:' + cardText + ';opacity:0.6">Record</div></div>' +
+          '<div><div class="font-[Oswald] text-lg font-bold" style="color:' + cardText + '">' + pct + '%</div><div class="text-xs uppercase tracking-wide" style="color:' + cardText + ';opacity:0.6">Win %</div></div>' +
+          '<div><div class="font-[Oswald] text-lg font-bold" style="color:' + cardText + '">' + p.titles + '</div><div class="text-xs uppercase tracking-wide" style="color:' + cardText + ';opacity:0.6">Titles</div></div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+function selectTeam(name) {
+  _selectedTeam = name;
+  document.getElementById('teamSelectorView').classList.add('hidden');
+  document.getElementById('teamProfileView').classList.remove('hidden');
+
+  const p = memberProfiles[name];
+  if (!p) return;
+  const years = p.seasons.map(s => s.year).sort((a, b) => a - b);
+  const fromEl = document.getElementById('teamYearFrom');
+  const toEl = document.getElementById('teamYearTo');
+  if (fromEl && toEl) {
+    const opts = years.map(y => '<option value="' + y + '">' + y + '</option>').join('');
+    fromEl.innerHTML = opts;
+    toEl.innerHTML = opts;
+    fromEl.value = years[0];
+    toEl.value = years[years.length - 1];
+  }
+
+  renderTeamHeroHeader(name);
+  // Reset to overview tab
+  document.querySelectorAll('.team-subtab').forEach(btn => {
+    btn.classList.remove('border-[var(--accent)]', 'text-[var(--accent)]');
+    btn.classList.add('border-transparent', 'text-[var(--text-muted)]');
+  });
+  const ovBtn = document.getElementById('team-tab-btn-overview');
+  if (ovBtn) { ovBtn.classList.add('border-[var(--accent)]', 'text-[var(--accent)]'); ovBtn.classList.remove('border-transparent', 'text-[var(--text-muted)]'); }
+  ['stats', 'h2h', 'draft'].forEach(t => document.getElementById('team-panel-' + t)?.classList.add('hidden'));
+  document.getElementById('team-panel-overview')?.classList.remove('hidden');
+  renderTeamOverview(name);
+}
+
+function clearTeamSelection() {
+  _selectedTeam = null;
+  document.getElementById('teamSelectorView').classList.remove('hidden');
+  document.getElementById('teamProfileView').classList.add('hidden');
+}
+
+function resetTeamYearFilter() {
+  if (!_selectedTeam) return;
+  const p = memberProfiles[_selectedTeam];
+  if (!p) return;
+  const years = p.seasons.map(s => s.year).sort((a, b) => a - b);
+  const fromEl = document.getElementById('teamYearFrom');
+  const toEl = document.getElementById('teamYearTo');
+  if (fromEl) fromEl.value = years[0];
+  if (toEl) toEl.value = years[years.length - 1];
+  refreshTeamProfile();
+}
+
+function refreshTeamProfile() {
+  if (!_selectedTeam) return;
+  const activeBtn = document.querySelector('.team-subtab.border-\\[var\\(--accent\\)\\]') ||
+                    document.getElementById('team-tab-btn-overview');
+  const tabId = activeBtn?.id?.replace('team-tab-btn-', '') || 'overview';
+  renderTeamTabContent(tabId, _selectedTeam);
+}
+
+function getTeamYearRange() {
+  const fromEl = document.getElementById('teamYearFrom');
+  const toEl = document.getElementById('teamYearTo');
+  const from = fromEl ? parseInt(fromEl.value) || 0 : 0;
+  const to = toEl ? parseInt(toEl.value) || 9999 : 9999;
+  return { from, to };
+}
+
+function showTeamTab(tab) {
+  document.querySelectorAll('.team-subtab').forEach(btn => {
+    btn.classList.remove('border-[var(--accent)]', 'text-[var(--accent)]');
+    btn.classList.add('border-transparent', 'text-[var(--text-muted)]');
+  });
+  const activeBtn = document.getElementById('team-tab-btn-' + tab);
+  if (activeBtn) {
+    activeBtn.classList.add('border-[var(--accent)]', 'text-[var(--accent)]');
+    activeBtn.classList.remove('border-transparent', 'text-[var(--text-muted)]');
+  }
+  ['overview', 'stats', 'h2h', 'draft'].forEach(t => {
+    document.getElementById('team-panel-' + t)?.classList.toggle('hidden', t !== tab);
+  });
+  if (_selectedTeam) renderTeamTabContent(tab, _selectedTeam);
+}
+
+function renderTeamTabContent(tab, name) {
+  switch (tab) {
+    case 'overview': renderTeamOverview(name); break;
+    case 'stats': renderTeamStats(name); break;
+    case 'h2h': renderTeamH2H(name); break;
+    case 'draft': renderTeamDraft(name); break;
+  }
+}
+
+function renderTeamHeroHeader(name) {
+  const p = memberProfiles[name];
+  if (!p) return;
+  const primary = getMemberColor(name);
+  const secondary = getMemberSecondaryColor(name);
+  const primaryText = contrastColor(primary);
+  const initials = name.split(' ').map(w => w[0]?.toUpperCase() || '').join('');
+  const pct = p.totalWins + p.totalLosses > 0 ? (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1) : '0.0';
+  const latestSeason = p.seasons.reduce((a, b) => b.year > a.year ? b : a, p.seasons[0] || {});
+  const avgPF = p.seasons.length > 0 ? (p.totalPF / p.seasons.length) : 0;
+
+  let html = '<div style="background:linear-gradient(135deg,' + primary + ' 0%,' + secondary + ' 100%)">';
+  html += '<div class="flex flex-wrap items-center gap-6 px-8 py-8">';
+  html += '<div class="flex h-24 w-24 flex-shrink-0 items-center justify-center rounded-full text-4xl font-bold shadow-2xl" style="background:rgba(255,255,255,0.18);border:3px solid rgba(255,255,255,0.35);color:' + primaryText + '">' + initials + '</div>';
+  html += '<div class="flex-1 min-w-0">';
+  html += '<h2 class="mb-1 font-[Oswald] text-3xl font-bold md:text-4xl" style="color:' + primaryText + '">' + escapeHtml(name) + '</h2>';
+  html += '<div class="flex flex-wrap items-center gap-3 text-sm" style="color:' + primaryText + ';opacity:0.85">';
+  html += '<span>' + p.seasons.length + ' Seasons</span><span>\u2022</span>';
+  html += '<span>' + p.totalWins + '-' + p.totalLosses + ' All-Time</span>';
+  if (p.titles > 0) { html += '<span>\u2022</span><span>' + p.titles + ' Championship' + (p.titles > 1 ? 's' : '') + '</span>'; }
+  if (p.runnerUp > 0) { html += '<span>\u2022</span><span>' + p.runnerUp + ' Runner-Up</span>'; }
+  if (latestSeason && latestSeason.year) { html += '<span>\u2022</span><span>' + latestSeason.year + ': ' + (latestSeason.wins || 0) + '-' + (latestSeason.losses || 0) + '</span>'; }
+  html += '</div>';
+  html += '</div>';
+  if (p.titles > 0) {
+    html += '<div class="flex items-center gap-1 flex-shrink-0">';
+    for (let i = 0; i < Math.min(p.titles, 5); i++) { html += '<img src="trophy.svg" class="h-10 w-10" alt="trophy">'; }
+    html += '</div>';
+  }
+  html += '</div>';
+  html += '<div class="grid grid-cols-2 gap-px sm:grid-cols-4" style="border-top:1px solid rgba(255,255,255,0.2);background:rgba(0,0,0,0.25)">';
+  const qs = (val, lbl) => '<div style="background:rgba(0,0,0,0.2)" class="px-6 py-3 text-center"><div class="font-[Oswald] text-xl font-bold" style="color:' + primaryText + '">' + val + '</div><div class="text-xs uppercase tracking-wide" style="color:' + primaryText + ';opacity:0.65">' + lbl + '</div></div>';
+  html += qs(pct + '%', 'Win Rate');
+  html += qs(ordinal(p.bestFinish), 'Best Finish');
+  html += qs(Math.round(p.totalPF).toLocaleString(), 'Total PF');
+  html += qs(Math.round(avgPF).toLocaleString(), 'Avg PF / Season');
+  html += '</div></div>';
+  document.getElementById('teamHeroHeader').innerHTML = html;
+}
+
+function renderTeamOverview(name) {
+  const p = memberProfiles[name];
+  if (!p) return;
+  const { from, to } = getTeamYearRange();
+  const primary = getMemberColor(name);
+
+  const filteredSeasons = p.seasons.filter(s => s.year >= from && s.year <= to).sort((a, b) => b.year - a.year);
+  const filteredWins = filteredSeasons.reduce((s, r) => s + (r.wins || 0), 0);
+  const filteredLosses = filteredSeasons.reduce((s, r) => s + (r.losses || 0), 0);
+  const filteredPct = filteredWins + filteredLosses > 0 ? (filteredWins / (filteredWins + filteredLosses) * 100).toFixed(1) : '0.0';
+
+  const titlesInRange = DATA.champs.filter(c => parseInt(c.year) >= from && parseInt(c.year) <= to && c.first.toLowerCase() === name.toLowerCase()).length;
+  const playoffYearsSet = new Set();
+  DATA.playoffs.filter(r => r.team.toLowerCase() === name.toLowerCase() && parseInt(r.year) >= from && parseInt(r.year) <= to).forEach(r => playoffYearsSet.add(r.year));
+  DATA.champs.filter(c => parseInt(c.year) >= from && parseInt(c.year) <= to && (c.first.toLowerCase() === name.toLowerCase() || (c.second || '').toLowerCase() === name.toLowerCase())).forEach(c => playoffYearsSet.add(c.year));
+
+  let html = '';
+
+  // Summary stat boxes
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">';
+  html += statBox(filteredWins + '-' + filteredLosses, 'Record');
+  html += statBox(filteredPct + '%', 'Win Rate');
+  html += statBox(titlesInRange, 'Championships');
+  html += statBox(playoffYearsSet.size, 'Playoff Apps');
+  html += '</div>';
+
+  // Championship / runner-up badges
+  const champYears = DATA.champs.filter(c => parseInt(c.year) >= from && parseInt(c.year) <= to && c.first.toLowerCase() === name.toLowerCase());
+  const runnerUpYears = DATA.champs.filter(c => parseInt(c.year) >= from && parseInt(c.year) <= to && (c.second || '').toLowerCase() === name.toLowerCase());
+  if (champYears.length > 0 || runnerUpYears.length > 0) {
+    html += '<div class="mb-6 rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">';
+    html += '<h3 class="mb-4 font-[Oswald] text-sm uppercase tracking-wider text-[var(--accent)]">Championship History</h3>';
+    html += '<div class="flex flex-wrap gap-3">';
+    champYears.forEach(c => { html += '<div class="flex items-center gap-2 rounded-xl border border-yellow-500/40 bg-yellow-500/10 px-4 py-2"><img src="trophy.svg" class="h-5 w-5" alt="trophy"><span class="font-[Oswald] font-bold text-yellow-400">' + c.year + ' Champion</span></div>'; });
+    runnerUpYears.forEach(c => { html += '<div class="flex items-center gap-2 rounded-xl border border-[var(--border)] bg-[var(--secondary)] px-4 py-2"><span>\uD83E\uDD48</span><span class="font-[Oswald] text-[var(--text-muted)]">' + c.year + ' Runner-Up</span></div>'; });
+    html += '</div></div>';
+  }
+
+  // Best / worst seasons
+  if (filteredSeasons.length > 0) {
+    const bestSeason = [...filteredSeasons].sort((a, b) => b.wins - a.wins || a.losses - b.losses)[0];
+    const worstSeason = [...filteredSeasons].sort((a, b) => a.wins - b.wins || b.losses - a.losses)[0];
+    html += '<div class="mb-6 grid gap-4 sm:grid-cols-2">';
+    html += '<div class="rounded-xl border border-[var(--success)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--success)]">Best Season</div>';
+    html += '<div class="text-3xl font-bold text-[var(--success)]">' + bestSeason.year + '</div>';
+    html += '<div class="mt-1 text-lg">' + bestSeason.wins + '-' + bestSeason.losses + ' \u2022 ' + (bestSeason.winPct * 100).toFixed(0) + '%</div>';
+    html += '<div class="text-sm text-[var(--text-muted)]">Finished ' + ordinal(bestSeason.rank) + '</div>';
+    html += '</div>';
+    html += '<div class="rounded-xl border border-[var(--danger)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--danger)]">Worst Season</div>';
+    html += '<div class="text-3xl font-bold text-[var(--danger)]">' + worstSeason.year + '</div>';
+    html += '<div class="mt-1 text-lg">' + worstSeason.wins + '-' + worstSeason.losses + ' \u2022 ' + (worstSeason.winPct * 100).toFixed(0) + '%</div>';
+    html += '<div class="text-sm text-[var(--text-muted)]">Finished ' + ordinal(worstSeason.rank) + '</div>';
+    html += '</div>';
+    html += '</div>';
+  }
+
+  // Season-by-season table
+  html += '<h3 class="mb-4 font-[Oswald] text-lg font-bold text-white">Season by Season</h3>';
+  html += '<div class="table-wrap overflow-x-auto mb-6"><table><thead><tr><th>Year</th><th>Finish</th><th>W</th><th>L</th><th>Win%</th><th>PF</th><th>PA</th><th>Diff</th><th>High</th><th>Low</th><th>Playoff</th></tr></thead><tbody>';
+  filteredSeasons.forEach(s => {
+    const rankClass = s.rank === 1 ? 'rank-1' : s.rank === 2 ? 'rank-2' : s.rank === 3 ? 'rank-3' : '';
+    const diffColor = s.diff > 0 ? 'var(--success)' : 'var(--danger)';
+    const wasChamp = DATA.champs.some(c => parseInt(c.year) === parseInt(s.year) && c.first.toLowerCase() === name.toLowerCase());
+    const wasRunnerUp = DATA.champs.some(c => parseInt(c.year) === parseInt(s.year) && (c.second || '').toLowerCase() === name.toLowerCase());
+    const wasPlayoff = DATA.playoffs.some(r => r.team.toLowerCase() === name.toLowerCase() && parseInt(r.year) === parseInt(s.year));
+    const playoffTag = wasChamp
+      ? '<span class="text-xs font-bold text-yellow-400">Champion</span>'
+      : wasRunnerUp ? '<span class="text-xs text-[var(--text-muted)]">Runner-Up</span>'
+      : wasPlayoff ? '<span class="text-xs text-[var(--success)]">Playoffs</span>'
+      : '<span class="text-xs text-[var(--danger)]">Missed</span>';
+    html += '<tr>';
+    html += '<td class="font-semibold">' + s.year + '</td>';
+    html += '<td class="' + rankClass + '">' + ordinal(s.rank) + '</td>';
+    html += '<td class="win">' + (s.wins || 0) + '</td><td class="loss">' + (s.losses || 0) + '</td>';
+    html += '<td>' + (s.winPct ? (s.winPct * 100).toFixed(0) : 0) + '%</td>';
+    html += '<td>' + (s.pf ? s.pf.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (s.pa ? s.pa.toFixed(1) : '-') + '</td>';
+    html += '<td style="color:' + diffColor + '">' + (s.diff > 0 ? '+' : '') + (s.diff ? s.diff.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (s.high || '-') + '</td><td>' + (s.low || '-') + '</td>';
+    html += '<td>' + playoffTag + '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+
+  html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"><canvas id="teamOverviewChart"></canvas></div>';
+
+  const el = document.getElementById('team-panel-overview');
+  if (el) el.innerHTML = html;
+
+  setTimeout(() => {
+    const ctx = document.getElementById('teamOverviewChart');
+    if (!ctx) return;
+    const sorted = filteredSeasons.slice().sort((a, b) => a.year - b.year);
+    const existing = Chart.getChart(ctx);
+    if (existing) existing.destroy();
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: sorted.map(s => s.year),
+        datasets: [
+          { label: 'Wins', data: sorted.map(s => s.wins || 0), backgroundColor: primary + 'cc', borderColor: primary, borderWidth: 2, borderRadius: 4 },
+          { label: 'Losses', data: sorted.map(s => s.losses || 0), backgroundColor: 'rgba(248,113,113,0.45)', borderColor: '#f87171', borderWidth: 2, borderRadius: 4 }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#e0e0e0' } }, title: { display: true, text: 'Wins & Losses Per Season', color: '#e0e0e0' } },
+        scales: {
+          y: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          x: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }, 100);
+}
+
+function renderTeamStats(name) {
+  const p = memberProfiles[name];
+  if (!p) return;
+  const { from, to } = getTeamYearRange();
+  const primary = getMemberColor(name);
+
+  const filteredSeasons = p.seasons.filter(s => s.year >= from && s.year <= to);
+  const totalPF = filteredSeasons.reduce((s, r) => s + (r.pf || 0), 0);
+  const totalGames = filteredSeasons.reduce((s, r) => s + (r.wins || 0) + (r.losses || 0), 0);
+  const avgPFPerGame = totalGames > 0 ? totalPF / totalGames : 0;
+  const avgPFPerSeason = filteredSeasons.length > 0 ? totalPF / filteredSeasons.length : 0;
+
+  const teamGames = DATA.regularSeason.filter(g => g.team.toLowerCase() === name.toLowerCase() && g.year >= from && g.year <= to && g.pointsFor);
+  const highestGame = teamGames.length > 0 ? teamGames.reduce((a, b) => (b.pointsFor || 0) > (a.pointsFor || 0) ? b : a) : null;
+  const lowestGame = teamGames.length > 0 ? [...teamGames].sort((a, b) => a.pointsFor - b.pointsFor)[0] : null;
+  const bestPFSeason = filteredSeasons.length > 0 ? [...filteredSeasons].sort((a, b) => (b.pf || 0) - (a.pf || 0))[0] : null;
+  const worstPFSeason = filteredSeasons.length > 0 ? [...filteredSeasons].filter(s => s.pf > 0).sort((a, b) => (a.pf || 0) - (b.pf || 0))[0] : null;
+
+  let html = '';
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">';
+  html += statBox(Math.round(totalPF).toLocaleString(), 'Total Points Scored');
+  html += statBox(avgPFPerGame.toFixed(1), 'Avg Pts / Game');
+  html += statBox(Math.round(avgPFPerSeason).toLocaleString(), 'Avg Pts / Season');
+  html += statBox(totalGames, 'Games Played');
+  html += '</div>';
+
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-2">';
+  if (highestGame) {
+    html += '<div class="rounded-xl border border-[var(--success)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--success)]">Highest Scoring Game</div>';
+    html += '<div class="text-4xl font-bold text-[var(--success)]">' + highestGame.pointsFor.toFixed(2) + '</div>';
+    html += '<div class="mt-1 text-sm text-[var(--text-muted)]">' + highestGame.year + ' Week ' + highestGame.week + ' vs ' + escapeHtml(highestGame.opponent || '-') + '</div>';
+    html += '</div>';
+  }
+  if (lowestGame) {
+    html += '<div class="rounded-xl border border-[var(--danger)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--danger)]">Lowest Scoring Game</div>';
+    html += '<div class="text-4xl font-bold text-[var(--danger)]">' + lowestGame.pointsFor.toFixed(2) + '</div>';
+    html += '<div class="mt-1 text-sm text-[var(--text-muted)]">' + lowestGame.year + ' Week ' + lowestGame.week + ' vs ' + escapeHtml(lowestGame.opponent || '-') + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  if (bestPFSeason || worstPFSeason) {
+    html += '<div class="mb-6 grid gap-4 sm:grid-cols-2">';
+    if (bestPFSeason) {
+      html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4"><div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--accent)]">Highest Scoring Season</div>';
+      html += '<div class="font-[Oswald] text-2xl font-bold">' + bestPFSeason.year + '</div>';
+      html += '<div class="text-lg">' + (bestPFSeason.pf ? bestPFSeason.pf.toFixed(1) : '-') + ' pts total</div></div>';
+    }
+    if (worstPFSeason) {
+      html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-4"><div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--text-muted)]">Lowest Scoring Season</div>';
+      html += '<div class="font-[Oswald] text-2xl font-bold">' + worstPFSeason.year + '</div>';
+      html += '<div class="text-lg">' + (worstPFSeason.pf ? worstPFSeason.pf.toFixed(1) : '-') + ' pts total</div></div>';
+    }
+    html += '</div>';
+  }
+
+  html += '<div class="mb-6 rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"><canvas id="teamStatsChart"></canvas></div>';
+
+  const sorted = filteredSeasons.slice().sort((a, b) => b.year - a.year);
+  if (sorted.length > 0) {
+    html += '<h3 class="mb-4 font-[Oswald] text-lg font-bold text-white">Points by Season</h3>';
+    html += '<div class="table-wrap overflow-x-auto"><table><thead><tr><th>Year</th><th>PF</th><th>PA</th><th>Diff</th><th>High Game</th><th>Low Game</th><th>Avg / Week</th></tr></thead><tbody>';
+    sorted.forEach(s => {
+      const games = (s.wins || 0) + (s.losses || 0);
+      const avgWk = games > 0 && s.pf ? (s.pf / games).toFixed(1) : '-';
+      const diffColor = s.diff > 0 ? 'var(--success)' : 'var(--danger)';
+      html += '<tr><td class="font-semibold">' + s.year + '</td>';
+      html += '<td class="font-bold">' + (s.pf ? s.pf.toFixed(1) : '-') + '</td>';
+      html += '<td>' + (s.pa ? s.pa.toFixed(1) : '-') + '</td>';
+      html += '<td style="color:' + diffColor + '">' + (s.diff > 0 ? '+' : '') + (s.diff ? s.diff.toFixed(1) : '-') + '</td>';
+      html += '<td class="text-[var(--success)]">' + (s.high || '-') + '</td>';
+      html += '<td class="text-[var(--danger)]">' + (s.low || '-') + '</td>';
+      html += '<td>' + avgWk + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+  }
+
+  const el = document.getElementById('team-panel-stats');
+  if (el) el.innerHTML = html;
+
+  setTimeout(() => {
+    const ctx = document.getElementById('teamStatsChart');
+    if (!ctx) return;
+    const asc = filteredSeasons.slice().sort((a, b) => a.year - b.year);
+    const existing = Chart.getChart(ctx);
+    if (existing) existing.destroy();
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: asc.map(s => s.year),
+        datasets: [
+          { label: 'Points For', data: asc.map(s => s.pf || 0), borderColor: primary, backgroundColor: primary + '33', fill: true, tension: 0.3, pointRadius: 5 },
+          { label: 'Points Against', data: asc.map(s => s.pa || 0), borderColor: '#f87171', backgroundColor: 'rgba(248,113,113,0.1)', fill: false, tension: 0.3, pointRadius: 4, borderDash: [5, 5] }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#e0e0e0' } }, title: { display: true, text: 'Points For vs Points Against', color: '#e0e0e0' } },
+        scales: {
+          y: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+          x: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }, 100);
+}
+
+function renderTeamH2H(name) {
+  const { from, to } = getTeamYearRange();
+  const h2hData = {};
+
+  const regularGames = DATA.regularSeason.filter(g => g.team.toLowerCase() === name.toLowerCase() && (g.wl === 'W' || g.wl === 'L') && g.year >= from && g.year <= to);
+  const playoffGames = DATA.playoffs.filter(g => g.team.toLowerCase() === name.toLowerCase() && (g.wl === 'W' || g.wl === 'L') && parseInt(g.year) >= from && parseInt(g.year) <= to);
+
+  [...regularGames.map(g => ({ opponent: g.opponent, wl: g.wl, pf: g.pointsFor, pa: g.pa, source: 'regular' })),
+   ...playoffGames.map(g => ({ opponent: g.opponent, wl: g.wl, pf: toNumber(g.score), pa: toNumber(g.pa), source: 'playoffs' }))
+  ].forEach(g => {
+    if (!g.opponent) return;
+    if (!h2hData[g.opponent]) h2hData[g.opponent] = { w: 0, l: 0, regular: { w: 0, l: 0 }, playoffs: { w: 0, l: 0 } };
+    const d = h2hData[g.opponent];
+    if (g.wl === 'W') { d.w++; d[g.source].w++; }
+    if (g.wl === 'L') { d.l++; d[g.source].l++; }
+  });
+
+  const opponents = Object.keys(h2hData).sort((a, b) => {
+    const da = h2hData[a], db = h2hData[b];
+    return (db.w + db.l) - (da.w + da.l);
+  });
+
+  const totalW = opponents.reduce((s, o) => s + h2hData[o].w, 0);
+  const totalL = opponents.reduce((s, o) => s + h2hData[o].l, 0);
+  const overallPct = totalW + totalL > 0 ? (totalW / (totalW + totalL) * 100).toFixed(1) : '0.0';
+
+  let html = '';
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-3">';
+  html += statBox(totalW + '-' + totalL, 'Overall H2H Record');
+  html += statBox(overallPct + '%', 'H2H Win Rate');
+  html += statBox(opponents.length, 'Opponents Faced');
+  html += '</div>';
+
+  if (!opponents.length) {
+    html += '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-8 text-center text-[var(--text-muted)]">No matchup data found for this period.</div>';
+    document.getElementById('team-panel-h2h').innerHTML = html;
+    return;
+  }
+
+  const byWinRate = [...opponents].sort((a, b) => {
+    const ar = h2hData[a], br = h2hData[b];
+    return (br.w / (br.w + br.l) || 0) - (ar.w / (ar.w + ar.l) || 0) || br.w - ar.w;
+  });
+  const bestOpp = byWinRate[0];
+  const nemesisOpp = byWinRate[byWinRate.length - 1];
+
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-2">';
+  if (bestOpp && h2hData[bestOpp].w > 0) {
+    const br = h2hData[bestOpp];
+    html += '<div class="rounded-xl border border-[var(--success)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--success)]">Favorite Matchup</div>';
+    html += renderTeamBadge(bestOpp);
+    html += '<div class="mt-2 text-2xl font-bold text-[var(--success)]">' + br.w + '-' + br.l + '</div>';
+    html += '<div class="text-xs text-[var(--text-muted)]">RS: ' + br.regular.w + '-' + br.regular.l + ' | PO: ' + br.playoffs.w + '-' + br.playoffs.l + '</div>';
+    html += '</div>';
+  }
+  if (nemesisOpp && h2hData[nemesisOpp].l > 0) {
+    const nr = h2hData[nemesisOpp];
+    html += '<div class="rounded-xl border border-[var(--danger)]/40 bg-[var(--card)] p-5">';
+    html += '<div class="mb-2 font-[Oswald] text-xs uppercase tracking-wider text-[var(--danger)]">Nemesis</div>';
+    html += renderTeamBadge(nemesisOpp);
+    html += '<div class="mt-2 text-2xl font-bold text-[var(--danger)]">' + nr.w + '-' + nr.l + '</div>';
+    html += '<div class="text-xs text-[var(--text-muted)]">RS: ' + nr.regular.w + '-' + nr.regular.l + ' | PO: ' + nr.playoffs.w + '-' + nr.playoffs.l + '</div>';
+    html += '</div>';
+  }
+  html += '</div>';
+
+  html += '<h3 class="mb-4 font-[Oswald] text-lg font-bold text-white">All Head-to-Head Records</h3>';
+  html += '<div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">';
+  opponents.forEach(opp => {
+    const rec = h2hData[opp];
+    const pct = rec.w + rec.l > 0 ? (rec.w / (rec.w + rec.l) * 100).toFixed(0) : '0';
+    const borderCls = rec.w > rec.l ? 'border-[var(--success)]/40' : rec.w < rec.l ? 'border-[var(--danger)]/40' : 'border-[var(--border)]';
+    const recColor = rec.w > rec.l ? 'var(--success)' : rec.w < rec.l ? 'var(--danger)' : 'var(--text)';
+    html += '<div class="rounded-xl border ' + borderCls + ' bg-[var(--card)] p-4">';
+    html += '<div class="mb-3">' + renderTeamBadge(opp) + '</div>';
+    html += '<div class="text-2xl font-bold" style="color:' + recColor + '">' + rec.w + '-' + rec.l + '</div>';
+    html += '<div class="mt-1 text-sm text-[var(--text-muted)]">' + pct + '% win rate</div>';
+    html += '<div class="mt-1 text-xs text-[var(--text-muted)]">RS: ' + rec.regular.w + '-' + rec.regular.l + ' \u2022 PO: ' + rec.playoffs.w + '-' + rec.playoffs.l + '</div>';
+    html += '</div>';
+  });
+  html += '</div>';
+
+  document.getElementById('team-panel-h2h').innerHTML = html;
+}
+
+function renderTeamDraft(name) {
+  const { from, to } = getTeamYearRange();
+  const primary = getMemberColor(name);
+
+  const draftRows = DATA.draft.filter(r => r.team.toLowerCase() === name.toLowerCase() && r.year >= from && r.year <= to);
+  if (!draftRows.length) {
+    document.getElementById('team-panel-draft').innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-8 text-center text-[var(--text-muted)]">No draft data found for this period.</div>';
+    return;
+  }
+
+  const years = [...new Set(draftRows.map(r => r.year))].sort((a, b) => b - a);
+  const totalPicks = draftRows.length;
+  const picksWithPts = draftRows.filter(r => r.fantasyPoints !== null && r.fantasyPoints !== undefined);
+  const totalDraftPts = picksWithPts.reduce((s, r) => s + (r.fantasyPoints || 0), 0);
+  const avgDraftPts = picksWithPts.length > 0 ? totalDraftPts / picksWithPts.length : 0;
+  const bestPick = picksWithPts.length > 0 ? [...picksWithPts].sort((a, b) => (b.fantasyPoints || 0) - (a.fantasyPoints || 0))[0] : null;
+  const worstPick = picksWithPts.length > 0 ? [...picksWithPts].filter(r => r.fantasyPoints > 0).sort((a, b) => (a.fantasyPoints || 0) - (b.fantasyPoints || 0))[0] : null;
+
+  let html = '';
+  html += '<div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">';
+  html += statBox(totalPicks, 'Total Picks');
+  html += statBox(avgDraftPts.toFixed(1), 'Avg Fantasy Pts');
+  html += statBox(years.length, 'Drafts');
+  html += statBox(bestPick ? escapeHtml(bestPick.player.split(' ').slice(-1)[0]) : '-', 'Best Pick');
+  html += '</div>';
+
+  if (bestPick || worstPick) {
+    html += '<div class="mb-6 grid gap-4 sm:grid-cols-2">';
+    if (bestPick) {
+      const photo = getDraftPlayerPhoto(bestPick.playerNorm);
+      html += '<div class="rounded-xl border border-[var(--success)]/40 bg-[var(--card)] p-5">';
+      html += '<div class="mb-3 font-[Oswald] text-xs uppercase tracking-wider text-[var(--success)]">Best Draft Pick</div>';
+      html += '<div class="flex items-center gap-3">';
+      html += (photo ? '<img src="' + escapeHtml(photo) + '" class="h-12 w-12 rounded-full object-cover border border-white/20 flex-shrink-0">' : '<div class="h-12 w-12 rounded-full bg-white/10 flex-shrink-0"></div>');
+      html += '<div><div class="font-semibold">' + escapeHtml(bestPick.player) + '</div>';
+      html += '<div class="text-xs text-[var(--text-muted)]">' + bestPick.year + ' \u2022 Pick ' + (bestPick.roundPick || '-') + ' \u2022 ' + (bestPick.position || '-') + '</div>';
+      html += '<div class="font-bold text-[var(--success)]">' + (bestPick.fantasyPoints !== null ? bestPick.fantasyPoints.toFixed(1) : '-') + ' FP</div>';
+      html += '</div></div></div>';
+    }
+    if (worstPick) {
+      const photo = getDraftPlayerPhoto(worstPick.playerNorm);
+      html += '<div class="rounded-xl border border-[var(--danger)]/40 bg-[var(--card)] p-5">';
+      html += '<div class="mb-3 font-[Oswald] text-xs uppercase tracking-wider text-[var(--danger)]">Worst Draft Pick</div>';
+      html += '<div class="flex items-center gap-3">';
+      html += (photo ? '<img src="' + escapeHtml(photo) + '" class="h-12 w-12 rounded-full object-cover border border-white/20 flex-shrink-0">' : '<div class="h-12 w-12 rounded-full bg-white/10 flex-shrink-0"></div>');
+      html += '<div><div class="font-semibold">' + escapeHtml(worstPick.player) + '</div>';
+      html += '<div class="text-xs text-[var(--text-muted)]">' + worstPick.year + ' \u2022 Pick ' + (worstPick.roundPick || '-') + ' \u2022 ' + (worstPick.position || '-') + '</div>';
+      html += '<div class="font-bold text-[var(--danger)]">' + (worstPick.fantasyPoints !== null ? worstPick.fantasyPoints.toFixed(1) : '-') + ' FP</div>';
+      html += '</div></div></div>';
+    }
+    html += '</div>';
+  }
+
+  const draftByYear = {};
+  years.forEach(y => {
+    const picks = draftRows.filter(r => r.year === y);
+    const pts = picks.filter(r => r.fantasyPoints !== null).reduce((s, r) => s + (r.fantasyPoints || 0), 0);
+    draftByYear[y] = { picks: picks.length, avgPts: picks.filter(r => r.fantasyPoints !== null).length > 0 ? pts / picks.filter(r => r.fantasyPoints !== null).length : 0 };
+  });
+
+  html += '<div class="mb-6 rounded-xl border border-[var(--border)] bg-[var(--card)] p-5"><canvas id="teamDraftChart"></canvas></div>';
+
+  html += '<h3 class="mb-4 font-[Oswald] text-lg font-bold text-white">Draft History</h3>';
+  html += '<div class="table-wrap overflow-x-auto"><table><thead><tr><th>Year</th><th>Pick</th><th>Player</th><th>Pos</th><th>Draft FP</th><th>Yearly PPR</th><th>Final OvRank</th></tr></thead><tbody>';
+  [...draftRows].sort((a, b) => b.year - a.year || (a.round || 999) - (b.round || 999) || (a.pick || 999) - (b.pick || 999)).forEach(r => {
+    const yearly = DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm];
+    const photo = getDraftPlayerPhoto(r.playerNorm);
+    html += '<tr>';
+    html += '<td class="font-semibold">' + r.year + '</td>';
+    html += '<td>' + (r.roundPick || '-') + '</td>';
+    html += '<td><div class="flex items-center gap-2">' +
+      (photo ? '<img src="' + escapeHtml(photo) + '" class="h-7 w-7 rounded-full object-cover border border-white/20" loading="lazy">' : '<div class="h-7 w-7 rounded-full bg-white/10 flex-shrink-0"></div>') +
+      '<span>' + escapeHtml(r.player) + '</span></div></td>';
+    html += '<td>' + (r.position || '-') + '</td>';
+    html += '<td>' + (r.fantasyPoints !== null ? r.fantasyPoints.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (yearly && yearly.ppr !== null ? yearly.ppr.toFixed(1) : '-') + '</td>';
+    html += '<td>' + (yearly && yearly.ovRank ? yearly.ovRank : '-') + '</td>';
+    html += '</tr>';
+  });
+  html += '</tbody></table></div>';
+
+  const el = document.getElementById('team-panel-draft');
+  if (el) el.innerHTML = html;
+
+  setTimeout(() => {
+    const ctx = document.getElementById('teamDraftChart');
+    if (!ctx) return;
+    const sortedYrs = years.slice().sort((a, b) => a - b);
+    const existing = Chart.getChart(ctx);
+    if (existing) existing.destroy();
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: sortedYrs,
+        datasets: [{
+          label: 'Avg Fantasy Pts Per Pick',
+          data: sortedYrs.map(y => parseFloat((draftByYear[y]?.avgPts || 0).toFixed(1))),
+          backgroundColor: primary + 'cc', borderColor: primary, borderWidth: 2, borderRadius: 4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { labels: { color: '#e0e0e0' } }, title: { display: true, text: 'Draft Performance by Season', color: '#e0e0e0' } },
+        scales: {
+          y: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Avg Fantasy Pts', color: '#888' } },
+          x: { ticks: { color: '#888' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+        }
+      }
+    });
+  }, 100);
 }
 
 // Initialize
