@@ -683,8 +683,11 @@ function buildMemberProfiles() {
   });
   
   DATA.champs.forEach(c => {
-    if (memberProfiles[c.first]) { memberProfiles[c.first].titles++; memberProfiles[c.first].playoffApps++; }
-    if (memberProfiles[c.second]) { memberProfiles[c.second].runnerUp++; memberProfiles[c.second].playoffApps++; }
+    const findKey = name => Object.keys(memberProfiles).find(k => k.toLowerCase() === (name || '').toLowerCase());
+    const firstKey = findKey(c.first);
+    const secondKey = findKey(c.second);
+    if (firstKey) { memberProfiles[firstKey].titles++; memberProfiles[firstKey].playoffApps++; }
+    if (secondKey) { memberProfiles[secondKey].runnerUp++; memberProfiles[secondKey].playoffApps++; }
   });
   
   DATA.playoffs.forEach(p => {
@@ -1000,14 +1003,16 @@ function renderMemberGrid() {
   document.getElementById('memberGrid').innerHTML = profiles.map(p => {
     const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
     const initials = p.name.split(' ').map(w => w[0].toUpperCase()).join('');
-    const color = getMemberColor(p.name);
+    const primary = getMemberColor(p.name);
     const secondary = getMemberSecondaryColor(p.name);
-    return '<div class="cursor-pointer rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-xl hover:shadow-black/20" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
-      '<div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-3xl font-bold text-white" style="background:linear-gradient(135deg,' + color + ',' + secondary + ')">' + initials + '</div>' +
-      '<h3>' + renderTeamBadge(p.name) + '</h3>' +
-      '<div class="mt-2 text-sm text-[var(--text-muted)]">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
-      '<div class="text-sm text-[var(--text-muted)]">' + p.seasons.length + ' seasons</div>' +
-      (p.titles > 0 ? '<div class="mt-2 text-sm text-[var(--gold)]">' + '🏆'.repeat(p.titles) + ' ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
+    const cardText = contrastColor(secondary);
+    const avatarText = contrastColor(primary);
+    return '<div class="cursor-pointer rounded-2xl p-6 text-center transition-all duration-200 hover:-translate-y-1 hover:shadow-2xl hover:scale-[1.02]" style="background:' + secondary + ';border:3px solid ' + primary + '" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
+      '<div class="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-3xl font-bold" style="background:' + primary + ';color:' + avatarText + ';border:2px solid ' + cardText + '33">' + initials + '</div>' +
+      '<h3 class="text-lg font-bold" style="color:' + cardText + '">' + escapeHtml(p.name) + '</h3>' +
+      '<div class="mt-2 text-sm" style="color:' + cardText + ';opacity:0.8">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
+      '<div class="text-sm" style="color:' + cardText + ';opacity:0.7">' + p.seasons.length + ' seasons</div>' +
+      (p.titles > 0 ? '<div class="mt-2 text-sm font-bold" style="color:' + cardText + '">🏆 ' + p.titles + ' Title' + (p.titles > 1 ? 's' : '') + '</div>' : '') +
     '</div>';
   }).join('');
 }
@@ -1362,6 +1367,20 @@ function ordinal(n) {
   const s = ['th', 'st', 'nd', 'rd'];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
+}
+
+function hexLuminance(hex) {
+  hex = hex.replace('#', '');
+  if (hex.length === 3) hex = hex.split('').map(c => c+c).join('');
+  const r = parseInt(hex.slice(0,2), 16) / 255;
+  const g = parseInt(hex.slice(2,4), 16) / 255;
+  const b = parseInt(hex.slice(4,6), 16) / 255;
+  const lin = c => c <= 0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055, 2.4);
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+
+function contrastColor(hex) {
+  try { return hexLuminance(hex) > 0.35 ? '#1a1a1a' : '#ffffff'; } catch(e) { return '#ffffff'; }
 }
 
 function getMemberColor(name) {
