@@ -7,19 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --primary: #1a1a2e;
-  --secondary: #16213e;
-  --accent: #e94560;
-  --gold: #f5a623;
-  --silver: #c0c0c0;
-  --bronze: #cd7f32;
-  --bg: #0f0f1a;
-  --card: #1a1a2e;
-  --text: #e0e0e0;
-  --text-muted: #888;
-  --border: #2a2a4a;
-  --success: #27ae60;
-  --danger: #e74c3c;
+  --primary: #003087;
+  --secondary: #00539b;
+  --accent: #c84e00;
+  --copper: #c84e00;
+  --persimmon: #e89923;
+  --dandelion: #ffd960;
+  --ironweed: #993399;
+  --gold: #ffd960;
+  --silver: #ffffff;
+  --bronze: #e89923;
+  --bg: #00286f;
+  --card: #003087;
+  --text: #ffffff;
+  --text-muted: #c1d3f3;
+  --border: #2d66b5;
+  --success: #ffd960;
+  --danger: #993399;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { 
@@ -48,14 +52,14 @@ a:hover { text-decoration: underline; }
   text-decoration: none;
 }
 .nav-links li a:hover, .nav-links li a.active {
-  color: var(--accent); border-bottom-color: var(--accent); background: rgba(233,69,96,0.1);
+  color: var(--accent); border-bottom-color: var(--accent); background: rgba(200,78,0,0.1);
   text-decoration: none;
 }
 .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; }
 
 /* Hero */
 .hero {
-  background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.9)),
+  background: linear-gradient(135deg, rgba(0,48,135,0.95), rgba(0,83,155,0.9)),
     url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="50" opacity="0.03">🏈</text></svg>');
   padding: 4rem 2rem; text-align: center; 
   border-bottom: 3px solid var(--accent);
@@ -95,7 +99,7 @@ th { background: var(--secondary); color: var(--accent); padding: 0.8rem 1rem;
   text-align: left; font-family: 'Oswald', sans-serif; font-size: 0.85rem;
   text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
 td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
-tr:hover { background: rgba(233,69,96,0.05); }
+tr:hover { background: rgba(200,78,0,0.05); }
 tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 .rank-1 { color: var(--gold); font-weight: 700; }
 .rank-2 { color: var(--silver); font-weight: 600; }
@@ -112,7 +116,7 @@ tr:nth-child(even) { background: rgba(255,255,255,0.02); }
 }
 .champ-card:hover { transform: translateY(-4px); }
 .champ-card .year-banner {
-  background: linear-gradient(135deg, var(--accent), #c0392b);
+  background: linear-gradient(135deg, var(--accent), var(--persimmon));
   padding: 1rem 1.5rem; font-family: 'Oswald', sans-serif; font-size: 1.8rem;
   color: #fff; display: flex; align-items: center; justify-content: space-between;
 }
@@ -131,7 +135,7 @@ tr:nth-child(even) { background: rgba(255,255,255,0.02); }
   border: 1px solid var(--border); cursor: pointer; transition: all 0.3s;
 }
 .member-card:hover { border-color: var(--accent); transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(233,69,96,0.15); }
+  box-shadow: 0 12px 40px rgba(200,78,0,0.15); }
 .member-avatar {
   width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
   display: flex; align-items: center; justify-content: center;
@@ -153,7 +157,7 @@ select:focus, input:focus { border-color: var(--accent); }
   border-radius: 8px; cursor: pointer; font-weight: 500; transition: all 0.3s;
   font-size: 0.9rem;
 }
-.btn:hover { background: #c0392b; transform: translateY(-1px); }
+.btn:hover { background: var(--persimmon); transform: translateY(-1px); }
 .btn-outline { background: transparent; border: 1px solid var(--accent); color: var(--accent); }
 .btn-outline:hover { background: var(--accent); color: #fff; }
 
@@ -372,14 +376,27 @@ const GIDS = {
   h2h: 918810170
 };
 
-const MEMBER_COLORS = {
-  'Mark Potter': '#e74c3c', 'Trey Wilder': '#3498db', 'Taylor Hardee': '#e67e22',
-  'Michael Waivers': '#9b59b6', 't wood': '#27ae60', 'Shain Collins': '#f1c40f',
-  'Josh Hudson': '#1abc9c', 'Lee Galt': '#8b4513', 'Ian Baro': '#e91e63',
-  'Cody Clodfelter': '#00bcd4', 'cody clodfelter': '#00bcd4',
-  'Josh Johnston': '#607d8b', 'Mark Lindsay': '#795548', 'Keith Spinner': '#ff9800',
-  'taylor ward': '#4caf50', 'Andrew Scercy': '#673ab7', 'Chris W': '#9e9e9e',
-  'Zack Bullock': '#ff5722', 'Travis Albea': '#3f51b5', 'Maddy': '#ec407a'
+const MEMBER_PALETTES = {
+  'Ian Baro': { primary: '#003087', secondary: '#00539B' },
+  't wood': { primary: '#F47321', secondary: '#005030' },
+  'Trey Wilder': { primary: '#782F40', secondary: '#CEB888' },
+  'Josh Hudson': { primary: '#7BAFD4', secondary: '#13294B' },
+  'Cody Clodfelter': { primary: '#592A8A', secondary: '#FEC923' },
+  'cody clodfelter': { primary: '#592A8A', secondary: '#FEC923' },
+  'Shain Collins': { primary: '#CC0000', secondary: '#000000' },
+  'Lee Galt': { primary: '#73000A', secondary: '#000000' },
+  'Michael Waivers': { primary: '#1D1160', secondary: '#00788C' },
+  'Mark Potter': { primary: '#13274F', secondary: '#CE1141' },
+  'Taylor Hardee': { primary: '#E03A3E', secondary: '#000000' },
+  'Josh Johnston': { primary: '#607D8B', secondary: '#90A4AE' },
+  'Mark Lindsay': { primary: '#795548', secondary: '#A1887F' },
+  'Keith Spinner': { primary: '#FF9800', secondary: '#FFC107' },
+  'taylor ward': { primary: '#4CAF50', secondary: '#8BC34A' },
+  'Andrew Scercy': { primary: '#673AB7', secondary: '#9575CD' },
+  'Chris W': { primary: '#9E9E9E', secondary: '#BDBDBD' },
+  'Zack Bullock': { primary: '#FF5722', secondary: '#FF8A65' },
+  'Travis Albea': { primary: '#3F51B5', secondary: '#7986CB' },
+  'Maddy': { primary: '#EC407A', secondary: '#F06292' }
 };
 
 const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Waivers','t wood',
@@ -609,8 +626,9 @@ function renderMemberGrid() {
     const pct = (p.totalWins / (p.totalWins + p.totalLosses) * 100).toFixed(1);
     const initials = p.name.split(' ').map(w => w[0].toUpperCase()).join('');
     const color = getMemberColor(p.name);
+    const secondary = getMemberSecondaryColor(p.name);
     return '<div class="member-card" onclick="event.preventDefault();openMemberModal(\'' + p.name.replace(/'/g, "\\'") + '\')">' +
-      '<div class="member-avatar" style="background:' + color + '">' + initials + '</div>' +
+      '<div class="member-avatar" style="background:linear-gradient(135deg,' + color + ',' + secondary + ')">' + initials + '</div>' +
       '<h3>' + p.name + '</h3>' +
       '<div class="record">' + p.totalWins + '-' + p.totalLosses + ' (' + pct + '%)</div>' +
       '<div class="record">' + p.seasons.length + ' seasons</div>' +
@@ -918,7 +936,13 @@ function ordinal(n) {
 }
 
 function getMemberColor(name) {
-  return MEMBER_COLORS[name] || '#' + Math.floor(Math.abs(Math.sin(name.split('').reduce((a,c) => a + c.charCodeAt(0), 0)) * 16777215)).toString(16).padStart(6, '0');
+  if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].primary;
+  return '#' + Math.floor(Math.abs(Math.sin(name.split('').reduce((a,c) => a + c.charCodeAt(0), 0)) * 16777215)).toString(16).padStart(6, '0');
+}
+
+function getMemberSecondaryColor(name) {
+  if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].secondary;
+  return getMemberColor(name);
 }
 
 // Initialize
