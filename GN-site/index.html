@@ -610,6 +610,7 @@ function parseDraftRows(rows) {
       vbd: toNumber(getRowValue(r, ['VBD'])),
       posRank: toInt(getRowValue(r, ['PosRank'])),
       ovRank: toInt(getRowValue(r, ['OvRank'])),
+      keeper: String(getRowValue(r, ['Keeper', 'keeper', 'KEEPER']) || '').trim().toUpperCase() === 'KEEPER',
       playerNorm: normalizePlayerName(player)
     };
   }).filter(r => r.year && r.player && r.team && r.roundPick);
@@ -1105,6 +1106,23 @@ function renderDraftBoardView(yearPicks) {
     TE: '#ea580c', K: '#0891b2', DEF: '#6b7280', DST: '#6b7280',
   };
 
+  const NFL_COLORS = {
+    ARI:{bg:'#97233F',fg:'#fff'}, ATL:{bg:'#A71930',fg:'#fff'}, BAL:{bg:'#241773',fg:'#fff'},
+    BUF:{bg:'#00338D',fg:'#fff'}, CAR:{bg:'#0085CA',fg:'#fff'}, CHI:{bg:'#0B162A',fg:'#c83803'},
+    CIN:{bg:'#FB4F14',fg:'#fff'}, CLE:{bg:'#FF3C00',fg:'#311D00'}, DAL:{bg:'#003594',fg:'#fff'},
+    DEN:{bg:'#FB4F14',fg:'#002244'}, DET:{bg:'#0076B6',fg:'#fff'}, GB:{bg:'#203731',fg:'#FFB612'},
+    GNB:{bg:'#203731',fg:'#FFB612'}, HOU:{bg:'#03202F',fg:'#A71930'}, IND:{bg:'#002C5F',fg:'#fff'},
+    JAC:{bg:'#006778',fg:'#fff'}, JAX:{bg:'#006778',fg:'#fff'}, KC:{bg:'#E31837',fg:'#FFB81C'},
+    KAN:{bg:'#E31837',fg:'#FFB81C'}, LAC:{bg:'#0080C6',fg:'#FFC20E'}, LAR:{bg:'#003594',fg:'#FFD100'},
+    RAM:{bg:'#003594',fg:'#FFD100'}, LV:{bg:'#000000',fg:'#A5ACAF'}, MIA:{bg:'#008E97',fg:'#fff'},
+    MIN:{bg:'#4F2683',fg:'#FFC62F'}, NE:{bg:'#002244',fg:'#C60C30'}, NO:{bg:'#A08A5E',fg:'#101820'},
+    NOR:{bg:'#A08A5E',fg:'#101820'}, NYG:{bg:'#0B2265',fg:'#fff'}, NYJ:{bg:'#125740',fg:'#fff'},
+    PHI:{bg:'#004C54',fg:'#A5ACAF'}, PIT:{bg:'#FFB612',fg:'#101820'}, SEA:{bg:'#002244',fg:'#69BE28'},
+    SF:{bg:'#AA0000',fg:'#B3995D'}, TB:{bg:'#D50A0A',fg:'#fff'}, TEN:{bg:'#0C2340',fg:'#4B92DB'},
+    WAS:{bg:'#773141',fg:'#FFB612'}, WSH:{bg:'#773141',fg:'#FFB612'},
+    OAK:{bg:'#000000',fg:'#A5ACAF'}, SDG:{bg:'#0080C6',fg:'#FFC20E'}, STL:{bg:'#003594',fg:'#FFD100'},
+  };
+
   // Build pick map: round -> team -> pick data
   const pickMap = {};
   const teamSlots = {}; // team -> pick number in round 1 (for column order)
@@ -1121,10 +1139,12 @@ function renderDraftBoardView(yearPicks) {
   const maxRound = Math.max(...yearPicks.filter(r => r.round).map(r => r.round));
   const numTeams = orderedTeams.length;
 
-  const CARD_W = 126;
-  const CARD_H = 120;
   const ROUND_W = 30;
   const GAP = 3;
+  const wrapEl = document.getElementById('draftBoardWrap');
+  const availW = (wrapEl && wrapEl.clientWidth > 100) ? wrapEl.clientWidth : Math.min(window.innerWidth - 32, 1152);
+  const CARD_W = Math.max(90, Math.floor((availW - ROUND_W - (numTeams + 1) * GAP) / numTeams));
+  const CARD_H = 120;
 
   let html = `<div style="overflow-x:auto;padding-bottom:12px;"><div style="display:inline-flex;flex-direction:column;gap:${GAP}px;min-width:${ROUND_W + GAP + numTeams * (CARD_W + GAP)}px;">`;
 
@@ -1168,6 +1188,11 @@ function renderDraftBoardView(yearPicks) {
         : '-';
       const pickLabel = pick.roundPick || pick.pick || '';
 
+      const nflKey = (pick.nflTeam || '').toUpperCase().trim();
+      const nflColor = NFL_COLORS[nflKey] || {bg:'rgba(255,255,255,0.15)',fg:'rgba(255,255,255,0.9)'};
+      const fontSize = CARD_W < 100 ? '8px' : '9.5px';
+      const badgeFontSize = CARD_W < 100 ? '7px' : '8px';
+
       html += `<div style="width:${CARD_W}px;flex-shrink:0;border-radius:4px;overflow:hidden;position:relative;height:${CARD_H}px;box-sizing:border-box;background:#111;">
         ${photo
           ? `<img src="${escapeHtml(photo)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;" loading="lazy">`
@@ -1176,12 +1201,13 @@ function renderDraftBoardView(yearPicks) {
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.97) 28%,rgba(0,0,0,0.45) 60%,rgba(0,0,0,0.08) 100%);"></div>
         <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${posColor};"></div>
         <div style="position:absolute;top:6px;right:5px;font-size:8px;font-weight:700;color:rgba(255,255,255,0.85);background:rgba(0,0,0,0.5);padding:1px 4px;border-radius:3px;line-height:1.4;">${escapeHtml(String(pickLabel))}</div>
-        <div style="position:absolute;bottom:0;left:0;right:0;padding:0 6px 6px;">
-          <div style="font-size:10px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,0.9);" title="${escapeHtml(pick.player)}">${escapeHtml(shortName)}</div>
-          <div style="display:flex;align-items:center;gap:3px;">
-            <span style="background:${posColor};color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:3px;white-space:nowrap;flex-shrink:0;">${escapeHtml(pos || '?')}</span>
-            <span style="font-size:8px;color:rgba(255,255,255,0.8);white-space:nowrap;flex-shrink:0;font-weight:600;">${escapeHtml(pick.nflTeam || '')}</span>
-            <span style="font-size:9px;font-weight:700;color:var(--accent);white-space:nowrap;margin-left:auto;">${escapeHtml(fp)}</span>
+        ${pick.keeper ? `<div style="position:absolute;top:6px;left:5px;font-size:7px;font-weight:800;background:#f59e0b;color:#000;padding:1px 4px;border-radius:3px;line-height:1.5;letter-spacing:0.03em;">KEEPER</div>` : ''}
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:0 5px 5px;">
+          <div style="font-size:${fontSize};font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;text-shadow:0 1px 4px rgba(0,0,0,0.9);" title="${escapeHtml(pick.player)}">${escapeHtml(shortName)}</div>
+          <div style="display:flex;align-items:center;gap:2px;">
+            <span style="background:${posColor};color:#fff;font-size:${badgeFontSize};font-weight:800;padding:2px 4px;border-radius:3px;white-space:nowrap;flex-shrink:0;">${escapeHtml(pos || '?')}</span>
+            <span style="background:${nflColor.bg};color:${nflColor.fg};font-size:${badgeFontSize};font-weight:700;padding:2px 4px;border-radius:3px;white-space:nowrap;flex-shrink:0;">${escapeHtml(pick.nflTeam || '')}</span>
+            <span style="font-size:${badgeFontSize};font-weight:700;color:var(--accent);white-space:nowrap;margin-left:auto;">${escapeHtml(fp)}</span>
           </div>
         </div>
       </div>`;
