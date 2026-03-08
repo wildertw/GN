@@ -225,8 +225,9 @@ select:focus, input[type="text"]:focus {
 <div class="page" id="page-draft">
   <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
     <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">Draft History</h2>
-    <div class="controls flex flex-wrap gap-3" id="draftControls"></div>
+    <div class="controls flex flex-wrap items-center gap-3" id="draftControls"></div>
     <div class="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="draftSummary"></div>
+    <div id="draftBoardWrap" class="mb-4"></div>
     <div class="table-wrap overflow-x-auto" id="draftTable"></div>
   </div>
 </div>
@@ -1001,77 +1002,189 @@ function getDraftPlayerPhoto(playerNorm) {
 function renderDraft() {
   const controlsEl = document.getElementById('draftControls');
   const summaryEl = document.getElementById('draftSummary');
+  const boardWrap = document.getElementById('draftBoardWrap');
   const tableEl = document.getElementById('draftTable');
-  if (!controlsEl || !summaryEl || !tableEl) return;
+  if (!controlsEl || !summaryEl || !boardWrap || !tableEl) return;
 
   if (!DATA.draft.length) {
     controlsEl.innerHTML = '';
     summaryEl.innerHTML = '';
+    boardWrap.innerHTML = '';
     tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No draft data found.</div>';
     return;
   }
 
   const years = [...new Set(DATA.draft.map(r => r.year))].sort((a, b) => b - a);
   let selectedYear = document.getElementById('draftYear') ? toInt(document.getElementById('draftYear').value) : years[0];
-  if (!selectedYear) selectedYear = years[0];
+  if (!selectedYear || !years.includes(selectedYear)) selectedYear = years[0];
   const yearRows = DATA.draft.filter(r => r.year === selectedYear);
   const teams = [...new Set(yearRows.map(r => r.team))].sort((a, b) => a.localeCompare(b));
   const weeks = [...new Set(DATA.weeklyPlayer.filter(r => r.year === selectedYear).map(r => r.week))].sort((a, b) => a - b);
 
-  const selectedTeam = document.getElementById('draftTeam') ? document.getElementById('draftTeam').value : 'all';
-  const selectedWeek = document.getElementById('draftWeek') ? document.getElementById('draftWeek').value : 'all';
+  const draftView = (document.getElementById('draftViewMode') || {value: 'board'}).value;
+  const selectedTeam = (document.getElementById('draftTeam') || {value: 'all'}).value;
+  const selectedWeek = (document.getElementById('draftWeek') || {value: 'all'}).value;
 
+  // Year select
   let controlsHtml = '<select id="draftYear" onchange="renderDraft()">';
-  years.forEach(y => { controlsHtml += '<option value="' + y + '"' + (y === selectedYear ? ' selected' : '') + '>' + y + '</option>'; });
+  years.forEach(y => { controlsHtml += `<option value="${y}"${y === selectedYear ? ' selected' : ''}>${y}</option>`; });
   controlsHtml += '</select>';
-  controlsHtml += '<select id="draftTeam" onchange="renderDraft()"><option value="all">All Teams</option>';
-  teams.forEach(t => { controlsHtml += '<option value="' + escapeHtml(t) + '"' + (selectedTeam === t ? ' selected' : '') + '>' + escapeHtml(t) + '</option>'; });
-  controlsHtml += '</select>';
-  controlsHtml += '<select id="draftWeek" onchange="renderDraft()"><option value="all">All Weeks</option>';
-  weeks.forEach(w => { controlsHtml += '<option value="' + w + '"' + (String(w) === selectedWeek ? ' selected' : '') + '>Week ' + w + '</option>'; });
-  controlsHtml += '</select>';
+
+  // View toggle
+  const btnBase = 'px-3 py-1.5 text-sm font-medium cursor-pointer border-0 transition-opacity hover:opacity-80';
+  const activeStyle = 'background:var(--accent);color:#1a1a1a;';
+  const inactiveStyle = 'background:var(--card);color:var(--text-muted);';
+  controlsHtml += `<div class="flex overflow-hidden rounded-lg border border-[var(--border)]">
+    <button onclick="document.getElementById('draftViewMode').value='board';renderDraft()" class="${btnBase}" style="${draftView==='board' ? activeStyle : inactiveStyle}">&#9632; Board</button>
+    <button onclick="document.getElementById('draftViewMode').value='table';renderDraft()" class="${btnBase}" style="${draftView==='table' ? activeStyle : inactiveStyle}">&#9776; Table</button>
+  </div>
+  <input type="hidden" id="draftViewMode" value="${draftView}">`;
+
+  if (draftView === 'table') {
+    controlsHtml += '<select id="draftTeam" onchange="renderDraft()"><option value="all">All Teams</option>';
+    teams.forEach(t => { controlsHtml += `<option value="${escapeHtml(t)}"${selectedTeam === t ? ' selected' : ''}>${escapeHtml(t)}</option>`; });
+    controlsHtml += '</select>';
+    controlsHtml += '<select id="draftWeek" onchange="renderDraft()"><option value="all">All Weeks</option>';
+    weeks.forEach(w => { controlsHtml += `<option value="${w}"${String(w) === selectedWeek ? ' selected' : ''}>Week ${w}</option>`; });
+    controlsHtml += '</select>';
+  }
   controlsEl.innerHTML = controlsHtml;
 
-  const filtered = yearRows
-    .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam)
-    .sort((a, b) => (a.round || 999) - (b.round || 999) || (a.pick || 999) - (b.pick || 999));
+  if (draftView === 'board') {
+    summaryEl.innerHTML = '';
+    tableEl.innerHTML = '';
+    boardWrap.innerHTML = renderDraftBoardView(yearRows);
+  } else {
+    boardWrap.innerHTML = '';
+    const filtered = yearRows
+      .filter(r => selectedTeam === 'all' ? true : r.team === selectedTeam)
+      .sort((a, b) => (a.round || 999) - (b.round || 999) || (a.pick || 999) - (b.pick || 999));
 
-  const summaryPicks = filtered.length;
-  const summaryDraftPts = filtered.reduce((s, r) => s + (r.fantasyPoints || 0), 0);
-  const summaryAvgDraftPts = summaryPicks ? (summaryDraftPts / summaryPicks) : 0;
-  const summaryWithWeekly = filtered.filter(r => getDraftWeeklyAggregate(r, selectedWeek).games > 0).length;
-  summaryEl.innerHTML =
-    statBox(summaryPicks, 'Draft Picks') +
-    statBox(summaryAvgDraftPts.toFixed(1), 'Avg Draft FP') +
-    statBox(summaryWithWeekly, 'With Matchup Data') +
-    statBox(selectedWeek === 'all' ? 'All' : 'W' + selectedWeek, 'Week Filter');
+    const summaryPicks = filtered.length;
+    const summaryDraftPts = filtered.reduce((s, r) => s + (r.fantasyPoints || 0), 0);
+    const summaryAvgDraftPts = summaryPicks ? (summaryDraftPts / summaryPicks) : 0;
+    const summaryWithWeekly = filtered.filter(r => getDraftWeeklyAggregate(r, selectedWeek).games > 0).length;
+    summaryEl.innerHTML =
+      statBox(summaryPicks, 'Draft Picks') +
+      statBox(summaryAvgDraftPts.toFixed(1), 'Avg Draft FP') +
+      statBox(summaryWithWeekly, 'With Matchup Data') +
+      statBox(selectedWeek === 'all' ? 'All' : 'W' + selectedWeek, 'Week Filter');
 
-  if (!filtered.length) {
-    tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No draft rows match this filter.</div>';
-    return;
+    if (!filtered.length) {
+      tableEl.innerHTML = '<div class="rounded-xl border border-[var(--border)] bg-[var(--card)] p-5">No draft rows match this filter.</div>';
+      return;
+    }
+
+    let html = '<table><thead><tr><th>Pick</th><th>Team</th><th>Player</th><th>Pos</th><th>Draft FP</th><th>Yearly PPR</th><th>Final OvRank</th><th>Matchup Avg (A/P)</th><th>Games</th></tr></thead><tbody>';
+    filtered.forEach(r => {
+      const yearly = DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm];
+      const agg = getDraftWeeklyAggregate(r, selectedWeek);
+      const photo = getDraftPlayerPhoto(r.playerNorm);
+      html += '<tr>';
+      html += '<td>' + (r.roundPick || '-') + '</td>';
+      html += '<td>' + renderTeamBadge(r.team) + '</td>';
+      html += '<td><div class="flex items-center gap-2">' +
+        (photo ? `<img src="${escapeHtml(photo)}" alt="${escapeHtml(r.player)}" class="h-8 w-8 rounded-full object-cover border border-white/20" loading="lazy">` : '<div class="h-8 w-8 rounded-full bg-white/10"></div>') +
+        '<span>' + escapeHtml(r.player) + '</span></div></td>';
+      html += '<td>' + (r.position || '-') + '</td>';
+      html += '<td>' + (r.fantasyPoints !== null ? r.fantasyPoints.toFixed(1) : '-') + '</td>';
+      html += '<td>' + (yearly && yearly.ppr !== null ? yearly.ppr.toFixed(1) : '-') + '</td>';
+      html += '<td>' + (yearly && yearly.ovRank ? yearly.ovRank : '-') + '</td>';
+      html += '<td>' + (agg.avgActual !== null ? agg.avgActual.toFixed(1) : '-') + ' / ' + (agg.avgProj !== null ? agg.avgProj.toFixed(1) : '-') + '</td>';
+      html += '<td>' + agg.games + '</td>';
+      html += '</tr>';
+    });
+    html += '</tbody></table>';
+    tableEl.innerHTML = html;
+  }
+}
+
+function renderDraftBoardView(yearPicks) {
+  const POS_COLORS = {
+    QB: '#dc2626', RB: '#16a34a', WR: '#2563eb',
+    TE: '#ea580c', K: '#0891b2', DEF: '#6b7280', DST: '#6b7280',
+  };
+
+  // Build pick map: round -> team -> pick data
+  const pickMap = {};
+  const teamSlots = {}; // team -> pick number in round 1 (for column order)
+  yearPicks.forEach(r => {
+    if (!r.round) return;
+    if (!pickMap[r.round]) pickMap[r.round] = {};
+    pickMap[r.round][r.team] = r;
+    if (r.round === 1) teamSlots[r.team] = r.pick || 999;
+  });
+
+  const allTeams = [...new Set(yearPicks.map(r => r.team))];
+  allTeams.forEach(t => { if (!(t in teamSlots)) teamSlots[t] = 999; });
+  const orderedTeams = allTeams.slice().sort((a, b) => teamSlots[a] - teamSlots[b]);
+  const maxRound = Math.max(...yearPicks.filter(r => r.round).map(r => r.round));
+  const numTeams = orderedTeams.length;
+
+  const CARD_W = 126;
+  const ROUND_W = 30;
+  const GAP = 3;
+
+  let html = `<div style="overflow-x:auto;padding-bottom:12px;"><div style="display:inline-flex;flex-direction:column;gap:${GAP}px;min-width:${ROUND_W + GAP + numTeams * (CARD_W + GAP)}px;">`;
+
+  // Header row
+  html += `<div style="display:flex;gap:${GAP}px;">`;
+  html += `<div style="width:${ROUND_W}px;flex-shrink:0;"></div>`;
+  orderedTeams.forEach(team => {
+    const color = getMemberColor(team);
+    const sec = getMemberSecondaryColor(team) || 'rgba(255,255,255,0.2)';
+    const contrast = contrastColor(color);
+    const secContrast = contrastColor(sec);
+    const initials = team.trim().split(/\s+/).map(w => w[0] || '').join('').slice(0, 2).toUpperCase();
+    html += `<div style="width:${CARD_W}px;flex-shrink:0;background:${color};border-radius:8px 8px 0 0;padding:8px 5px 6px;text-align:center;">
+      <div style="width:32px;height:32px;border-radius:50%;background:${sec};display:flex;align-items:center;justify-content:center;margin:0 auto 5px;font-weight:800;font-size:11px;color:${secContrast};border:2px solid rgba(255,255,255,0.25);">${escapeHtml(initials)}</div>
+      <div style="font-size:9px;font-weight:700;color:${contrast};line-height:1.3;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">${escapeHtml(team)}</div>
+    </div>`;
+  });
+  html += '</div>';
+
+  // Round rows
+  for (let round = 1; round <= maxRound; round++) {
+    html += `<div style="display:flex;gap:${GAP}px;">`;
+    html += `<div style="width:${ROUND_W}px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.06);border-radius:4px;font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);">R${round}</div>`;
+
+    orderedTeams.forEach(team => {
+      const pick = pickMap[round] && pickMap[round][team];
+      if (!pick) {
+        html += `<div style="width:${CARD_W}px;flex-shrink:0;background:rgba(255,255,255,0.03);border-radius:4px;height:106px;"></div>`;
+        return;
+      }
+
+      const pos = (pick.position || '').toUpperCase().trim();
+      const posColor = POS_COLORS[pos] || '#4b5563';
+      const photo = getDraftPlayerPhoto(pick.playerNorm);
+      const nameParts = (pick.player || '').trim().split(/\s+/);
+      const shortName = nameParts.length > 1
+        ? nameParts[0][0] + '. ' + nameParts.slice(1).join(' ')
+        : (pick.player || '');
+      const fp = (pick.fantasyPoints !== null && pick.fantasyPoints !== undefined)
+        ? Number(pick.fantasyPoints).toFixed(0)
+        : '-';
+      const pickLabel = pick.roundPick || pick.pick || '';
+
+      html += `<div style="width:${CARD_W}px;flex-shrink:0;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.09);border-top:3px solid ${posColor};border-radius:4px;padding:5px 5px 4px;position:relative;height:106px;box-sizing:border-box;display:flex;flex-direction:column;align-items:center;gap:2px;">
+        <div style="position:absolute;top:4px;right:5px;font-size:8px;font-weight:700;color:rgba(255,255,255,0.3);">${escapeHtml(String(pickLabel))}</div>
+        <div style="width:38px;height:38px;border-radius:50%;overflow:hidden;border:2px solid ${posColor};background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          ${photo ? `<img src="${escapeHtml(photo)}" alt="" style="width:100%;height:100%;object-fit:cover;" loading="lazy">` : `<span style="font-size:14px;opacity:0.25;">?</span>`}
+        </div>
+        <div style="font-size:9.5px;font-weight:600;color:#fff;text-align:center;line-height:1.2;max-width:${CARD_W - 10}px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escapeHtml(pick.player)}">${escapeHtml(shortName)}</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:3px;">
+          <span style="background:${posColor};color:#fff;font-size:7.5px;font-weight:800;padding:1px 5px;border-radius:3px;white-space:nowrap;">${escapeHtml(pos || '?')}</span>
+          <span style="font-size:8px;color:rgba(255,255,255,0.4);white-space:nowrap;">${escapeHtml(pick.nflTeam || '')}</span>
+        </div>
+        <div style="font-size:10px;font-weight:700;color:var(--accent);">${escapeHtml(fp)} FP</div>
+      </div>`;
+    });
+    html += '</div>';
   }
 
-  let html = '<table><thead><tr><th>Pick</th><th>Team</th><th>Player</th><th>Pos</th><th>Draft FP</th><th>Yearly PPR</th><th>Final OvRank</th><th>Matchup Avg (A/P)</th><th>Games</th></tr></thead><tbody>';
-  filtered.forEach(r => {
-    const yearly = DRAFT_LOOKUPS.yearly[r.year + '|' + r.playerNorm];
-    const agg = getDraftWeeklyAggregate(r, selectedWeek);
-    const photo = getDraftPlayerPhoto(r.playerNorm);
-    html += '<tr>';
-    html += '<td>' + (r.roundPick || '-') + '</td>';
-    html += '<td>' + renderTeamBadge(r.team) + '</td>';
-    html += '<td><div class="flex items-center gap-2">' +
-      (photo ? '<img src="' + escapeHtml(photo) + '" alt="' + escapeHtml(r.player) + '" class="h-8 w-8 rounded-full object-cover border border-white/20" loading="lazy">' : '<div class="h-8 w-8 rounded-full bg-white/10"></div>') +
-      '<span>' + escapeHtml(r.player) + '</span></div></td>';
-    html += '<td>' + (r.position || '-') + '</td>';
-    html += '<td>' + (r.fantasyPoints !== null ? r.fantasyPoints.toFixed(1) : '-') + '</td>';
-    html += '<td>' + (yearly && yearly.ppr !== null ? yearly.ppr.toFixed(1) : '-') + '</td>';
-    html += '<td>' + (yearly && yearly.ovRank ? yearly.ovRank : '-') + '</td>';
-    html += '<td>' + (agg.avgActual !== null ? agg.avgActual.toFixed(1) : '-') + ' / ' + (agg.avgProj !== null ? agg.avgProj.toFixed(1) : '-') + '</td>';
-    html += '<td>' + agg.games + '</td>';
-    html += '</tr>';
-  });
-  html += '</tbody></table>';
-  tableEl.innerHTML = html;
+  html += '</div></div>';
+  return html;
 }
 
 function renderChampionships() {
