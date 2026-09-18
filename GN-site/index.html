@@ -757,6 +757,27 @@ async function loadAllData() {
     DATA.yearlyPlayer = parseYearlyPlayerRows(yearlySheetRaw);
     DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklySheetRaw);
     DATA.playersList = parsePlayersListRows(playersSheetRaw);
+
+    // The sheet is the source of truth, but if its PlayersList tab comes back
+    // without usable picture URLs (column renamed, cleared, or the tab itself
+    // replaced) the photos disappear site-wide without any error being thrown.
+    // Fill the gaps from the copy bundled with the site.
+    if (!DATA.playersList.some(r => r.pictureUrl)) {
+      try {
+        const backup = parsePlayersListRows(await fetchCsvObjects('players-list.csv'));
+        const photos = {};
+        backup.forEach(r => { if (r.pictureUrl && !photos[r.playerNorm]) photos[r.playerNorm] = r.pictureUrl; });
+        if (DATA.playersList.length) {
+          DATA.playersList.forEach(r => { if (!r.pictureUrl && photos[r.playerNorm]) r.pictureUrl = photos[r.playerNorm]; });
+        } else {
+          DATA.playersList = backup;
+        }
+        console.warn('PlayersList sheet had no picture URLs; using players-list.csv for player photos.');
+      } catch (e) {
+        console.warn('PlayersList sheet had no picture URLs and players-list.csv could not be loaded.', e);
+      }
+    }
+
     buildDraftLookups();
 
     buildMemberProfiles();
