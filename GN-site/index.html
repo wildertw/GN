@@ -645,11 +645,28 @@ function parseWeeklyPlayerRows(rows) {
   })).filter(r => r.year && r.week && r.manager && r.playerNorm);
 }
 
+function toProxiedPhoto(url) {
+  // statmuse stopped serving these to the browser cross-site. Route them
+  // through our own origin (see the /statmuse/* rewrite in netlify.toml);
+  // every other picture host is left alone.
+  if (!url) return '';
+  try {
+    var u = String(url).trim();
+    var m = u.match(/^https?:\/\/(?:www\.)?statmuse\.com\/_image\?(.*)$/i);
+    if (m) {
+      var href = new URLSearchParams(m[1]).get('href');
+      if (href) u = href;
+    }
+    var c = u.match(/^https?:\/\/cdn\.statmuse\.com\/(.+)$/i);
+    return c ? '/statmuse/' + c[1] : u;
+  } catch (e) { return url; }
+}
+
 function parsePlayersListRows(rows) {
   return rows.map(r => ({
     player: String(getRowValue(r, ['Player'])),
     playerNorm: normalizePlayerName(getRowValue(r, ['Player'])),
-    pictureUrl: String(getRowValue(r, ['PictureURL', 'Picture Url', 'Picture URL', 'J']))
+    pictureUrl: toProxiedPhoto(String(getRowValue(r, ['PictureURL', 'Picture Url', 'Picture URL', 'J'])))
   })).filter(r => r.playerNorm);
 }
 
@@ -740,6 +757,27 @@ async function loadAllData() {
     DATA.yearlyPlayer = parseYearlyPlayerRows(yearlySheetRaw);
     DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklySheetRaw);
     DATA.playersList = parsePlayersListRows(playersSheetRaw);
+
+    // The sheet is the source of truth, but if its PlayersList tab comes back
+    // without usable picture URLs (column renamed, cleared, or the tab itself
+    // replaced) the photos disappear site-wide without any error being thrown.
+    // Fill the gaps from the copy bundled with the site.
+    if (!DATA.playersList.some(r => r.pictureUrl)) {
+      try {
+        const backup = parsePlayersListRows(await fetchCsvObjects('players-list.csv'));
+        const photos = {};
+        backup.forEach(r => { if (r.pictureUrl && !photos[r.playerNorm]) photos[r.playerNorm] = r.pictureUrl; });
+        if (DATA.playersList.length) {
+          DATA.playersList.forEach(r => { if (!r.pictureUrl && photos[r.playerNorm]) r.pictureUrl = photos[r.playerNorm]; });
+        } else {
+          DATA.playersList = backup;
+        }
+        console.warn('PlayersList sheet had no picture URLs; using players-list.csv for player photos.');
+      } catch (e) {
+        console.warn('PlayersList sheet had no picture URLs and players-list.csv could not be loaded.', e);
+      }
+    }
+
     buildDraftLookups();
 
     buildMemberProfiles();

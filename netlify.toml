@@ -1,2 +1,12 @@
 [build]
   publish = "GN-site"
+
+# Player headshots come from statmuse, which no longer serves them to the
+# browser cross-site. Netlify fetches them server-side instead and serves
+# them from our own origin, so no referrer, CORS or content-blocker rule
+# applies. See toProxiedPhoto() in GN-site/index.html.
+[[redirects]]
+  from = "/statmuse/*"
+  to = "https://cdn.statmuse.com/:splat"
+  status = 200
+  force = true
