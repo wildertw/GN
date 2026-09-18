@@ -1852,6 +1852,11 @@ function contrastColor(hex) {
   try { return hexLuminance(hex) > 0.35 ? '#1a1a1a' : '#ffffff'; } catch(e) { return '#ffffff'; }
 }
 
+function contrastRatio(a, b) {
+  const la = hexLuminance(a), lb = hexLuminance(b);
+  return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+}
+
 function getMemberColor(name) {
   if (MEMBER_PALETTES[name]) return MEMBER_PALETTES[name].primary;
   const key = Object.keys(MEMBER_PALETTES).find(k => k.toLowerCase() === name.toLowerCase());
@@ -1878,7 +1883,12 @@ function escapeHtml(text) {
 function renderTeamBadge(name) {
   const primary = getMemberColor(name);
   const secondary = getMemberSecondaryColor(name);
-  return '<span class="team-badge" style="background:' + secondary + ';border-color:' + primary + ';color:' + primary + '">' + escapeHtml(name) + '</span>';
+  // Some teams' two colors are both dark (Duke navy on royal, garnet on black),
+  // which leaves the name unreadable. Keep the team color when it reads, and
+  // fall back to plain black or white only when it doesn't.
+  let text = primary;
+  try { if (contrastRatio(primary, secondary) < 3) text = contrastColor(secondary); } catch (e) { text = contrastColor(secondary); }
+  return '<span class="team-badge" style="background:' + secondary + ';border-color:' + primary + ';color:' + text + '">' + escapeHtml(name) + '</span>';
 }
 
 // ===== TEAMS PAGE =====
