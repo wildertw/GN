@@ -4,151 +4,291 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Write-ups | Greenville Natives Fantasy Football League</title>
-<meta name="description" content="Weekly write-ups from the Greenville Natives fantasy football league.">
+<meta name="description" content="Every Greenville Natives write-up, 2014 through 2026 — 43 issues.">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-:root {
-  --primary: #005A2B;
-  --secondary: #0B6836;
-  --accent: #EDEDEE;
-  --persimmon: #989EA5;
-  --bg: #001A0D;
-  --card: #002E17;
-  --text: #ffffff;
-  --text-muted: #EDEDEE;
-  --border: #0B6836;
-}
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: 'Roboto', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-h1,h2,h3,h4,h5,h6 {
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
-
-.navbar {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-bottom: 3px solid var(--accent);
-}
-.nav-links li a {
-  color: var(--text);
-  display: block;
-  padding: 1rem 1rem;
-  font-weight: 500;
-  font-size: 0.86rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-bottom: 3px solid transparent;
-  transition: all 0.25s;
-}
-.nav-links li a:hover,
-.nav-links li a.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
-  background: rgba(237,237,238,0.1);
-  text-decoration: none;
-}
-.hamburger { display: none; }
-.nav-links.open {
-  display: flex !important;
-  flex-direction: column;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--primary);
-  border-top: 1px solid var(--border);
-}
-
-.issue-card {
-  display: block;
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  transition: all 0.25s;
-}
-.issue-card:hover {
-  border-color: var(--accent);
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-.issue-meta {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--persimmon);
-}
-.issue-title {
-  margin: 0.5rem 0 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fff;
-}
-.issue-blurb {
-  margin: 0.75rem 0 0;
-  color: var(--text-muted);
-  line-height: 1.55;
-}
-.issue-more {
-  display: inline-block;
-  margin-top: 1rem;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.82rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--accent);
-}
-
-@media (max-width: 768px) {
-  .nav-links { display: none !important; }
-  .hamburger { display: block; color: #fff; cursor: pointer; font-size: 1.4rem; }
-}
-</style>
+<link rel="stylesheet" href="archive.css">
 </head>
-<body class="antialiased">
-<!-- Navigation -->
-<nav class="navbar sticky top-0 z-50 px-4 md:px-8 flex items-center justify-between">
-  <a href="/" class="py-4 text-xl font-bold tracking-wide text-white md:text-2xl hover:no-underline">GREENVILLE <span class="text-[var(--accent)]">NATIVES</span></a>
+<body>
+<nav class="navbar">
+  <a href="/" class="brand">GREENVILLE <span>NATIVES</span></a>
   <div class="hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">&#9776;</div>
-  <ul class="nav-links hidden items-center md:flex" id="navLinks">
+  <ul class="nav-links" id="navLinks">
     <li><a href="/">League Site</a></li>
-    <li><a href="/writeups/" class="active">Write-ups</a></li>
+    <li><a href="./" class="active">Write-ups</a></li>
   </ul>
 </nav>
 
-<!-- Header -->
-<div class="border-b-4 border-[var(--accent)] bg-gradient-to-br from-[#005A2B] to-[#0B6836] px-4 py-16 text-center">
-  <h1 class="text-4xl font-bold text-white md:text-6xl">WRITE-<span class="text-[var(--accent)]">UPS</span></h1>
-  <p class="mt-2 text-lg text-[var(--text-muted)]">The weekly issue, one per week of the season</p>
-</div>
+<header class="masthead">
+  <p class="kicker">The archive &middot; 43 issues &middot; 2014&ndash;2026</p>
+  <h1>Write-ups</h1>
+</header>
 
-<!-- Issues -->
-<div class="container mx-auto max-w-4xl px-4 py-10 md:px-8">
-  <h2 class="mb-6 border-l-4 border-[var(--accent)] pl-4 text-2xl font-bold text-white">2026 Season</h2>
+<main class="season">
+    <h2>2026 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card featured" href="week1-2026-90s-cafeteria.html">
+        <div class="issue-meta">2026 &middot; Week 1</div>
+        <h3 class="issue-title">90s Cafeteria Food</h3>
+        <p class="issue-blurb">Hardee opens with 170.2, the second highest score he&#x27;s ever posted.</p>
+      </a>
+    </div>
 
-  <div class="grid gap-5">
-    <a class="issue-card" href="week1-2026-90s-cafeteria.html">
-      <div class="issue-meta">2026 &middot; Week 1</div>
-      <h3 class="issue-title">90s Cafeteria Food</h3>
-      <p class="issue-blurb">Hardee opens with 170.2, the second highest score he's ever posted.</p>
-      <span class="issue-more">Read the issue &rarr;</span>
-    </a>
-  </div>
-</div>
+    <h2>2025 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week12-2025-desperation-cigs.html">
+        <div class="issue-meta">2025 &middot; Week 12</div>
+        <h3 class="issue-title">Desperation Cigs</h3>
+        <p class="issue-blurb">Two weeks to go in the regular season and I won last week so let&#x27;s do a write up.</p>
+      </a>
+      <a class="issue-card" href="week9-2025-80s-country.html">
+        <div class="issue-meta">2025 &middot; Week 9</div>
+        <h3 class="issue-title">80s Country</h3>
+        <p class="issue-blurb">Before I start I completely forgot I started a write up last week and never finished it but I’ll release it as is.</p>
+      </a>
+      <a class="issue-card" href="week5-2025-true-colors.html">
+        <div class="issue-meta">2025 &middot; Week 5</div>
+        <h3 class="issue-title">True Colors</h3>
+        <p class="issue-blurb">Let me start with this and this is the first, last, and only time I will be addressing it.</p>
+      </a>
+      <a class="issue-card" href="week4-2025-nfl-comp.html">
+        <div class="issue-meta">2025 &middot; Week 4</div>
+        <h3 class="issue-title">NFL COMP</h3>
+        <p class="issue-blurb">Injuries, injuries, and more injuries. Malik Nabers knee.</p>
+      </a>
+      <a class="issue-card" href="week3-2025-90s-toys.html">
+        <div class="issue-meta">2025 &middot; Week 3</div>
+        <h3 class="issue-title">90s Toys</h3>
+        <p class="issue-blurb">We are basically already a quarter of the way through the regular season.</p>
+      </a>
+      <a class="issue-card" href="week2-2025-commissioners-address.html">
+        <div class="issue-meta">2025 &middot; Week 2</div>
+        <h3 class="issue-title">Commissioner’s Address</h3>
+        <p class="issue-blurb">Let me start with this and I want this to be the first, last, and only time I address it.</p>
+      </a>
+      <a class="issue-card" href="week0-2025-draft-quick-thoughts.html">
+        <div class="issue-meta">2025 &middot; Draft</div>
+        <h3 class="issue-title">Draft Quick Thoughts</h3>
+        <p class="issue-blurb">Shain - Nabbing Jeanty with the first pick was a no brainer.</p>
+      </a>
+    </div>
 
-<footer class="border-t border-[var(--border)] px-4 py-8 text-center text-sm text-[var(--persimmon)] md:px-8">
+    <h2>2024 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week10-2024-the-snowman.html">
+        <div class="issue-meta">2024 &middot; Week 10</div>
+        <h3 class="issue-title">The Snowman</h3>
+        <p class="issue-blurb">Once again it&#x27;s on, I&#x27;m back in the motherfuckin’ booth.</p>
+      </a>
+      <a class="issue-card" href="week7-2024-costume-party.html">
+        <div class="issue-meta">2024 &middot; Week 7</div>
+        <h3 class="issue-title">Costume Party</h3>
+        <p class="issue-blurb">Tab 1 7 weeks in and the best way I can describe the fuckery of what has transpired this year is in the wise words of famous philosopher Borat would say “WAA WAA WEE WEE”.</p>
+      </a>
+      <a class="issue-card" href="week4-2024-childrens-books.html">
+        <div class="issue-meta">2024 &middot; Week 4</div>
+        <h3 class="issue-title">Childrens Books</h3>
+        <p class="issue-blurb">Four weeks into the fantasy football season, and we’re getting a reminder that luck may just play a bigger role than strategy.</p>
+      </a>
+      <a class="issue-card" href="week2-2024-chain-restaurants.html">
+        <div class="issue-meta">2024 &middot; Week 2</div>
+        <h3 class="issue-title">Chain Restaurants</h3>
+        <p class="issue-blurb">Welcome to Year 16, where 16+ years of friendship and rivalry continue to fuel the heart of this fantasy football league.</p>
+      </a>
+    </div>
+
+    <h2>2023 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week11-2023-the-year-of-the-dad.html">
+        <div class="issue-meta">2023 &middot; Week 11</div>
+        <h3 class="issue-title">The year of the Dad</h3>
+        <p class="issue-blurb"></p>
+      </a>
+      <a class="issue-card" href="week11-2023-toon-dads.html">
+        <div class="issue-meta">2023 &middot; Week 11</div>
+        <h3 class="issue-title">Toon Dads</h3>
+        <p class="issue-blurb">I could start this off with something corny along the lines of “Murphy&#x27;s First Law states anything that can go wrong will go wrong but Murphy’s law…</p>
+      </a>
+      <a class="issue-card" href="week10-2023-stats.html">
+        <div class="issue-meta">2023 &middot; Week 10</div>
+        <h3 class="issue-title">Stats</h3>
+        <p class="issue-blurb">Week 10 Michael Waivers cody clodfelter Trey Wilder Taylor Hardee Shain Collins t wood Lee Galt Mark Potter Ian Baro Josh Hudson Overall Record OR…</p>
+      </a>
+      <a class="issue-card" href="week9-2023-2000s-movies.html">
+        <div class="issue-meta">2023 &middot; Week 9</div>
+        <h3 class="issue-title">2000s Movies</h3>
+        <p class="issue-blurb">We are entering week 10 with Hud and Shain having a clear lead of the rest of the field.</p>
+      </a>
+      <a class="issue-card" href="week6-2023-fictional-football-players.html">
+        <div class="issue-meta">2023 &middot; Week 6</div>
+        <h3 class="issue-title">Fictional Football Players</h3>
+        <p class="issue-blurb">No more announced write ups. They seem to have a curse on David Montgomery and my team.</p>
+      </a>
+      <a class="issue-card" href="week3-2023-no-ceilings.html">
+        <div class="issue-meta">2023 &middot; Week 3</div>
+        <h3 class="issue-title">No Ceilings</h3>
+        <p class="issue-blurb">Year 15. Fifteen years ago in our dirty living room(Waiver’s bedroom) the league was born.</p>
+      </a>
+    </div>
+
+    <h2>2022 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week10-2022-madden.html">
+        <div class="issue-meta">2022 &middot; Week 10</div>
+        <h3 class="issue-title">Madden</h3>
+        <p class="issue-blurb">Week 10: Home stretch with Madden It’s been a while.</p>
+      </a>
+      <a class="issue-card" href="week2-2022-gatorade.html">
+        <div class="issue-meta">2022 &middot; Week 2</div>
+        <h3 class="issue-title">Gatorade</h3>
+        <p class="issue-blurb">Week 2: Back in my day we called it Gater Ate What a week 2…trying to remain positive…We had two comeback games come down to the Monday night double header.</p>
+      </a>
+      <a class="issue-card" href="week1-2022-now-thats-what-trey-calls-music-vol-1.html">
+        <div class="issue-meta">2022 &middot; Week 1</div>
+        <h3 class="issue-title">Now thats what Trey Calls Music Vol 1</h3>
+        <p class="issue-blurb">Now thats what Trey Calls Music Vol 1 Football is officially back baby.</p>
+      </a>
+    </div>
+
+    <h2>2021 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week9-2021-bravos.html">
+        <div class="issue-meta">2021 &middot; Week 9</div>
+        <h3 class="issue-title">Bravos</h3>
+        <p class="issue-blurb">We are through 8 weeks of the fantasy season.</p>
+      </a>
+      <a class="issue-card" href="week4-2021-mario-kart.html">
+        <div class="issue-meta">2021 &middot; Week 4</div>
+        <h3 class="issue-title">Mario Kart</h3>
+        <p class="issue-blurb">2021 Week 4: Rainbow Woahd I had this one queued up for a while.</p>
+      </a>
+      <a class="issue-card" href="week1-2021-big-willy-style.html">
+        <div class="issue-meta">2021 &middot; Week 1</div>
+        <h3 class="issue-title">Big Willy Style</h3>
+        <p class="issue-blurb">Week 1 has come and gone. The high highs and low lows of fantasy have bestowed upon us.</p>
+      </a>
+    </div>
+
+    <h2>2020 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week7-2020-beach-music.html">
+        <div class="issue-meta">2020 &middot; Week 7</div>
+        <h3 class="issue-title">Beach music</h3>
+        <p class="issue-blurb">We are entering the prime “it’s football season” time of year.</p>
+      </a>
+      <a class="issue-card" href="week6-2020-halo.html">
+        <div class="issue-meta">2020 &middot; Week 6</div>
+        <h3 class="issue-title">Halo</h3>
+        <p class="issue-blurb">“HOOOOOOOOOOOOOOOOHHHHHHHHOHHHHHHHHHH OOOOOOOOOOOOOOOOOOOOOH HOOOOOOOOOOOOOOOHOOOOOHOHOOOOOOOOOOOOOOOOOHOOOOOOOOOOOOOOOOOOOOOOO OH…</p>
+      </a>
+      <a class="issue-card" href="week2-2020-board-games.html">
+        <div class="issue-meta">2020 &middot; Week 2</div>
+        <h3 class="issue-title">Board Games</h3>
+        <p class="issue-blurb">You think this is a game?! Two weeks in, ten to go.</p>
+      </a>
+      <a class="issue-card" href="week1-2020-cereal.html">
+        <div class="issue-meta">2020 &middot; Week 1</div>
+        <h3 class="issue-title">Cereal</h3>
+        <p class="issue-blurb">Sweet beginnings Year 12. Love. Hate. Deception.</p>
+      </a>
+    </div>
+
+    <h2>2018 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week6-2018-waiverslitics.html">
+        <div class="issue-meta">2018 &middot; Week 6</div>
+        <h3 class="issue-title">Waiverslitics</h3>
+        <p class="issue-blurb">6 weeks in and season half complete. I wanted to look at some of the statistical trends of our first half for fun while I sit here in my 4-hour safety compliance training.</p>
+      </a>
+      <a class="issue-card" href="week5-2018-90s-nostalgia-flicks.html">
+        <div class="issue-meta">2018 &middot; Week 5</div>
+        <h3 class="issue-title">90s Nostalgia Flicks</h3>
+        <p class="issue-blurb">Week 5: 90s Nostalgia Flicks Year 10. We have entered our 10th year what started as friendly game has grown to into beast of it&#x27;s own.</p>
+      </a>
+    </div>
+
+    <h2>2017 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week4-2017-i-want-my-mtv.html">
+        <div class="issue-meta">2017 &middot; Week 4</div>
+        <h3 class="issue-title">I want my MTV</h3>
+        <p class="issue-blurb">Week 4 Write Up: I want my MTV A third of the way through the year and I don&#x27;t hate nearly as many of you as I much as I would like to.</p>
+      </a>
+      <a class="issue-card" href="week2-2017-p-rn.html">
+        <div class="issue-meta">2017 &middot; Week 2</div>
+        <h3 class="issue-title">P*rn</h3>
+        <p class="issue-blurb">Week 2 Write Up: Go Fuck Yourself Two weeks in the books and I surprisingly only hate most of you.</p>
+      </a>
+    </div>
+
+    <h2>2015 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week5-2015-lewis-meets-sesame-st.html">
+        <div class="issue-meta">2015 &middot; Week 5</div>
+        <h3 class="issue-title">Lewis meets Sesame St</h3>
+        <p class="issue-blurb">Write up 2015: Lewis meets Sesame St First things first, there should be a advertisement on the right side of the screen that says &quot;Papa John&#x27;s…</p>
+      </a>
+      <a class="issue-card" href="week1-2015-straight-outta-lewis-st.html">
+        <div class="issue-meta">2015 &middot; Week 1</div>
+        <h3 class="issue-title">Straight Outta Lewis St</h3>
+        <p class="issue-blurb">Straight Outta Lewis St The first week has come and gone.</p>
+      </a>
+    </div>
+
+    <h2>2014 Season</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="week12-2014-superheros-published-by-waivers.html">
+        <div class="issue-meta">2014 &middot; Week 12</div>
+        <h3 class="issue-title">Superheros(published by Waivers)</h3>
+        <p class="issue-blurb">Week 12 Write up Superheros Anyway here is you&#x27;re final regular season league note.</p>
+      </a>
+      <a class="issue-card" href="week11-2014-super-villains.html">
+        <div class="issue-meta">2014 &middot; Week 11</div>
+        <h3 class="issue-title">Super Villains</h3>
+        <p class="issue-blurb">Week 11: Super Evil It is finally here boys, last week of the regular season.</p>
+      </a>
+      <a class="issue-card" href="week7-2014-best-toons-of-the-90s.html">
+        <div class="issue-meta">2014 &middot; Week 7</div>
+        <h3 class="issue-title">Best Toons of the 90s</h3>
+        <p class="issue-blurb">Week 7: Best Toons of the 90s I dropped the ball.</p>
+      </a>
+      <a class="issue-card" href="week6-2014-world-cup.html">
+        <div class="issue-meta">2014 &middot; Week 6</div>
+        <h3 class="issue-title">World Cup</h3>
+        <p class="issue-blurb">Mid-Season Report: Fake Football Edition Oy Mates, We have reached the half way point of the regular season, that&#x27;s right only half there is six more…</p>
+      </a>
+      <a class="issue-card" href="week0-2014-draft-recap-college-edition.html">
+        <div class="issue-meta">2014 &middot; Draft</div>
+        <h3 class="issue-title">Draft Recap College Edition</h3>
+        <p class="issue-blurb">Congrats everyone we made it through another draft without Rex crying.</p>
+      </a>
+    </div>
+
+    <h2>Undated</h2>
+    <div class="issue-grid">
+      <a class="issue-card" href="extra-ai-treycenter-script.html">
+        <div class="issue-meta">Greenville Natives</div>
+        <h3 class="issue-title">AI Treycenter Script</h3>
+        <p class="issue-blurb">Week 1 Recap: &quot;Kicking Off with a Bang!&quot; Scott Van Pelt: Welcome to Week 1 of our fantasy league recap, where Trey Wilder stormed out of the gates…</p>
+      </a>
+      <a class="issue-card" href="extra-sportscenter-starts-right-now.html">
+        <div class="issue-meta">Greenville Natives</div>
+        <h3 class="issue-title">SPORTSCENTER STARTS RIGHT NOW</h3>
+        <p class="issue-blurb">&quot;Good evening, sports enthusiasts! Welcome back to the grand recap of the 2023 fantasy football saga, a season that had more twists than a pretzel factory.</p>
+      </a>
+      <a class="issue-card" href="extra-sunday-sunday-sunday-preview.html">
+        <div class="issue-meta">Greenville Natives</div>
+        <h3 class="issue-title">Sunday Sunday Sunday…preview</h3>
+        <p class="issue-blurb">Tanking for Caleb vs Dirty Mike and the Boys Perennial bottom-feeder Mark Potter takes on the struggling reigning champion in a fight to see who…</p>
+      </a>
+      <a class="issue-card" href="extra-waivers-guilty-conscience.html">
+        <div class="issue-meta">Greenville Natives</div>
+        <h3 class="issue-title">Waivers Guilty Conscience</h3>
+        <p class="issue-blurb">*static* Meet Waivers, 33 years old Fed up with life (cot damn) And the way Rex’s bachelor party is ending (I&#x27;m scrolling to fucking insta-insane) He…</p>
+      </a>
+    </div>
+</main>
+
+<footer class="foot">
   <a href="/">&larr; Back to the league site</a>
 </footer>
 </body>
