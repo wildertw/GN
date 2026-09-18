@@ -645,11 +645,28 @@ function parseWeeklyPlayerRows(rows) {
   })).filter(r => r.year && r.week && r.manager && r.playerNorm);
 }
 
+function toProxiedPhoto(url) {
+  // statmuse stopped serving these to the browser cross-site. Route them
+  // through our own origin (see the /statmuse/* rewrite in netlify.toml);
+  // every other picture host is left alone.
+  if (!url) return '';
+  try {
+    var u = String(url).trim();
+    var m = u.match(/^https?:\/\/(?:www\.)?statmuse\.com\/_image\?(.*)$/i);
+    if (m) {
+      var href = new URLSearchParams(m[1]).get('href');
+      if (href) u = href;
+    }
+    var c = u.match(/^https?:\/\/cdn\.statmuse\.com\/(.+)$/i);
+    return c ? '/statmuse/' + c[1] : u;
+  } catch (e) { return url; }
+}
+
 function parsePlayersListRows(rows) {
   return rows.map(r => ({
     player: String(getRowValue(r, ['Player'])),
     playerNorm: normalizePlayerName(getRowValue(r, ['Player'])),
-    pictureUrl: String(getRowValue(r, ['PictureURL', 'Picture Url', 'Picture URL', 'J']))
+    pictureUrl: toProxiedPhoto(String(getRowValue(r, ['PictureURL', 'Picture Url', 'Picture URL', 'J'])))
   })).filter(r => r.playerNorm);
 }
 
