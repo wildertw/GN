@@ -19,3 +19,11 @@
   to = "https://static.www.nfl.com/:splat"
   status = 200
   force = true
+
+# Team D/ST logos in players-list.csv come from freebiesupply. Same
+# treatment again, so a defense gets its team logo rather than initials.
+[[redirects]]
+  from = "/logocdn/*"
+  to = "https://cdn.freebiesupply.com/:splat"
+  status = 200
+  force = true
