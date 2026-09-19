@@ -383,7 +383,8 @@ const GIDS = {
   playoffs: 881244753,
   records: 166394726,
   toc: 1298114778,
-  h2h: 918810170
+  h2h: 918810170,
+  careerStats: 688037255   // "REGULAR SEASON + PLAYOFF STATS"
 };
 
 const MEMBER_PALETTES = {
@@ -413,7 +414,7 @@ const MEMBER_PALETTES = {
 const CURRENT_MEMBERS = ['Mark Potter','Trey Wilder','Taylor Hardee','Michael Waivers','t wood',
   'Shain Collins','Josh Hudson','Lee Galt','Ian Baro','cody clodfelter'];
 
-let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [], draft: [], yearlyPlayer: [], weeklyPlayer: [], playersList: [] };
+let DATA = { yby: [], playoffs: [], records: [], champs: [], h2h: null, regularSeason: [], draft: [], yearlyPlayer: [], weeklyPlayer: [], playersList: [], careerStats: [] };
 let memberProfiles = {};
 let DRAFT_LOOKUPS = { yearly: {}, photos: {}, weeklyByTeam: {}, weeklyAny: {}, weeklyByMatch: {} };
 
@@ -709,11 +710,12 @@ function buildDraftLookups() {
 
 async function loadAllData() {
   try {
-    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, regularSeasonSheetRaw, draftSheetRaw, yearlySheetRaw, weeklySheetRaw, playersSheetRaw] = await Promise.all([
+    const [ybyRaw, playoffsRaw, recordsRaw, tocRaw, careerStatsRaw, regularSeasonSheetRaw, draftSheetRaw, yearlySheetRaw, weeklySheetRaw, playersSheetRaw] = await Promise.all([
       fetchSheet(GIDS.yearByYear),
       fetchSheet(GIDS.playoffs),
       fetchSheet(GIDS.records),
       fetchSheet(GIDS.toc),
+      fetchSheet(GIDS.careerStats).catch(() => []),
       fetchFirstAvailableSheet(['REGULAR SEASON', 'Regular Season', 'RegularSeason', 'Regular_Season']).catch(() => fetchRegularSeasonCsv()),
       fetchFirstAvailableSheet(['Draft', 'DRAFT']).catch(() => fetchCsvObjects('draft.csv')),
       fetchFirstAvailableSheet(['YEARLYPlayerStats', 'YEARLY PLAYER STATS', 'YearlyPlayerStats']).catch(() => fetchCsvObjects('yearly-playerstats.csv')),
@@ -756,6 +758,7 @@ async function loadAllData() {
     DATA.draft = parseDraftRows(draftSheetRaw);
     DATA.yearlyPlayer = parseYearlyPlayerRows(yearlySheetRaw);
     DATA.weeklyPlayer = parseWeeklyPlayerRows(weeklySheetRaw);
+    DATA.careerStats = parseCareerStatsRows(careerStatsRaw);
     DATA.playersList = parsePlayersListRows(playersSheetRaw);
 
     // The sheet is the source of truth, but if its PlayersList tab comes back
@@ -794,6 +797,20 @@ async function loadAllData() {
 // YearByYear's PF/PA columns are regular season only, so playoff points are
 // added from the Playoffs tab, counting only rows that are actual games
 // (a W or an L) the same way the head-to-head view does.
+function parseCareerStatsRows(rows) {
+  // The sheet's "REGULAR SEASON + PLAYOFF STATS" tab already combines both,
+  // so its figures are used as-is rather than recomputed here.
+  return rows.map(r => ({
+    team: String(getRowValue(r, ['TEAMS', 'TEAM', 'Team', 'Teams'])).trim(),
+    seasons: toNumber(getRowValue(r, ['SEASONS', 'Seasons'])),
+    wins: toNumber(getRowValue(r, ['WINS', 'Wins'])),
+    losses: toNumber(getRowValue(r, ['LOSSES', 'Losses'])),
+    ties: toNumber(getRowValue(r, ['TIES', 'Ties'])),
+    pf: toNumber(getRowValue(r, ['POINTS FOR', 'Points For', 'PF'])),
+    pa: toNumber(getRowValue(r, ['POINTS AGAINST', 'POINTS AGAINTS', 'Points Against', 'PA']))
+  })).filter(r => r.team && r.wins !== null && r.losses !== null);
+}
+
 function buildPlayoffTotals() {
   const totals = {};
   (DATA.playoffs || []).forEach(g => {
@@ -845,6 +862,20 @@ function buildMemberProfiles() {
     if (row.rank > p.worstFinish) p.worstFinish = row.rank;
   });
   
+  // The sheet works these out itself on the REGULAR SEASON + PLAYOFF STATS
+  // tab. Where it has a row for a member, its figures win; the totals summed
+  // above are only a fallback for members it does not list.
+  (DATA.careerStats || []).forEach(row => {
+    const key = Object.keys(memberProfiles).find(k => k.toLowerCase() === row.team.toLowerCase());
+    if (!key) return;
+    const p = memberProfiles[key];
+    p.totalWins = row.wins;
+    p.totalLosses = row.losses;
+    if (row.pf !== null) p.totalPF = row.pf;
+    if (row.pa !== null) p.totalPA = row.pa;
+    p.fromCareerSheet = true;
+  });
+
   DATA.champs.forEach(c => {
     const findKey = name => Object.keys(memberProfiles).find(k => k.toLowerCase() === (name || '').toLowerCase());
     const firstKey = findKey(c.first);
