@@ -183,7 +183,7 @@ select:focus, input[type="text"]:focus {
   <div class="border-b-4 border-[var(--accent)] bg-gradient-to-br from-[#005A2B] to-[#0B6836] px-4 py-16 text-center">
     <h1 class="text-4xl font-bold text-white md:text-6xl">GREENVILLE <span class="text-[var(--accent)]">NATIVES</span></h1>
     <p class="mt-2 text-lg text-[var(--text-muted)]">Fantasy Football League - Est. 2009</p>
-    <div class="mt-4 inline-block rounded-full bg-[var(--accent)] px-4 py-1 text-sm font-semibold text-white">16 Seasons of Competition</div>
+    <div class="mt-4 inline-block rounded-full bg-[var(--accent)] px-4 py-1 text-sm font-semibold text-black" id="seasonsBadge">18 Seasons of Competition</div>
   </div>
   <div class="container mx-auto max-w-6xl px-4 py-8 md:px-8">
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" id="homeStats"></div>
@@ -910,6 +910,14 @@ function renderHome() {
   const totalSeasons = new Set(DATA.yby.map(r => r.year)).size;
   const currentChamp = DATA.champs.length > 0 ? DATA.champs[DATA.champs.length - 1] : null;
   
+  // Keep the hero badge on the same count as the Seasons Played card.
+  // If the season data did not load, leave the markup's own figure alone
+  // rather than announcing "0 Seasons of Competition".
+  if (totalSeasons > 0) {
+    document.getElementById('seasonsBadge').textContent =
+      totalSeasons + ' Seasons of Competition';
+  }
+
   document.getElementById('homeStats').innerHTML = 
     statBox(totalSeasons, 'Seasons Played') +
     statBox(profiles.filter(p => p.isCurrent).length, 'Active Members') +
