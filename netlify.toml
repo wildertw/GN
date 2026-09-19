@@ -10,3 +10,12 @@
   to = "https://cdn.statmuse.com/:splat"
   status = 200
   force = true
+
+# A handful of headshots in players-list.csv are hosted by the NFL rather
+# than statmuse. Same treatment, so those players get a real photo instead
+# of an initials circle.
+[[redirects]]
+  from = "/nflcdn/*"
+  to = "https://static.www.nfl.com/:splat"
+  status = 200
+  force = true

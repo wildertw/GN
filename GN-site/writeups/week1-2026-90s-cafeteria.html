@@ -173,7 +173,12 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
 }
 .h2h-head .team{min-width:0;}
 .h2h-head .team.away{text-align:right;}
-.h2h-head .name{font-family:var(--serif);font-size:1.05rem;font-weight:700;display:block;}
+.h2h-head .name{
+  font-family:var(--serif);font-size:1.05rem;font-weight:700;display:flex;
+  align-items:center;gap:7px;flex-wrap:wrap;
+}
+.h2h-head .team.away .name{justify-content:flex-end;}
+.h2h-head .seed{opacity:.9;}
 .h2h-head .line{font-size:.78rem;opacity:.92;display:block;margin-top:3px;}
 .vs{
   width:38px;height:38px;border-radius:50%;background:#fff;color:var(--green);
@@ -195,7 +200,12 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
   font-size:.72rem;font-weight:700;letter-spacing:.05em;color:var(--muted);
   text-align:center;white-space:nowrap;
 }
+.row.pc{align-items:center;}
 .row.pc .l b,.row.pc .r b{font-weight:700;}
+.row.pc .who{gap:8px;min-width:0;}
+.row.pc .who.rev{flex-direction:row-reverse;justify-content:flex-end;}
+.row.pc .shot{width:30px;height:30px;flex:0 0 30px;margin:0;font-size:.62rem;}
+.pc-name{min-width:0;}
 
 /* ---------- player report rows ---------- */
 .shot{
@@ -235,7 +245,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
   .h2h-head .line{font-size:.68rem;margin-top:2px;}
   .vs{width:30px;height:30px;font-size:.6rem;}
   .h2h-body{padding:12px 14px 16px;}
+  .h2h-label{text-align:center;}
   .row{grid-template-columns:1fr auto 1fr;gap:8px;font-size:.82rem;}
+  .row.pc .who{flex-direction:column;align-items:flex-start;gap:5px;}
+  .row.pc .who.rev{flex-direction:column;align-items:flex-end;}
+  .row.pc .shot{width:26px;height:26px;flex:0 0 26px;font-size:.58rem;}
 }
 
 /* ---------- print ---------- */
@@ -735,9 +749,9 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
 
   <div class="h2h">
     <div class="h2h-head">
-      <div class="team"><span class="name">4th Trey Wilder</span><span class="line">(1-0) &middot; PF 109.2 &middot; PA 86.2</span></div>
+      <div class="team"><span class="name"><span class="seed">4th</span><span class="mgr mgr-wilder">Trey Wilder</span></span><span class="line">(1-0) &middot; PF 109.2 &middot; PA 86.2</span></div>
       <div class="vs">VS</div>
-      <div class="team away"><span class="name">10th Lee Galt</span><span class="line">(0-1) &middot; PF 72.3 &middot; PA 107.1</span></div>
+      <div class="team away"><span class="name"><span class="seed">10th</span><span class="mgr mgr-galt">Lee Galt</span></span><span class="line">(0-1) &middot; PF 72.3 &middot; PA 107.1</span></div>
     </div>
     <div class="h2h-body">
       <p class="h2h-label">Head-to-head &middot; the history</p>
@@ -763,17 +777,17 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="row"><span class="l">-74.0</span><span class="c">Point Dif</span><span class="r">74.0</span></div>
       <div class="row"><span class="l">48.4</span><span class="c">Max Point Dif</span><span class="r">45.1</span></div>
       <p class="h2h-label">Position comparison</p>
-      <div class="row pc"><span class="l">Josh Allen <b>48.4</b></span><span class="c">QB</span><span class="r"><b>45.1</b> Lamar Jackson</span></div>
-      <div class="row pc"><span class="l">Saquon Barkley <b>62.2</b></span><span class="c">RB</span><span class="r"><b>49.6</b> DAndre Swift</span></div>
-      <div class="row pc"><span class="l">Terry McLaurin <b>51.8</b></span><span class="c">WR</span><span class="r"><b>48.0</b> Stefon Diggs</span></div>
-      <div class="row pc"><span class="l">Mark Andrews <b>19.2</b></span><span class="c">TE</span><span class="r"><b>20.5</b> Travis Kelce</span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png"></span><span class="pc-name">Josh Allen <b>48.4</b></span></span></span><span class="c">QB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">LJ<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/baltimore-ravens-lamar-jackson-min--itclg2yg.png"></span><span class="pc-name"><b>45.1</b> Lamar Jackson</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">SB<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/new-york-giants-saquon-barkley-alternate-min-1---clb2bidk.png"></span><span class="pc-name">Saquon Barkley <b>62.2</b></span></span></span><span class="c">RB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">DS<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-dandre-swift-01--tu-k1ppa.png"></span><span class="pc-name"><b>49.6</b> DAndre Swift</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">TM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/washington-redskins-terry-mclaurin-min--hidfxxce.png"></span><span class="pc-name">Terry McLaurin <b>51.8</b></span></span></span><span class="c">WR</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">SD<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/buffalo-bills-stefon-diggs-alternate-min--bphg--nl.png"></span><span class="pc-name"><b>48.0</b> Stefon Diggs</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">MA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/baltimore-ravens-mark-andrews-min--u-9is4qy.png"></span><span class="pc-name">Mark Andrews <b>19.2</b></span></span></span><span class="c">TE</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">TK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/kansas-city-chiefs-travis-kelce2024-min--3ql43pq3.png"></span><span class="pc-name"><b>20.5</b> Travis Kelce</span></span></span></div>
     </div>
   </div>
   <div class="h2h">
     <div class="h2h-head">
-      <div class="team"><span class="name">6th Michael Waivers</span><span class="line">(0-1) &middot; PF 104.9 &middot; PA 155.8</span></div>
+      <div class="team"><span class="name"><span class="seed">6th</span><span class="mgr mgr-waivers">Michael Waivers</span></span><span class="line">(0-1) &middot; PF 104.9 &middot; PA 155.8</span></div>
       <div class="vs">VS</div>
-      <div class="team away"><span class="name">8th Josh Hudson</span><span class="line">(0-1) &middot; PF 88.7 &middot; PA 170.2</span></div>
+      <div class="team away"><span class="name"><span class="seed">8th</span><span class="mgr mgr-hudson">Josh Hudson</span></span><span class="line">(0-1) &middot; PF 88.7 &middot; PA 170.2</span></div>
     </div>
     <div class="h2h-body">
       <p class="h2h-label">Head-to-head &middot; the history</p>
@@ -799,17 +813,17 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="row"><span class="l">55.0</span><span class="c">Point Dif</span><span class="r">-55.0</span></div>
       <div class="row"><span class="l">64.0</span><span class="c">Max Point Dif</span><span class="r">48.8</span></div>
       <p class="h2h-label">Position comparison</p>
-      <div class="row pc"><span class="l">Josh Allen <b>64.0</b></span><span class="c">QB</span><span class="r"><b>48.8</b> Joe Burrow</span></div>
-      <div class="row pc"><span class="l">Christian McCaffrey <b>44.5</b></span><span class="c">RB</span><span class="r"><b>42.8</b> Joe Mixon</span></div>
-      <div class="row pc"><span class="l">CeeDee Lamb <b>74.6</b></span><span class="c">WR</span><span class="r"><b>75.8</b> AmonRa St Brown</span></div>
-      <div class="row pc"><span class="l">George Kittle <b>22.1</b></span><span class="c">TE</span><span class="r"><b>27.0</b> Jared Cook</span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png"></span><span class="pc-name">Josh Allen <b>64.0</b></span></span></span><span class="c">QB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">JB<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/cincinnati-bengals-joe-burrow-min--hedgxbuk.png"></span><span class="pc-name"><b>48.8</b> Joe Burrow</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">CM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/carolina-panthers-christian-mccaffrey2019-min--zcohwh8y.png"></span><span class="pc-name">Christian McCaffrey <b>44.5</b></span></span></span><span class="c">RB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">JM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/cincinnati-bengals-joe-mixon2021-min--xpluiou8.png"></span><span class="pc-name"><b>42.8</b> Joe Mixon</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png"></span><span class="pc-name">CeeDee Lamb <b>74.6</b></span></span></span><span class="c">WR</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">AB<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/detroit-lions-amon-ra-st-brown-min--pmeveikv.png"></span><span class="pc-name"><b>75.8</b> AmonRa St Brown</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">GK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/san-francisco-49ers-george-kittle2021-min--tuoi5ebc.png"></span><span class="pc-name">George Kittle <b>22.1</b></span></span></span><span class="c">TE</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">JC<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/green-bay-packers-jared-cook-min--cyzedi-r.png"></span><span class="pc-name"><b>27.0</b> Jared Cook</span></span></span></div>
     </div>
   </div>
   <div class="h2h">
     <div class="h2h-head">
-      <div class="team"><span class="name">5th Ian Baro</span><span class="line">(1-0) &middot; PF 107.1 &middot; PA 72.3</span></div>
+      <div class="team"><span class="name"><span class="seed">5th</span><span class="mgr mgr-baro">Ian Baro</span></span><span class="line">(1-0) &middot; PF 107.1 &middot; PA 72.3</span></div>
       <div class="vs">VS</div>
-      <div class="team away"><span class="name">7th Shain Collins</span><span class="line">(0-1) &middot; PF 96.5 &middot; PA 135.3</span></div>
+      <div class="team away"><span class="name"><span class="seed">7th</span><span class="mgr mgr-collins">Shain Collins</span></span><span class="line">(0-1) &middot; PF 96.5 &middot; PA 135.3</span></div>
     </div>
     <div class="h2h-body">
       <p class="h2h-label">Head-to-head &middot; the history</p>
@@ -835,17 +849,17 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="row"><span class="l">263.4</span><span class="c">Point Dif</span><span class="r">-263.4</span></div>
       <div class="row"><span class="l">70.7</span><span class="c">Max Point Dif</span><span class="r">63.4</span></div>
       <p class="h2h-label">Position comparison</p>
-      <div class="row pc"><span class="l">Dak Prescott <b>72.2</b></span><span class="c">QB</span><span class="r"><b>94.2</b> Jalen Hurts</span></div>
-      <div class="row pc"><span class="l">Jonathan Taylor <b>96.1</b></span><span class="c">RB</span><span class="r"><b>53.6</b> Josh Jacobs</span></div>
-      <div class="row pc"><span class="l">Mike Evans <b>97.9</b></span><span class="c">WR</span><span class="r"><b>95.4</b> Keenan Allen</span></div>
-      <div class="row pc"><span class="l">George Kittle <b>59.8</b></span><span class="c">TE</span><span class="r"><b>26.1</b> Dallas Goedert</span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">DP<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/dallas-cowboys-dak-prescott-alternate-min--p2ywnrpx.png"></span><span class="pc-name">Dak Prescott <b>72.2</b></span></span></span><span class="c">QB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">JH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/philadelphia-eagles-jalen-hurts2023-min--h20cxlpy.png"></span><span class="pc-name"><b>94.2</b> Jalen Hurts</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">JT<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/indianapolis-colts-jonathan-taylor-min--iuvxyzln.png"></span><span class="pc-name">Jonathan Taylor <b>96.1</b></span></span></span><span class="c">RB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">JJ<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/green-bay-packers-josh-jacobs--e5wiq7zw.png"></span><span class="pc-name"><b>53.6</b> Josh Jacobs</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">ME<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/tampa-bay-buccaneers-mike-evans2020-min--chrctowb.png"></span><span class="pc-name">Mike Evans <b>97.9</b></span></span></span><span class="c">WR</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">KA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-keenan-allen-alternate2020-01--hdvwa5dv.png"></span><span class="pc-name"><b>95.4</b> Keenan Allen</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">GK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/san-francisco-49ers-george-kittle2021-min--tuoi5ebc.png"></span><span class="pc-name">George Kittle <b>59.8</b></span></span></span><span class="c">TE</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">DG<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/nflcdn/image/private/t_player_profile_landscape/f_auto/league/flzasty1ea7iswbtd0e5"></span><span class="pc-name"><b>26.1</b> Dallas Goedert</span></span></span></div>
     </div>
   </div>
   <div class="h2h">
     <div class="h2h-head">
-      <div class="team"><span class="name">1st Taylor Hardee</span><span class="line">(1-0) &middot; PF 170.2 &middot; PA 88.7</span></div>
+      <div class="team"><span class="name"><span class="seed">1st</span><span class="mgr mgr-hardee">Taylor Hardee</span></span><span class="line">(1-0) &middot; PF 170.2 &middot; PA 88.7</span></div>
       <div class="vs">VS</div>
-      <div class="team away"><span class="name">3rd Mark Potter</span><span class="line">(1-0) &middot; PF 135.3 &middot; PA 96.5</span></div>
+      <div class="team away"><span class="name"><span class="seed">3rd</span><span class="mgr mgr-potter">Mark Potter</span></span><span class="line">(1-0) &middot; PF 135.3 &middot; PA 96.5</span></div>
     </div>
     <div class="h2h-body">
       <p class="h2h-label">Head-to-head &middot; the history</p>
@@ -871,17 +885,17 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="row"><span class="l">-61.2</span><span class="c">Point Dif</span><span class="r">61.2</span></div>
       <div class="row"><span class="l">77.7</span><span class="c">Max Point Dif</span><span class="r">42.7</span></div>
       <p class="h2h-label">Position comparison</p>
-      <div class="row pc"><span class="l">Kyler Murray <b>59.1</b></span><span class="c">QB</span><span class="r"><b>56.4</b> Dak Prescott</span></div>
-      <div class="row pc"><span class="l">Bijan Robinson <b>202.3</b></span><span class="c">RB</span><span class="r"><b>192.5</b> Derrick Henry</span></div>
-      <div class="row pc"><span class="l">Chris Godwin <b>55.5</b></span><span class="c">WR</span><span class="r"><b>78.0</b> Cooper Kupp</span></div>
-      <div class="row pc"><span class="l">Zach Ertz <b>39.3</b></span><span class="c">TE</span><span class="r"><b>103.3</b> Trey McBride</span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">KM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/arizona-cardinals-kyler-murray2021-min--bxhkribm.png"></span><span class="pc-name">Kyler Murray <b>59.1</b></span></span></span><span class="c">QB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">DP<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/dallas-cowboys-dak-prescott-alternate-min--p2ywnrpx.png"></span><span class="pc-name"><b>56.4</b> Dak Prescott</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">BR<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/atlanta-falcons-bijan-robinson-copy-min--usk-hnej.png"></span><span class="pc-name">Bijan Robinson <b>202.3</b></span></span></span><span class="c">RB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png"></span><span class="pc-name"><b>192.5</b> Derrick Henry</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">CG<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/tampa-bay-buccaneers-chris-godwin-1-min--_ctfqptx.png"></span><span class="pc-name">Chris Godwin <b>55.5</b></span></span></span><span class="c">WR</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">CK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/los-angeles-rams-cooper-kupp2021-min--d41a0tvg.png"></span><span class="pc-name"><b>78.0</b> Cooper Kupp</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">ZE<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/arizona-cardinals-zach-ertz-alternate-min--gfhxe28h.png"></span><span class="pc-name">Zach Ertz <b>39.3</b></span></span></span><span class="c">TE</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">TM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/arizona-cardinals-trey-mcbride--83irwarj.png"></span><span class="pc-name"><b>103.3</b> Trey McBride</span></span></span></div>
     </div>
   </div>
   <div class="h2h">
     <div class="h2h-head">
-      <div class="team"><span class="name">9th Cody Clodfelter</span><span class="line">(0-1) &middot; PF 86.2 &middot; PA 109.2</span></div>
+      <div class="team"><span class="name"><span class="seed">9th</span><span class="mgr mgr-clod">Cody Clodfelter</span></span><span class="line">(0-1) &middot; PF 86.2 &middot; PA 109.2</span></div>
       <div class="vs">VS</div>
-      <div class="team away"><span class="name">2nd T-Wood</span><span class="line">(1-0) &middot; PF 155.8 &middot; PA 104.9</span></div>
+      <div class="team away"><span class="name"><span class="seed">2nd</span><span class="mgr mgr-wood">T-Wood</span></span><span class="line">(1-0) &middot; PF 155.8 &middot; PA 104.9</span></div>
     </div>
     <div class="h2h-body">
       <p class="h2h-label">Head-to-head &middot; the history</p>
@@ -907,10 +921,10 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="row"><span class="l">53.3</span><span class="c">Point Dif</span><span class="r">-53.3</span></div>
       <div class="row"><span class="l">65</span><span class="c">Max Point Dif</span><span class="r">67.9</span></div>
       <p class="h2h-label">Position comparison</p>
-      <div class="row pc"><span class="l">Justin Herbert <b>74.1</b></span><span class="c">QB</span><span class="r"><b>86.9</b> Patrick Mahomes</span></div>
-      <div class="row pc"><span class="l">Alvin Kamara <b>62.8</b></span><span class="c">RB</span><span class="r"><b>41.0</b> Kareem Hunt</span></div>
-      <div class="row pc"><span class="l">Diontae Johnson <b>46.2</b></span><span class="c">WR</span><span class="r"><b>68.0</b> Tyreek Hill</span></div>
-      <div class="row pc"><span class="l">Travis Kelce <b>22.7</b></span><span class="c">TE</span><span class="r"><b>37.3</b> Brock Bowers</span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">JH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/los-angeles-chargers-justin-herbert-min--c-6jp93i.png"></span><span class="pc-name">Justin Herbert <b>74.1</b></span></span></span><span class="c">QB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">PM<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/kansas-city-chiefs-patrick-mahomes2020-min--jxpbawil.png"></span><span class="pc-name"><b>86.9</b> Patrick Mahomes</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">AK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/new-orleans-saints-alvin-kamara-alternate-min--xfiega9m.png"></span><span class="pc-name">Alvin Kamara <b>62.8</b></span></span></span><span class="c">RB</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">KH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/cleveland-browns-kareem-hunt2022-min---rq3np5n.png"></span><span class="pc-name"><b>41.0</b> Kareem Hunt</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">DJ<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/carolina-panthers-diontae-johnson-01--o4n26-ow.png"></span><span class="pc-name">Diontae Johnson <b>46.2</b></span></span></span><span class="c">WR</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">TH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/kansas-city-chiefs-tyreek-hill2020-min--97nn3pz_.png"></span><span class="pc-name"><b>68.0</b> Tyreek Hill</span></span></span></div>
+      <div class="row pc"><span class="l"><span class="who"><span class="shot" aria-hidden="true">TK<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/kansas-city-chiefs-travis-kelce2024-min--3ql43pq3.png"></span><span class="pc-name">Travis Kelce <b>22.7</b></span></span></span><span class="c">TE</span><span class="r"><span class="who rev"><span class="shot" aria-hidden="true">BB<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/las-vegas-raiders-brock-bowers--kdfllgua.png"></span><span class="pc-name"><b>37.3</b> Brock Bowers</span></span></span></div>
     </div>
   </div>
 </section>
