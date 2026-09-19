@@ -790,8 +790,26 @@ async function loadAllData() {
   }
 }
 
+// Career totals count the regular season plus the playoffs.
+// YearByYear's PF/PA columns are regular season only, so playoff points are
+// added from the Playoffs tab, counting only rows that are actual games
+// (a W or an L) the same way the head-to-head view does.
+function buildPlayoffTotals() {
+  const totals = {};
+  (DATA.playoffs || []).forEach(g => {
+    if (g.wl !== 'W' && g.wl !== 'L') return;
+    const key = String(g.year) + '|' + String(g.team || '').toLowerCase().trim();
+    const t = totals[key] || (totals[key] = { wins: 0, losses: 0, pf: 0, pa: 0 });
+    if (g.wl === 'W') t.wins++; else t.losses++;
+    t.pf += toNumber(g.score) || 0;
+    t.pa += toNumber(g.pa) || 0;
+  });
+  return totals;
+}
+
 function buildMemberProfiles() {
   memberProfiles = {};
+  const playoffTotals = buildPlayoffTotals();
   DATA.yby.forEach(row => {
     const name = row.team;
     if (!memberProfiles[name]) {
@@ -803,10 +821,26 @@ function buildMemberProfiles() {
     }
     const p = memberProfiles[name];
     p.seasons.push(row);
-    p.totalWins += (row.wins || 0);
-    p.totalLosses += (row.losses || 0);
-    p.totalPF += (row.pf || 0);
-    p.totalPA += (row.pa || 0);
+
+    const po = playoffTotals[String(row.year) + '|' + String(name || '').toLowerCase().trim()]
+            || { wins: 0, losses: 0, pf: 0, pa: 0 };
+    const rsW = toNumber(row.rsWins), rsL = toNumber(row.rsLosses);
+    const poW = toNumber(row.pWins), poL = toNumber(row.pLosses);
+
+    // Prefer the season's own regular-season and playoff columns, so the total
+    // is explicit rather than relying on what the Wins column happens to mean.
+    const wins = (rsW !== null && poW !== null) ? rsW + poW : (toNumber(row.wins) || 0);
+    const losses = (rsL !== null && poL !== null) ? rsL + poL : (toNumber(row.losses) || 0);
+
+    if (poW !== null && poW !== po.wins) {
+      console.warn('Playoff wins disagree for ' + name + ' ' + row.year +
+                   ': YearByYear says ' + poW + ', Playoffs tab has ' + po.wins + ' winning games.');
+    }
+
+    p.totalWins += wins;
+    p.totalLosses += losses;
+    p.totalPF += (toNumber(row.pf) || 0) + po.pf;
+    p.totalPA += (toNumber(row.pa) || 0) + po.pa;
     if (row.rank < p.bestFinish) p.bestFinish = row.rank;
     if (row.rank > p.worstFinish) p.worstFinish = row.rank;
   });
