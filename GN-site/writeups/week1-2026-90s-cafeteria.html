@@ -31,6 +31,18 @@ body{
 }
 .sheet{max-width:860px;margin:0 auto;padding:0 20px 72px;}
 
+/* ---------- manager colours ---------- */
+.mgr-hardee{color:#C8102E;}
+.mgr-wood{color:#B95719;}
+.mgr-potter{color:#13274F;}
+.mgr-wilder{color:#782F40;}
+.mgr-baro{color:#012169;}
+.mgr-waivers{color:#1D1160;}
+.mgr-collins{color:#CC0000;}
+.mgr-hudson{color:#3A7AA5;}
+.mgr-clod{color:#592A8A;}
+.mgr-galt{color:#73000A;}
+
 /* ---------- cover ---------- */
 .cover{padding:56px 0 8px;text-align:center;}
 .kicker{
@@ -260,11 +272,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
         </tr>
       </thead>
       <tbody>
-        <tr><td>Taylor Hardee</td><td class="num">170.2</td><td>Josh Hudson</td><td class="num">88.7</td><td class="num">81.5</td></tr>
-        <tr><td>t wood</td><td class="num">155.8</td><td>Michael Waivers</td><td class="num">104.9</td><td class="num">50.9</td></tr>
-        <tr><td>Mark Potter</td><td class="num">135.3</td><td>Shain Collins</td><td class="num">96.5</td><td class="num">38.8</td></tr>
-        <tr><td>Trey Wilder</td><td class="num">109.2</td><td>cody clodfelter</td><td class="num">86.2</td><td class="num">23.0</td></tr>
-        <tr><td>Ian Baro</td><td class="num">107.1</td><td>Lee Galt</td><td class="num">72.3</td><td class="num">34.8</td></tr>
+        <tr><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">170.2</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="num">88.7</td><td class="num">81.5</td></tr>
+        <tr><td><span class="mgr mgr-wood">t wood</span></td><td class="num">155.8</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">104.9</td><td class="num">50.9</td></tr>
+        <tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="num">135.3</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="num">96.5</td><td class="num">38.8</td></tr>
+        <tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">109.2</td><td><span class="mgr mgr-clod">cody clodfelter</span></td><td class="num">86.2</td><td class="num">23.0</td></tr>
+        <tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="num">107.1</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="num">72.3</td><td class="num">34.8</td></tr>
       </tbody>
     </table>
   </div>
@@ -291,16 +303,16 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
         <tr><th>Rk</th><th>Manager / Team</th><th class="num">Points</th><th class="num">Power</th><th class="num">All-play</th></tr>
       </thead>
       <tbody>
-        <tr><td>01</td><td>Taylor Hardee</td><td class="num">170.2</td><td class="num">109.2</td><td class="num">9-0</td></tr>
-        <tr><td>02</td><td>t wood</td><td class="num">155.8</td><td class="num">103.2</td><td class="num">8-1</td></tr>
-        <tr><td>03</td><td>Mark Potter</td><td class="num">135.3</td><td class="num">95.0</td><td class="num">7-2</td></tr>
-        <tr><td>04</td><td>Trey Wilder</td><td class="num">109.2</td><td class="num">84.4</td><td class="num">6-3</td></tr>
-        <tr><td>05</td><td>Ian Baro</td><td class="num">107.1</td><td class="num">83.7</td><td class="num">5-4</td></tr>
-        <tr><td>06</td><td>Michael Waivers</td><td class="num">104.9</td><td class="num">42.4</td><td class="num">4-5</td></tr>
-        <tr><td>07</td><td>Shain Collins</td><td class="num">96.5</td><td class="num">39.0</td><td class="num">3-6</td></tr>
-        <tr><td>08</td><td>Josh Hudson</td><td class="num">88.7</td><td class="num">35.8</td><td class="num">2-7</td></tr>
-        <tr><td>09</td><td>cody clodfelter</td><td class="num">86.2</td><td class="num">35.0</td><td class="num">1-8</td></tr>
-        <tr><td>10</td><td>Lee Galt</td><td class="num">72.3</td><td class="num">29.3</td><td class="num">0-9</td></tr>
+        <tr><td>01</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">170.2</td><td class="num">109.2</td><td class="num">9-0</td></tr>
+        <tr><td>02</td><td><span class="mgr mgr-wood">t wood</span></td><td class="num">155.8</td><td class="num">103.2</td><td class="num">8-1</td></tr>
+        <tr><td>03</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="num">135.3</td><td class="num">95.0</td><td class="num">7-2</td></tr>
+        <tr><td>04</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">109.2</td><td class="num">84.4</td><td class="num">6-3</td></tr>
+        <tr><td>05</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="num">107.1</td><td class="num">83.7</td><td class="num">5-4</td></tr>
+        <tr><td>06</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">104.9</td><td class="num">42.4</td><td class="num">4-5</td></tr>
+        <tr><td>07</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="num">96.5</td><td class="num">39.0</td><td class="num">3-6</td></tr>
+        <tr><td>08</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="num">88.7</td><td class="num">35.8</td><td class="num">2-7</td></tr>
+        <tr><td>09</td><td><span class="mgr mgr-clod">cody clodfelter</span></td><td class="num">86.2</td><td class="num">35.0</td><td class="num">1-8</td></tr>
+        <tr><td>10</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="num">72.3</td><td class="num">29.3</td><td class="num">0-9</td></tr>
       </tbody>
     </table>
   </div>
@@ -329,7 +341,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">1</span>
     </div>
     <div>
-      <h3>Rex: Rectangle Pizza Friday</h3>
+      <h3><span class="mgr mgr-hardee">Rex</span>: Rectangle Pizza Friday</h3>
       <p class="record">1-0 &middot; 170.2 PF &middot; Power record 9-0</p>
       <p>The lunch room is where Rex truly thrives. Growing up he would have legendary daily eating competitions in the lunch room, and I have heard rumors he has taken that tradition with him to Ayden Elementary. Rex slop dropped 170.2 onto Hud&rsquo;s tray like a lunch lady with a grudge. Kenneth Walker 32.6, David Montgomery 27.4 in the flex, Bijan 27.3, Trevor Lawrence 26.1, Olave 23.2, and the Jaguars D chipped in 13 just to rub it in. That 170.2 is the second highest score Rex has ever put up in this league, and he did it in week one against a guy who was probably still figuring out his lineup.</p>
       <p>And then there&rsquo;s Christian Watson, sitting on the bench with 29.7. Rex had so much pizza he left a whole slice on the tray to rot and still won by 81.5.</p>
@@ -353,7 +365,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">2</span>
     </div>
     <div>
-      <h3>Wood: Chic-fil-A</h3>
+      <h3><span class="mgr mgr-wood">Wood</span>: Chic-fil-A</h3>
       <p class="record">1-0 &middot; 155.8 PF &middot; Power record 8-1</p>
       <p>Last year Wood was 1&ndash;10 heading into the final two weeks. He won both, and his Week 1 matchup. Wood has not made the playoffs since 2019. Covid happened more recently than Wood making the playoffs. Now he&rsquo;s the one thing in the whole building everybody actually wants, and the line is out the door and around the gym. This week he put up 155.8, second most in the league, ran Waivers over by 50.9, and posted the 5th highest score of his entire fantasy career.</p>
       <p>Caleb Williams, his 8th round pick, went for 37.1 and was the highest scoring player in the entire league. Wood didn&rsquo;t draft that, he picked a player from his favorite team and lucked into it. Gibbs 31.1, Swift 31.9, JSN 22.2. The Browns D went -3 because some things never change, like the Browns, and Wood. Wood has finished in 9th place three years in a row. Can this finally be the year he escapes the bottom?</p>
@@ -373,7 +385,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">3</span>
     </div>
     <div>
-      <h3>Potter: Chicken Nuggets</h3>
+      <h3><span class="mgr mgr-potter">Potter</span>: Chicken Nuggets</h3>
       <p class="record">1-0 &middot; 135.3 PF &middot; Power record 7-2</p>
       <p>Potter&rsquo;s mom used to pack the same thing every day for his lunch and honestly it shows. Many players he had last year and in previous years are right back on his roster. Derrick Henry went for 34.8 and the man simply does not age, which is more than any of us can say. Trey McBride 20, Bucky Irving 16.8 and the Seahawks D for 13. Shain never stood a chance, 135.3 to 96.5.</p>
       <p>Puka gave him 9.9 in Australia but we all know that better days are ahead for him. Like the Aussies, Potter is ahead of the rest of us in going against processed foods. You can&rsquo;t go against a lunch time staple of our childhood, and you can not bet against the man who has the most championships in league history.</p>
@@ -398,7 +410,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">4</span>
     </div>
     <div>
-      <h3>Trey: Chocolate Chip Cookies</h3>
+      <h3><span class="mgr mgr-wilder">Trey</span>: Chocolate Chip Cookies</h3>
       <p class="record">1-0 &middot; 109.2 PF &middot; Power record 6-3</p>
       <p>Not the fanciest thing on the tray but I got two and Clod got none. 109.2 to 86.2. Lamar 24.8, Dallas Goedert 21.7 (a tight end carried me, I&rsquo;m aware how that sounds), Ladd McConkey 16.7 and Cam Little for 12.</p>
       <p>Now here is where I chipped a tooth, because I shit the bed. I took James Cook at 1.03 and he gave me 8.4, which is less than a Cook Out tray costs. I started MarShawn Lloyd (3.7) over Matthew Golden (12.5) and Caleb Douglas (11.9) like a man who just took a dodgeball to the head. The Rams D scored 1 point. One. So yes, cookies, but half the batch came out hard enough to skip across the parking lot. A win is a win. Fight me.</p>
@@ -419,7 +431,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">5</span>
     </div>
     <div>
-      <h3>Ian: Tater Tots</h3>
+      <h3><span class="mgr mgr-baro">Ian</span>: Tater Tots</h3>
       <p class="record">1-0 &middot; 107.1 PF &middot; Power record 5-4</p>
       <p>Tater tots are the most overrated thing in the cafeteria and so is this win. Ian beat Lee 107.1 to 72.3, which is the fantasy equivalent of bragging that you beat your little cousin at Madden, and it earns him Worst Winner of the week. Jefferson 27.2, Hurts 24.6 and Jonathan Taylor 23.6 dragged this team across the finish line.</p>
       <p>Kyle Pitts put up a big fat 0.0. Pitts has been a fantasy scam since 2021 and Ian keeps buying in like the guy at the flea market who swears the Rolex is real. Davante Adams gave him 4.1 in the flex while Chuba Hubbard scored 22.2 on the bench. Josh Jacobs also scored 0 on the bench, so at least one lineup decision was correct. Enjoy the cold tots, Ian. Lee won&rsquo;t be on the schedule every week.</p>
@@ -440,7 +452,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">6</span>
     </div>
     <div>
-      <h3>Waivers: Chocolate Bagged Milk</h3>
+      <h3><span class="mgr mgr-waivers">Waivers</span>: Chocolate Bagged Milk</h3>
       <p class="record">0-1 &middot; 104.9 PF &middot; Power record 4-5</p>
       <p>Nobody has ever explained why it comes in a bag. You stab it with the straw, it splits down the side, and somebody is going to need a change of shirt afterward. That&rsquo;s Waivers&rsquo; team. 104.9 is the Best Loser of the week and beats four other teams, but he drew Chic-fil-A. Josh Allen 35.5 and the Steelers D for 18 did all the heavy lifting.</p>
       <p>Meanwhile he started Tony Pollard (3.9), Terry McLaurin in the flex (2.4) and Colston Loveland, who scored a perfectly round zero, while Kyle Monangai put up 19.4 on the bench. For a man literally named Waivers, he has never once made a roster move that made sense. I texted him for comment. No response. Probably hiding out from baby duties while passed out on a lawn chair with a cig still lit and a beer going warm beside him in the garage.</p>
@@ -459,7 +471,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">7</span>
     </div>
     <div>
-      <h3>Shain: Fish Sticks</h3>
+      <h3><span class="mgr mgr-collins">Shain</span>: Fish Sticks</h3>
       <p class="record">0-1 &middot; 96.5 PF &middot; Power record 3-6</p>
       <p>Losing AJ Brown has to be the same level of disappointment as getting fish sticks on lunch day. Fish sticks smell like hell, half of it isn&rsquo;t even fish, and you still eat it since you&rsquo;ve got nothing else. The fish: Ashton Jeanty 29.7, Zay Flowers 23.5, Javonte Williams 21.7. The mystery filler: everything else.</p>
       <p>Jaylen Waddle gave him 0.7 in the flex. AJ Brown 4.1. Harold Fannin 3.1. And the Texans D scored -5. Negative five. They took points away from him, the worst starter in the league. Stefon Diggs sat on the bench with 13.5 watching all of it. Lost to Potter by 38.8. Last year Shain tied the league record with an eleven game losing streak, so I just want to say welcome back, one down, ten to go.</p>
@@ -481,7 +493,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">8</span>
     </div>
     <div>
-      <h3>Hud: Clux Deluxe</h3>
+      <h3><span class="mgr mgr-hudson">Hud</span>: Clux Deluxe</h3>
       <p class="record">0-1 &middot; 88.7 PF &middot; Power record 2-7</p>
       <p>Same bun, same pickle, same little foil bag, and the second you bite it you know somebody lied to you. Hud&rsquo;s team continues to scam him. Hud once again kept JaMarr Chase and Amon-Ra St Brown. Last year, Hud&rsquo;s team seemed like a team of destiny until he ran into the buzz saw that was Clod.</p>
       <p>After missing the playoffs a league record eight seasons in a row, Hud has made the playoffs two out of the last three years and finished in fifth the year he missed. Hud started Tyler Warren (8.8) at tight end while Isaiah Likely dropped 23.8 on his bench, and the Chargers D put up a goose egg. To be fair, 88.7 would have beaten two teams this week. Instead Rex shoved his face in the mashed potatoes and put 170.2 on him, the most points against in the league.</p>
@@ -500,7 +512,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">9</span>
     </div>
     <div>
-      <h3>Clod: Texas Toast</h3>
+      <h3><span class="mgr mgr-clod">Clod</span>: Texas Toast</h3>
       <p class="record">0-1 &middot; 86.2 PF &middot; Power record 1-8</p>
       <p>Soggy, greasy, nobody asked for it, and it leaves a stain. That is how Cody described his love life. Everybody knows Clod has always had a cowboy fantasy, and this week the Cowboys D gave him 0 and Brandon Aubrey gave him 2. Two points from the entire state of Texas. Toast.</p>
       <p>Chase Brown (16.3) and DJ Moore (18.5) tried, but the defending champ left Kyren Williams on the bench and his 14 points on the bench (not that it would have made a difference), while Jadarian Price started in the flex and gave him 6.8, and Malik Nabers added another 9.9 to the bench pile.</p>
@@ -521,7 +533,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">10</span>
     </div>
     <div>
-      <h3>Lee: The Fruit Cup</h3>
+      <h3><span class="mgr mgr-galt">Lee</span>: The Fruit Cup</h3>
       <p class="record">0-1 &middot; 72.3 PF &middot; Power record 0-9</p>
       <p>Last season&rsquo;s caddy, had the 1.01. The first pick in the entire draft. He took Omarion Hampton, and Omarion Hampton gave him 8.3. You peel back the lid expecting peaches and it&rsquo;s one sad grape floating in corn syrup and regret. Low Blow of the week at 72.3 and a 0-9 power record, which means Lee would have lost to every team in the league, and probably a team of the lunch ladies.</p>
       <p>The one grape was Jaxson Dart, his 11th round pick, who went for 26.6 and carried this dumpster fire on his back. George Kittle gave him 2.2, and Kittle is at this point held together by duct tape and Lee&rsquo;s prayers. Drake London 4.5. The Titans D went -1 and Harrison Mevis kicked for 1, which I&rsquo;m told is the least a kicker can score while technically being alive. Deebo (15) watched from the bench. Last year Lee finished second to last in points for, is this becoming a yearly tradition? It&rsquo;s week one. There&rsquo;s still time to make it worse.</p>
@@ -559,15 +571,15 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th>Pos</th><th>Player</th><th>Manager</th><th class="num">Pts</th></tr></thead>
       <tbody>
-        <tr><td>QB</td><td>Caleb Williams</td><td>T Wood</td><td class="num">37.1</td></tr>
-        <tr><td>RB</td><td>Derrick Henry</td><td>Mark Potter</td><td class="num">34.8</td></tr>
-        <tr><td>RB</td><td>Kenneth Walker</td><td>Taylor Hardee</td><td class="num">32.6</td></tr>
-        <tr><td>Flex</td><td>D&rsquo;Andre Swift</td><td>T Wood</td><td class="num">31.9</td></tr>
-        <tr><td>WR</td><td>Justin Jefferson</td><td>Ian Baro</td><td class="num">27.2</td></tr>
-        <tr><td>WR</td><td>Amon-Ra St. Brown</td><td>Josh Hudson</td><td class="num">23.7</td></tr>
-        <tr><td>TE</td><td>Dallas Goedert</td><td>Trey Wilder</td><td class="num">21.7</td></tr>
-        <tr><td>D/ST</td><td>Steelers</td><td>Michael Waivers</td><td class="num">18.0</td></tr>
-        <tr><td>K</td><td>Cam Little</td><td>Trey Wilder</td><td class="num">12.0</td></tr>
+        <tr><td>QB</td><td>Caleb Williams</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="num">37.1</td></tr>
+        <tr><td>RB</td><td>Derrick Henry</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="num">34.8</td></tr>
+        <tr><td>RB</td><td>Kenneth Walker</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">32.6</td></tr>
+        <tr><td>Flex</td><td>D&rsquo;Andre Swift</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="num">31.9</td></tr>
+        <tr><td>WR</td><td>Justin Jefferson</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="num">27.2</td></tr>
+        <tr><td>WR</td><td>Amon-Ra St. Brown</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="num">23.7</td></tr>
+        <tr><td>TE</td><td>Dallas Goedert</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">21.7</td></tr>
+        <tr><td>D/ST</td><td>Steelers</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">18.0</td></tr>
+        <tr><td>K</td><td>Cam Little</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">12.0</td></tr>
       </tbody>
     </table>
   </div>
@@ -583,12 +595,12 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th>Six highest starter scores</th><th>Manager</th><th class="num">Pts</th><th class="num">Vs. proj.</th></tr></thead>
       <tbody>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">CW<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-caleb-williams--us_fehd3.png"></span>Caleb Williams</span></td><td>t wood</td><td class="num">37.1</td><td class="num pos">+20.7</td></tr>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png"></span>Josh Allen</span></td><td>Michael Waivers</td><td class="num">35.5</td><td class="num pos">+16.3</td></tr>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png"></span>Derrick Henry</span></td><td>Mark Potter</td><td class="num">34.8</td><td class="num pos">+19.1</td></tr>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">KW<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/seattle-seahawks-kenneth-walker-min--8xn27fkg.png"></span>Kenneth Walker</span></td><td>Taylor Hardee</td><td class="num">32.6</td><td class="num pos">+19.3</td></tr>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">DS<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-dandre-swift-01--tu-k1ppa.png"></span>D&rsquo;Andre Swift</span></td><td>t wood</td><td class="num">31.9</td><td class="num pos">+20.5</td></tr>
-        <tr><td><span class="who"><span class="shot" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png"></span>Jahmyr Gibbs</span></td><td>t wood</td><td class="num">31.1</td><td class="num pos">+10.6</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">CW<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-caleb-williams--us_fehd3.png"></span>Caleb Williams</span></td><td><span class="mgr mgr-wood">t wood</span></td><td class="num">37.1</td><td class="num pos">+20.7</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png"></span>Josh Allen</span></td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">35.5</td><td class="num pos">+16.3</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png"></span>Derrick Henry</span></td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="num">34.8</td><td class="num pos">+19.1</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">KW<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/seattle-seahawks-kenneth-walker-min--8xn27fkg.png"></span>Kenneth Walker</span></td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">32.6</td><td class="num pos">+19.3</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">DS<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/chicago-bears-dandre-swift-01--tu-k1ppa.png"></span>D&rsquo;Andre Swift</span></td><td><span class="mgr mgr-wood">t wood</span></td><td class="num">31.9</td><td class="num pos">+20.5</td></tr>
+        <tr><td><span class="who"><span class="shot" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" src="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png"></span>Jahmyr Gibbs</span></td><td><span class="mgr mgr-wood">t wood</span></td><td class="num">31.1</td><td class="num pos">+10.6</td></tr>
       </tbody>
     </table>
   </div>
@@ -597,10 +609,10 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th>Biggest starter projection misses</th><th>Manager</th><th class="num">Actual / proj.</th><th class="num">Diff</th></tr></thead>
       <tbody>
-        <tr><td>Ja&rsquo;Marr Chase</td><td>Josh Hudson</td><td class="num">2.2 / 16.4</td><td class="num neg">-14.2</td></tr>
-        <tr><td>Texans</td><td>Shain Collins</td><td class="num">-5 / 5.4</td><td class="num neg">-10.4</td></tr>
-        <tr><td>Colston Loveland</td><td>Michael Waivers</td><td class="num">0 / 9.7</td><td class="num neg">-9.7</td></tr>
-        <tr><td>Jaylen Waddle</td><td>Shain Collins</td><td class="num">0.7 / 10</td><td class="num neg">-9.3</td></tr>
+        <tr><td>Ja&rsquo;Marr Chase</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="num">2.2 / 16.4</td><td class="num neg">-14.2</td></tr>
+        <tr><td>Texans</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="num">-5 / 5.4</td><td class="num neg">-10.4</td></tr>
+        <tr><td>Colston Loveland</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">0 / 9.7</td><td class="num neg">-9.7</td></tr>
+        <tr><td>Jaylen Waddle</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="num">0.7 / 10</td><td class="num neg">-9.3</td></tr>
       </tbody>
     </table>
   </div>
@@ -622,16 +634,16 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th>Manager / Team</th><th class="num">Actual</th><th class="num">Projection*</th><th class="num">Difference</th></tr></thead>
       <tbody>
-        <tr><td>Taylor Hardee</td><td class="num">170.2</td><td class="num">105.5</td><td class="num pos">+64.7</td></tr>
-        <tr><td>t wood</td><td class="num">155.8</td><td class="num">110.8</td><td class="num pos">+45.0</td></tr>
-        <tr><td>Mark Potter</td><td class="num">135.3</td><td class="num">115.5</td><td class="num pos">+19.8</td></tr>
-        <tr><td>Trey Wilder</td><td class="num">109.2</td><td class="num">104.5</td><td class="num pos">+4.7</td></tr>
-        <tr><td>Ian Baro</td><td class="num">107.1</td><td class="num">110.6</td><td class="num neg">-3.5</td></tr>
-        <tr><td>Michael Waivers</td><td class="num">104.9</td><td class="num">107.5</td><td class="num neg">-2.6</td></tr>
-        <tr><td>Shain Collins</td><td class="num">96.5</td><td class="num">103.6</td><td class="num neg">-7.1</td></tr>
-        <tr><td>Josh Hudson</td><td class="num">88.7</td><td class="num">113.4</td><td class="num neg">-24.7</td></tr>
-        <tr><td>cody clodfelter</td><td class="num">86.2</td><td class="num">102.2</td><td class="num neg">-16.0</td></tr>
-        <tr><td>Lee Galt</td><td class="num">72.3</td><td class="num">109.7</td><td class="num neg">-37.4</td></tr>
+        <tr><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">170.2</td><td class="num">105.5</td><td class="num pos">+64.7</td></tr>
+        <tr><td><span class="mgr mgr-wood">t wood</span></td><td class="num">155.8</td><td class="num">110.8</td><td class="num pos">+45.0</td></tr>
+        <tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="num">135.3</td><td class="num">115.5</td><td class="num pos">+19.8</td></tr>
+        <tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">109.2</td><td class="num">104.5</td><td class="num pos">+4.7</td></tr>
+        <tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="num">107.1</td><td class="num">110.6</td><td class="num neg">-3.5</td></tr>
+        <tr><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="num">104.9</td><td class="num">107.5</td><td class="num neg">-2.6</td></tr>
+        <tr><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="num">96.5</td><td class="num">103.6</td><td class="num neg">-7.1</td></tr>
+        <tr><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="num">88.7</td><td class="num">113.4</td><td class="num neg">-24.7</td></tr>
+        <tr><td><span class="mgr mgr-clod">cody clodfelter</span></td><td class="num">86.2</td><td class="num">102.2</td><td class="num neg">-16.0</td></tr>
+        <tr><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="num">72.3</td><td class="num">109.7</td><td class="num neg">-37.4</td></tr>
       </tbody>
     </table>
   </div>
@@ -647,16 +659,16 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th>Slot</th><th>Manager</th><th>Round 1</th><th>Round 2</th><th>Round 3</th></tr></thead>
       <tbody>
-        <tr><td>01</td><td>Lee Galt</td><td>Omarion Hampton</td><td>DeVon Achane</td><td>Drake London</td></tr>
-        <tr><td>02</td><td>T Wood</td><td>Jahmyr Gibbs [K]</td><td>Jaxon SmithNjigba</td><td>Nico Collins</td></tr>
-        <tr><td>03</td><td>Trey Wilder</td><td>James Cook</td><td>Jeremiyah Love</td><td>Rashee Rice</td></tr>
-        <tr><td>04</td><td>Shain Collins</td><td>Ashton Jeanty [K]</td><td>AJ Brown</td><td>Javonte Williams</td></tr>
-        <tr><td>05</td><td>Michael Waivers</td><td>Christian McCaffrey [K]</td><td>CeeDee Lamb [K]</td><td>Josh Allen</td></tr>
-        <tr><td>06</td><td>Ian Baro</td><td>Justin Jefferson [K]</td><td>Jonathan Taylor [K]</td><td>Travis Etienne</td></tr>
-        <tr><td>07</td><td>Taylor Hardee</td><td>Bijan Robinson [K]</td><td>Kenneth Walker [K]</td><td>Brock Bowers</td></tr>
-        <tr><td>08</td><td>Mark Potter</td><td>Puka Nacua [K]</td><td>Derrick Henry [K]</td><td>Trey McBride</td></tr>
-        <tr><td>09</td><td>Josh Hudson</td><td>JaMarr Chase [K]</td><td>AmonRa St Brown [K]</td><td>Breece Hall</td></tr>
-        <tr><td>10</td><td>Cody Clodfelter</td><td>Saquon Barkley</td><td>Chase Brown</td><td>Kyren Williams</td></tr>
+        <tr><td>01</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td>Omarion Hampton</td><td>DeVon Achane</td><td>Drake London</td></tr>
+        <tr><td>02</td><td><span class="mgr mgr-wood">T Wood</span></td><td>Jahmyr Gibbs [K]</td><td>Jaxon SmithNjigba</td><td>Nico Collins</td></tr>
+        <tr><td>03</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>James Cook</td><td>Jeremiyah Love</td><td>Rashee Rice</td></tr>
+        <tr><td>04</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>Ashton Jeanty [K]</td><td>AJ Brown</td><td>Javonte Williams</td></tr>
+        <tr><td>05</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>Christian McCaffrey [K]</td><td>CeeDee Lamb [K]</td><td>Josh Allen</td></tr>
+        <tr><td>06</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td>Justin Jefferson [K]</td><td>Jonathan Taylor [K]</td><td>Travis Etienne</td></tr>
+        <tr><td>07</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td>Bijan Robinson [K]</td><td>Kenneth Walker [K]</td><td>Brock Bowers</td></tr>
+        <tr><td>08</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>Puka Nacua [K]</td><td>Derrick Henry [K]</td><td>Trey McBride</td></tr>
+        <tr><td>09</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>JaMarr Chase [K]</td><td>AmonRa St Brown [K]</td><td>Breece Hall</td></tr>
+        <tr><td>10</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>Saquon Barkley</td><td>Chase Brown</td><td>Kyren Williams</td></tr>
       </tbody>
     </table>
   </div>
@@ -671,12 +683,12 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
     <table>
       <thead><tr><th class="num">Pick</th><th>Player</th><th>Manager</th><th class="num">Week 1</th></tr></thead>
       <tbody>
-        <tr><td class="num">8.09</td><td>Caleb Williams</td><td>T Wood</td><td class="num">37.1</td></tr>
-        <tr><td class="num">5.02</td><td>DAndre Swift</td><td>T Wood</td><td class="num">31.9</td></tr>
-        <tr><td class="num">5.07</td><td>David Montgomery</td><td>Taylor Hardee</td><td class="num">27.4</td></tr>
-        <tr><td class="num">11.01</td><td>Jaxson Dart</td><td>Lee Galt</td><td class="num">26.6</td></tr>
-        <tr><td class="num">10.04</td><td>Trevor Lawrence</td><td>Taylor Hardee</td><td class="num">26.1</td></tr>
-        <tr><td class="num">12.08</td><td>Dallas Goedert</td><td>Trey Wilder</td><td class="num">21.7</td></tr>
+        <tr><td class="num">8.09</td><td>Caleb Williams</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="num">37.1</td></tr>
+        <tr><td class="num">5.02</td><td>DAndre Swift</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="num">31.9</td></tr>
+        <tr><td class="num">5.07</td><td>David Montgomery</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">27.4</td></tr>
+        <tr><td class="num">11.01</td><td>Jaxson Dart</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="num">26.6</td></tr>
+        <tr><td class="num">10.04</td><td>Trevor Lawrence</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="num">26.1</td></tr>
+        <tr><td class="num">12.08</td><td>Dallas Goedert</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="num">21.7</td></tr>
       </tbody>
     </table>
   </div>
@@ -696,11 +708,11 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
   <p class="lede">Taylor Hardee vs. Mark Potter headlines the verified Week 2 schedule.</p>
 
   <div class="duo">
-    <div><h4>Taylor Hardee vs. Mark Potter</h4><p>Both enter 1-0. The No. 1 and No. 3 power-ranked teams meet after combining for 305.5 points in Week 1.</p></div>
-    <div><h4>t wood vs. cody clodfelter</h4><p>Can the runner-up in Week 1 scoring repeat that output? cody clodfelter looks to recover from 86.2.</p></div>
-    <div><h4>Michael Waivers vs. Josh Hudson</h4><p>Both start 0-1. Waivers brings the highest losing score; Hudson has a visible bench bright spot in Isaiah Likely.</p></div>
-    <div><h4>Ian Baro vs. Shain Collins</h4><p>Baro looks for a 2-0 start. Collins needs more around Jeanty, Flowers and Javonte Williams after their 74.9-point total.</p></div>
-    <div><h4>Lee Galt vs. Trey Wilder</h4><p>Galt needs a response after the week&rsquo;s low score. Wilder seeks a second win after clearing his projection by 4.7.</p></div>
+    <div><h4><span class="mgr mgr-hardee">Taylor Hardee</span> vs. <span class="mgr mgr-potter">Mark Potter</span></h4><p>Both enter 1-0. The No. 1 and No. 3 power-ranked teams meet after combining for 305.5 points in Week 1.</p></div>
+    <div><h4><span class="mgr mgr-wood">t wood</span> vs. <span class="mgr mgr-clod">cody clodfelter</span></h4><p>Can the runner-up in Week 1 scoring repeat that output? cody clodfelter looks to recover from 86.2.</p></div>
+    <div><h4><span class="mgr mgr-waivers">Michael Waivers</span> vs. <span class="mgr mgr-hudson">Josh Hudson</span></h4><p>Both start 0-1. Waivers brings the highest losing score; Hudson has a visible bench bright spot in Isaiah Likely.</p></div>
+    <div><h4><span class="mgr mgr-baro">Ian Baro</span> vs. <span class="mgr mgr-collins">Shain Collins</span></h4><p>Baro looks for a 2-0 start. Collins needs more around Jeanty, Flowers and Javonte Williams after their 74.9-point total.</p></div>
+    <div><h4><span class="mgr mgr-galt">Lee Galt</span> vs. <span class="mgr mgr-wilder">Trey Wilder</span></h4><p>Galt needs a response after the week&rsquo;s low score. Wilder seeks a second win after clearing his projection by 4.7.</p></div>
   </div>
 
   <div class="callout">
