@@ -31,17 +31,25 @@ body{
 }
 .sheet{max-width:860px;margin:0 auto;padding:0 20px 72px;}
 
-/* ---------- manager colours ---------- */
-.mgr-hardee{color:#C8102E;}
-.mgr-wood{color:#B95719;}
-.mgr-potter{color:#13274F;}
-.mgr-wilder{color:#782F40;}
-.mgr-baro{color:#012169;}
-.mgr-waivers{color:#1D1160;}
-.mgr-collins{color:#CC0000;}
-.mgr-hudson{color:#3A7AA5;}
-.mgr-clod{color:#592A8A;}
-.mgr-galt{color:#73000A;}
+/* ---------- manager badges ---------- */
+/* Same treatment as the league site's team badges: the team's
+   secondary colour behind, primary as the border and the name,
+   falling back to white where primary on secondary cannot be read. */
+.mgr{
+  display:inline-block;padding:.2em .6em;border-radius:8px;
+  border:1px solid transparent;font-weight:700;line-height:1.2;
+  white-space:nowrap;
+}
+.mgr-hardee{background:#FDB927;border-color:#C8102E;color:#C8102E;}
+.mgr-wood{background:#005030;border-color:#F47321;color:#F47321;}
+.mgr-potter{background:#CE1141;border-color:#13274F;color:#FFFFFF;}
+.mgr-wilder{background:#CEB888;border-color:#782F40;color:#782F40;}
+.mgr-baro{background:#00539B;border-color:#012169;color:#FFFFFF;}
+.mgr-waivers{background:#00788C;border-color:#1D1160;color:#1D1160;}
+.mgr-collins{background:#000000;border-color:#CC0000;color:#CC0000;}
+.mgr-hudson{background:#13294B;border-color:#4B9CD3;color:#4B9CD3;}
+.mgr-clod{background:#FDC82F;border-color:#592A8A;color:#592A8A;}
+.mgr-galt{background:#000000;border-color:#73000A;color:#FFFFFF;}
 
 /* ---------- cover ---------- */
 .cover{padding:56px 0 8px;text-align:center;}
@@ -341,7 +349,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">1</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-hardee">Rex</span>: Rectangle Pizza Friday</h3>
+      <h3><span class="mgr mgr-hardee">Rex</span> Rectangle Pizza Friday</h3>
       <p class="record">1-0 &middot; 170.2 PF &middot; Power record 9-0</p>
       <p>The lunch room is where Rex truly thrives. Growing up he would have legendary daily eating competitions in the lunch room, and I have heard rumors he has taken that tradition with him to Ayden Elementary. Rex slop dropped 170.2 onto Hud&rsquo;s tray like a lunch lady with a grudge. Kenneth Walker 32.6, David Montgomery 27.4 in the flex, Bijan 27.3, Trevor Lawrence 26.1, Olave 23.2, and the Jaguars D chipped in 13 just to rub it in. That 170.2 is the second highest score Rex has ever put up in this league, and he did it in week one against a guy who was probably still figuring out his lineup.</p>
       <p>And then there&rsquo;s Christian Watson, sitting on the bench with 29.7. Rex had so much pizza he left a whole slice on the tray to rot and still won by 81.5.</p>
@@ -365,7 +373,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">2</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-wood">Wood</span>: Chic-fil-A</h3>
+      <h3><span class="mgr mgr-wood">Wood</span> Chic-fil-A</h3>
       <p class="record">1-0 &middot; 155.8 PF &middot; Power record 8-1</p>
       <p>Last year Wood was 1&ndash;10 heading into the final two weeks. He won both, and his Week 1 matchup. Wood has not made the playoffs since 2019. Covid happened more recently than Wood making the playoffs. Now he&rsquo;s the one thing in the whole building everybody actually wants, and the line is out the door and around the gym. This week he put up 155.8, second most in the league, ran Waivers over by 50.9, and posted the 5th highest score of his entire fantasy career.</p>
       <p>Caleb Williams, his 8th round pick, went for 37.1 and was the highest scoring player in the entire league. Wood didn&rsquo;t draft that, he picked a player from his favorite team and lucked into it. Gibbs 31.1, Swift 31.9, JSN 22.2. The Browns D went -3 because some things never change, like the Browns, and Wood. Wood has finished in 9th place three years in a row. Can this finally be the year he escapes the bottom?</p>
@@ -385,7 +393,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">3</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-potter">Potter</span>: Chicken Nuggets</h3>
+      <h3><span class="mgr mgr-potter">Potter</span> Chicken Nuggets</h3>
       <p class="record">1-0 &middot; 135.3 PF &middot; Power record 7-2</p>
       <p>Potter&rsquo;s mom used to pack the same thing every day for his lunch and honestly it shows. Many players he had last year and in previous years are right back on his roster. Derrick Henry went for 34.8 and the man simply does not age, which is more than any of us can say. Trey McBride 20, Bucky Irving 16.8 and the Seahawks D for 13. Shain never stood a chance, 135.3 to 96.5.</p>
       <p>Puka gave him 9.9 in Australia but we all know that better days are ahead for him. Like the Aussies, Potter is ahead of the rest of us in going against processed foods. You can&rsquo;t go against a lunch time staple of our childhood, and you can not bet against the man who has the most championships in league history.</p>
@@ -410,7 +418,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">4</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-wilder">Trey</span>: Chocolate Chip Cookies</h3>
+      <h3><span class="mgr mgr-wilder">Trey</span> Chocolate Chip Cookies</h3>
       <p class="record">1-0 &middot; 109.2 PF &middot; Power record 6-3</p>
       <p>Not the fanciest thing on the tray but I got two and Clod got none. 109.2 to 86.2. Lamar 24.8, Dallas Goedert 21.7 (a tight end carried me, I&rsquo;m aware how that sounds), Ladd McConkey 16.7 and Cam Little for 12.</p>
       <p>Now here is where I chipped a tooth, because I shit the bed. I took James Cook at 1.03 and he gave me 8.4, which is less than a Cook Out tray costs. I started MarShawn Lloyd (3.7) over Matthew Golden (12.5) and Caleb Douglas (11.9) like a man who just took a dodgeball to the head. The Rams D scored 1 point. One. So yes, cookies, but half the batch came out hard enough to skip across the parking lot. A win is a win. Fight me.</p>
@@ -431,7 +439,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">5</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-baro">Ian</span>: Tater Tots</h3>
+      <h3><span class="mgr mgr-baro">Ian</span> Tater Tots</h3>
       <p class="record">1-0 &middot; 107.1 PF &middot; Power record 5-4</p>
       <p>Tater tots are the most overrated thing in the cafeteria and so is this win. Ian beat Lee 107.1 to 72.3, which is the fantasy equivalent of bragging that you beat your little cousin at Madden, and it earns him Worst Winner of the week. Jefferson 27.2, Hurts 24.6 and Jonathan Taylor 23.6 dragged this team across the finish line.</p>
       <p>Kyle Pitts put up a big fat 0.0. Pitts has been a fantasy scam since 2021 and Ian keeps buying in like the guy at the flea market who swears the Rolex is real. Davante Adams gave him 4.1 in the flex while Chuba Hubbard scored 22.2 on the bench. Josh Jacobs also scored 0 on the bench, so at least one lineup decision was correct. Enjoy the cold tots, Ian. Lee won&rsquo;t be on the schedule every week.</p>
@@ -452,7 +460,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">6</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-waivers">Waivers</span>: Chocolate Bagged Milk</h3>
+      <h3><span class="mgr mgr-waivers">Waivers</span> Chocolate Bagged Milk</h3>
       <p class="record">0-1 &middot; 104.9 PF &middot; Power record 4-5</p>
       <p>Nobody has ever explained why it comes in a bag. You stab it with the straw, it splits down the side, and somebody is going to need a change of shirt afterward. That&rsquo;s Waivers&rsquo; team. 104.9 is the Best Loser of the week and beats four other teams, but he drew Chic-fil-A. Josh Allen 35.5 and the Steelers D for 18 did all the heavy lifting.</p>
       <p>Meanwhile he started Tony Pollard (3.9), Terry McLaurin in the flex (2.4) and Colston Loveland, who scored a perfectly round zero, while Kyle Monangai put up 19.4 on the bench. For a man literally named Waivers, he has never once made a roster move that made sense. I texted him for comment. No response. Probably hiding out from baby duties while passed out on a lawn chair with a cig still lit and a beer going warm beside him in the garage.</p>
@@ -471,7 +479,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">7</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-collins">Shain</span>: Fish Sticks</h3>
+      <h3><span class="mgr mgr-collins">Shain</span> Fish Sticks</h3>
       <p class="record">0-1 &middot; 96.5 PF &middot; Power record 3-6</p>
       <p>Losing AJ Brown has to be the same level of disappointment as getting fish sticks on lunch day. Fish sticks smell like hell, half of it isn&rsquo;t even fish, and you still eat it since you&rsquo;ve got nothing else. The fish: Ashton Jeanty 29.7, Zay Flowers 23.5, Javonte Williams 21.7. The mystery filler: everything else.</p>
       <p>Jaylen Waddle gave him 0.7 in the flex. AJ Brown 4.1. Harold Fannin 3.1. And the Texans D scored -5. Negative five. They took points away from him, the worst starter in the league. Stefon Diggs sat on the bench with 13.5 watching all of it. Lost to Potter by 38.8. Last year Shain tied the league record with an eleven game losing streak, so I just want to say welcome back, one down, ten to go.</p>
@@ -493,7 +501,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">8</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-hudson">Hud</span>: Clux Deluxe</h3>
+      <h3><span class="mgr mgr-hudson">Hud</span> Clux Deluxe</h3>
       <p class="record">0-1 &middot; 88.7 PF &middot; Power record 2-7</p>
       <p>Same bun, same pickle, same little foil bag, and the second you bite it you know somebody lied to you. Hud&rsquo;s team continues to scam him. Hud once again kept JaMarr Chase and Amon-Ra St Brown. Last year, Hud&rsquo;s team seemed like a team of destiny until he ran into the buzz saw that was Clod.</p>
       <p>After missing the playoffs a league record eight seasons in a row, Hud has made the playoffs two out of the last three years and finished in fifth the year he missed. Hud started Tyler Warren (8.8) at tight end while Isaiah Likely dropped 23.8 on his bench, and the Chargers D put up a goose egg. To be fair, 88.7 would have beaten two teams this week. Instead Rex shoved his face in the mashed potatoes and put 170.2 on him, the most points against in the league.</p>
@@ -512,7 +520,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">9</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-clod">Clod</span>: Texas Toast</h3>
+      <h3><span class="mgr mgr-clod">Clod</span> Texas Toast</h3>
       <p class="record">0-1 &middot; 86.2 PF &middot; Power record 1-8</p>
       <p>Soggy, greasy, nobody asked for it, and it leaves a stain. That is how Cody described his love life. Everybody knows Clod has always had a cowboy fantasy, and this week the Cowboys D gave him 0 and Brandon Aubrey gave him 2. Two points from the entire state of Texas. Toast.</p>
       <p>Chase Brown (16.3) and DJ Moore (18.5) tried, but the defending champ left Kyren Williams on the bench and his 14 points on the bench (not that it would have made a difference), while Jadarian Price started in the flex and gave him 6.8, and Malik Nabers added another 9.9 to the bench pile.</p>
@@ -533,7 +541,7 @@ td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
       <span class="rank">10</span>
     </div>
     <div>
-      <h3><span class="mgr mgr-galt">Lee</span>: The Fruit Cup</h3>
+      <h3><span class="mgr mgr-galt">Lee</span> The Fruit Cup</h3>
       <p class="record">0-1 &middot; 72.3 PF &middot; Power record 0-9</p>
       <p>Last season&rsquo;s caddy, had the 1.01. The first pick in the entire draft. He took Omarion Hampton, and Omarion Hampton gave him 8.3. You peel back the lid expecting peaches and it&rsquo;s one sad grape floating in corn syrup and regret. Low Blow of the week at 72.3 and a 0-9 power record, which means Lee would have lost to every team in the league, and probably a team of the lunch ladies.</p>
       <p>The one grape was Jaxson Dart, his 11th round pick, who went for 26.6 and carried this dumpster fire on his back. George Kittle gave him 2.2, and Kittle is at this point held together by duct tape and Lee&rsquo;s prayers. Drake London 4.5. The Titans D went -1 and Harrison Mevis kicked for 1, which I&rsquo;m told is the least a kicker can score while technically being alive. Deebo (15) watched from the bench. Last year Lee finished second to last in points for, is this becoming a yearly tradition? It&rsquo;s week one. There&rsquo;s still time to make it worse.</p>
