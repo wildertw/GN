@@ -29,7 +29,8 @@ h1,h2,h3,h4{font-family:Oswald,"Arial Narrow",Arial,sans-serif;font-weight:700;l
 .hero h1{font-size:clamp(2.3rem,8vw,4.2rem);color:var(--ink)}
 .hero h1 span{color:var(--red)}
 .hero p.sub{margin:10px auto 0;max-width:34em;color:var(--muted)}
-.lot{width:100%;max-width:600px;margin:20px auto 0;display:block}
+.cover-photo{margin:22px 0 0}
+.cover-photo img{width:100%;height:auto;display:block;border-radius:6px}
 .drive{animation:drive 1s cubic-bezier(.2,.9,.3,1) both}
 .d1{animation-delay:.2s}.d2{animation-delay:.6s}
 @keyframes drive{from{opacity:0;translate:-160px 0}to{opacity:1;translate:0 0}}
@@ -183,12 +184,11 @@ td .mgr,.row .d .mgr,.two span .mgr{font-size:.92em}
   <p class="league">GREENVILLE NATIVES · 2026 SEASON · WEEK 2</p>
   <h1>Used Sedan <span>Power Rankings</span></h1>
   <p class="sub">High miles, bad paint, and every owner thinks his piece of shit is worth more than it is.</p>
-  <svg class="lot" viewBox="0 112 600 132" role="img" aria-label="Three used sedans in a parking lot, one of them smoking with an AS IS sign">
-    <rect x="0" y="120" width="600" height="130" fill="var(--asphalt)"/>
-    <g fill="#ffffff" opacity=".85"><rect x="175" y="130" width="5" height="110"/><rect x="355" y="130" width="5" height="110"/><rect x="535" y="130" width="5" height="110"/></g>
-    <rect x="0" y="228" width="600" height="6" fill="#ffe14d" opacity=".8"/>
-    <g class="drive d1" transform="translate(20,150) scale(1.5)"><path d="M6 46 L8 34 Q10 28 22 26 L36 16 Q42 12 52 12 L66 12 Q73 12 77 18 L84 26 Q94 28 94 36 L94 46 Z" fill="#d8ccb2"/><path d="M39 18 L51 15 L51 26 L27 26 Z" fill="#cfe6f5"/><path d="M55 15 L66 15 Q70 15 73 19 L78 26 L55 26 Z" fill="#cfe6f5"/><rect x="88" y="32" width="6" height="4" rx="1" fill="#ffe28a"/><rect x="6" y="34" width="4" height="4" rx="1" fill="#e2583e"/><circle cx="26" cy="48" r="9" fill="#1d1f24"/><circle cx="26" cy="48" r="5" fill="#b9bec8"/><circle cx="26" cy="48" r="2" fill="#6d737e"/><circle cx="74" cy="48" r="9" fill="#1d1f24"/><circle cx="74" cy="48" r="5" fill="#b9bec8"/><circle cx="74" cy="48" r="2" fill="#6d737e"/></g><g class="drive d2" transform="translate(190,150) scale(1.5)"><path d="M6 46 L8 34 Q10 28 22 26 L36 16 Q42 12 52 12 L66 12 Q73 12 77 18 L84 26 Q94 28 94 36 L94 46 Z" fill="#b3121f"/><path d="M39 18 L51 15 L51 26 L27 26 Z" fill="#cfe6f5"/><path d="M55 15 L66 15 Q70 15 73 19 L78 26 L55 26 Z" fill="#cfe6f5"/><rect x="88" y="32" width="6" height="4" rx="1" fill="#ffe28a"/><rect x="6" y="34" width="4" height="4" rx="1" fill="#e2583e"/><circle cx="26" cy="48" r="9" fill="#1d1f24"/><circle cx="26" cy="48" r="5" fill="#b9bec8"/><circle cx="26" cy="48" r="2" fill="#6d737e"/><circle cx="74" cy="48" r="9" fill="#1d1f24"/><circle cx="74" cy="48" r="5" fill="#b9bec8"/><circle cx="74" cy="48" r="2" fill="#6d737e"/></g><g transform="translate(370,150) scale(1.5)"><path d="M6 46 L8 34 Q10 28 22 26 L36 16 Q42 12 52 12 L66 12 Q73 12 77 18 L84 26 Q94 28 94 36 L94 46 Z" fill="#6b7d5a"/><path d="M39 18 L51 15 L51 26 L27 26 Z" fill="#cfe6f5"/><path d="M55 15 L66 15 Q70 15 73 19 L78 26 L55 26 Z" fill="#cfe6f5"/><rect x="88" y="32" width="6" height="4" rx="1" fill="#ffe28a"/><rect x="6" y="34" width="4" height="4" rx="1" fill="#e2583e"/><circle cx="26" cy="48" r="9" fill="#1d1f24"/><circle cx="26" cy="48" r="5" fill="#b9bec8"/><circle cx="26" cy="48" r="2" fill="#6d737e"/><circle cx="74" cy="48" r="9" fill="#1d1f24"/><circle cx="74" cy="48" r="5" fill="#b9bec8"/><circle cx="74" cy="48" r="2" fill="#6d737e"/><g class="smoke"><circle cx="82" cy="22" r="6" fill="#9aa0a8"/><circle cx="88" cy="12" r="8" fill="#b8bdc4"/><circle cx="80" cy="4" r="6" fill="#d0d4d9"/></g><g transform="rotate(-8 20.0 39)"><rect x="8" y="33" width="24" height="12" fill="#ffe14d" stroke="#e0b800" stroke-width=".8"/><text x="20.0" y="42" text-anchor="middle" font-family="Permanent Marker,Comic Sans MS,cursive" font-size="8" fill="#c1121f">AS IS</text></g></g>
-  </svg>
+  <figure class="cover-photo">
+    <img src="img/week2-2026-used-sedans/used-auto-lot.webp"
+         alt="The Greenville Natives managers posing as used car salesmen in loud 90s suits outside the Greenville Natives Used Auto lot, under a sign reading Week 2, all teams sold as is"
+         width="1536" height="1024" decoding="async">
+  </figure>
   <div class="bigstats">
     <div><b>130.6</b><span>WEEK 2 HIGH · HUDSON OVER WAIVERS</span></div>
     <div><b>58.8</b><span>SEASON LOW · THE DEFENDING CHAMP</span></div>
