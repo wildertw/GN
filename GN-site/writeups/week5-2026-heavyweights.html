@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Greenville Natives — 2026 Week 5 · The Heavyweight Division</title>
+<meta name="description" content="Greenville Natives 2026 Week 5: Wood and Trey are both 5-0 and neither is the best team in the league. Potter posts the season-high 178.9. Results, power rankings, the heavyweight division write-up, awards, the record book and Week 6 previews.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1115; --paper:#171a21; --card:#1d212a; --red:#c8102e; --gold:#d4af37; --ink:#eef1f6;
+  --muted:#99a1b0; --line:#2b3140; --win:#4fbf7a; --loss:#ef6a58;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+:root[data-theme="light"]{--bg:#eceef2;--paper:#fff;--card:#fff;--ink:#14171d;--muted:#5a616d;--line:#d4d8e0}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;-webkit-text-size-adjust:100%;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:Karla,"Trebuchet MS",Arial,sans-serif;font-size:1.06rem;line-height:1.62}
+img,svg{max-width:100%}
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 80px}
+h1,h2,h3,h4{font-family:Anton,Impact,sans-serif;font-weight:400;line-height:1.08;margin:0;text-transform:uppercase;letter-spacing:.01em}
+.hero{padding:40px 0 10px;text-align:center}
+.hero .league{font-weight:800;color:var(--muted);letter-spacing:.14em;font-size:.78rem;margin:0 0 12px}
+.hero h1{font-size:clamp(2.4rem,9vw,4.6rem);color:var(--ink)}
+.hero h1 span{color:var(--red)}
+.hero .sub{margin:14px auto 0;max-width:36em;color:var(--muted)}
+.belt{display:inline-block;margin-top:14px;background:linear-gradient(180deg,#e8c860,#9c7b22);color:#1a1205;font-family:Anton,Impact,sans-serif;padding:6px 16px;letter-spacing:.06em;font-size:.9rem}
+.cage{width:100%;max-width:560px;margin:22px auto 0;display:block}
+.pulse{animation:pulse 2.6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+.cover{margin:24px auto 0;max-width:420px;position:relative}
+.cover img{display:block;width:100%;height:auto;border:3px solid var(--red);box-shadow:0 18px 40px rgba(0,0,0,.55)}
+.cover figcaption{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;background:#000;border:3px solid var(--red);border-top:0;color:#fff;padding:10px 14px;font-family:Anton,Impact,sans-serif;letter-spacing:.06em;font-size:.9rem}
+.cover .tale-right{text-align:right}
+.cover .vs{background:var(--red);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;font-size:.75rem}
+@media (max-width:640px){.cover{max-width:320px}.cover figcaption{font-size:.72rem;padding:8px 10px}.cover .vs{width:26px;height:26px;font-size:.65rem}}
+.bigstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.bigstats div{background:var(--card);border-left:4px solid var(--red);padding:12px 14px}
+.bigstats b{display:block;font-family:Anton,Impact,sans-serif;font-size:1.7rem;color:var(--gold);line-height:1.1}
+.bigstats span{font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.04em}
+.intro{background:var(--paper);border:1px solid var(--line);padding:20px 22px;margin:26px 0}
+.intro p{margin:0 0 12px}.intro p:last-child{margin:0}
+.kicker{font-family:Anton,Impact,sans-serif;color:var(--red);font-size:.85rem;letter-spacing:.14em;margin:44px 0 6px}
+h2.sec{font-size:1.9rem;margin:0 0 8px}
+.dek{color:var(--muted);margin:0 0 16px}
+.note{color:var(--muted);font-size:.93rem;margin:12px 0 0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:460px;background:var(--paper)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:Anton,Impact,sans-serif;font-weight:400;font-size:.82rem;letter-spacing:.06em;background:#000;color:#fff}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.top td{background:rgba(200,16,46,.16)}
+.up{color:var(--win);font-weight:800}.down{color:var(--loss);font-weight:800}
+.entry{display:grid;grid-template-columns:120px 1fr;gap:22px;padding:30px 0;border-bottom:1px solid var(--line)}
+.entry:last-of-type{border-bottom:0}
+.tale{position:relative}
+.tale svg{width:110px;height:110px}
+.rank{position:absolute;top:-6px;left:-6px;background:var(--red);color:#fff;font-family:Anton,Impact,sans-serif;width:40px;height:40px;display:grid;place-items:center;font-size:1.2rem;z-index:2}
+.entry h3{font-size:1.5rem;color:var(--ink)}
+.fighter{font-family:Anton,Impact,sans-serif;color:var(--gold);letter-spacing:.05em;margin:4px 0 0;font-size:1.05rem;text-transform:uppercase}
+.entry .rec{color:var(--muted);font-weight:600;margin:4px 0 12px;font-size:.95rem}
+.entry p{margin:0 0 10px}
+.closer{font-weight:800;color:var(--ink);border-left:3px solid var(--red);padding-left:12px}
+.card{background:var(--paper);border:1px solid var(--line)}
+.row{display:grid;grid-template-columns:minmax(180px,1.2fr) 2fr auto;gap:14px;padding:11px 18px;border-bottom:1px solid var(--line);align-items:baseline}
+.row:last-child{border-bottom:0}
+.row .k{font-family:Anton,Impact,sans-serif;letter-spacing:.04em;font-size:.95rem;color:var(--gold)}
+.row .d{color:var(--muted)}
+.row .g{font-weight:800;font-size:1.1rem}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two div{background:var(--card);border-left:4px solid var(--gold);padding:10px 14px}
+.two b{display:block;font-family:Anton,Impact,sans-serif;font-size:1.3rem}
+.two span{font-size:.88rem;color:var(--muted);font-weight:600}
+.sign{margin-top:44px;font-family:Anton,Impact,sans-serif;font-size:1.2rem;color:var(--muted);letter-spacing:.04em}
+@media (max-width:640px){
+  .wrap{padding:0 14px 60px}
+  .hero{padding:26px 0 4px}
+  .bigstats{grid-template-columns:1fr;gap:8px}
+  .entry{grid-template-columns:1fr;gap:14px;padding:26px 0}
+  .tale svg{width:96px;height:96px}
+  .rank{width:34px;height:34px;font-size:1rem}
+  .entry h3{font-size:1.25rem}
+  h2.sec{font-size:1.45rem}
+  .row{grid-template-columns:1fr auto;gap:6px;padding:10px 14px}
+  .row .d{grid-column:1/-1;order:3;font-size:.9rem}
+  th,td{padding:8px 10px;font-size:.93rem}
+  .two{grid-template-columns:1fr}
+}
+.vs-card{margin:22px 0 0;border:1px solid var(--line);background:var(--paper)}
+.vs-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:14px 16px;background:#000;color:#fff}
+.vs-head .side b{display:block;font-family:Anton,Impact,sans-serif;font-size:1rem;letter-spacing:.03em;text-transform:uppercase}
+.vs-head .side span{font-size:.8rem;font-weight:700;color:#aeb5c2}
+.vs-head .side:last-child{text-align:right}
+.vs-head .bug{font-family:Anton,Impact,sans-serif;background:var(--red);color:#fff;border-radius:50%;width:38px;height:38px;display:grid;place-items:center;font-size:.8rem}
+.hook{margin:0;padding:12px 16px;background:rgba(212,175,55,.12);border-left:3px solid var(--gold);font-weight:600}
+.h2h{padding:6px 14px 12px}
+.h2h .r{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;padding:6px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.h2h .r:last-child{border-bottom:0}
+.h2h .r .s{font-size:.78rem;font-weight:800;color:var(--muted);text-align:center}
+.h2h .r .b{text-align:right}
+.h2h h4{font-size:.82rem;margin:14px 0 4px;color:var(--red);letter-spacing:.06em}
+.defs{background:var(--card);border:1px dashed var(--line);padding:12px 16px;margin:12px 0 4px}
+.defs h4{font-size:.85rem;letter-spacing:.06em;margin-bottom:8px;color:var(--gold)}
+.deflist{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.deflist dt{font-weight:800}
+.deflist dd{margin:0;font-size:.9rem;color:var(--muted)}
+@media (max-width:640px){
+  .vs-head{padding:12px}.vs-head .side b{font-size:.9rem}.vs-head .side span{font-size:.72rem}
+  .h2h{padding:4px 10px 10px}.h2h .r{font-size:.88rem;gap:4px}.h2h .r .s{font-size:.7rem}
+  .deflist{grid-template-columns:1fr}
+}
+@media print{.vs-card,.defs{break-inside:avoid;page-break-inside:avoid}}
+@media print{
+  :root{--bg:#fff;--paper:#fff;--card:#fff;--ink:#14171d;--muted:#555;--line:#ccc}
+  @page{size:letter portrait;margin:14mm}
+  body{background:#fff;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  .pulse{animation:none!important}
+  .entry,.card,.intro,.bigstats>div,table,.two>div{break-inside:avoid;page-break-inside:avoid}
+  h2.sec,.kicker{break-after:avoid}
+  .scroll{overflow:visible} table{min-width:0;font-size:9.5pt}
+}
+/* ---------- manager badges ---------- */
+/* Same treatment as the league site's team badges and the Week 1, 2 and 3 issues:
+   the team's secondary colour behind, primary as the border and the name,
+   falling back to white where primary on secondary cannot be read. */
+.mgr{display:inline-block;padding:.12em .55em;border-radius:8px;border:1px solid transparent;font-family:Karla,"Trebuchet MS",Arial,sans-serif;font-weight:800;line-height:1.25;white-space:nowrap;text-transform:none;letter-spacing:0}
+.mgr-hardee{background:#FDB927;border-color:#C8102E;color:#C8102E}
+.mgr-wood{background:#005030;border-color:#F47321;color:#F47321}
+.mgr-potter{background:#CE1141;border-color:#13274F;color:#FFFFFF}
+.mgr-wilder{background:#CEB888;border-color:#782F40;color:#782F40}
+.mgr-baro{background:#00539B;border-color:#012169;color:#FFFFFF}
+.mgr-waivers{background:#00788C;border-color:#1D1160;color:#1D1160}
+.mgr-collins{background:#000000;border-color:#CC0000;color:#CC0000}
+.mgr-hudson{background:#13294B;border-color:#4B9CD3;color:#4B9CD3}
+.mgr-clod{background:#FDC82F;border-color:#592A8A;color:#592A8A}
+.mgr-galt{background:#000000;border-color:#73000A;color:#FFFFFF}
+.entry h3 .mgr{font-size:.8em;vertical-align:.12em;margin-right:.2em}
+.vs-head .side b .mgr{font-size:.95rem}
+td .mgr,.row .d .mgr,.two span .mgr{font-size:.92em}
+@media print{.mgr{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+/* ---------- manager headshots ---------- */
+.lotcol{display:flex;flex-direction:column;align-items:center;gap:6px}
+.mhs{width:132px;height:132px;display:block}
+.vs-head .side b{display:flex;align-items:center;gap:6px}
+.vs-head .side:last-child b{flex-direction:row-reverse}
+.mhs-sm{width:46px;height:46px;flex:0 0 46px;display:block}
+@media (max-width:640px){
+  .lotcol{flex-direction:row;justify-content:flex-start;gap:14px}
+  .mhs{width:104px;height:104px}
+  .mhs-sm{width:40px;height:40px;flex-basis:40px}
+  .vs-head .side{min-width:0}
+  .vs-head .side b,.vs-head .side:last-child b{flex-direction:column;align-items:flex-start;gap:4px}
+  .vs-head .side:last-child b{align-items:flex-end}
+  .vs-head .side b .mgr{white-space:normal;font-size:.86rem}
+}
+
+/* ---------- player headshots ---------- */
+/* ESPN's headshot CDN first. If that fails the image retries through
+   the site's /statmuse/ proxy (see netlify.toml), and if that fails too
+   it removes itself, leaving the initials underneath. */
+.ph{position:relative;display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;overflow:hidden;background:var(--line);border:1px solid var(--line);vertical-align:-8px;margin:0 5px 0 2px;font-size:.58rem;font-weight:800;line-height:1;letter-spacing:.02em;color:var(--muted);font-style:normal}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;background:var(--paper);border-radius:50%}
+.h2h .r .b .ph{margin:0 2px 0 5px}
+.h2h .r.pc{align-items:center}
+@media (max-width:640px){.ph{width:22px;height:22px;vertical-align:-6px;font-size:.52rem}}
+/* Position comparison on phones: photo, name, points stacked on each side. */
+@media (max-width:640px){
+  .h2h .r.pc{align-items:start}
+  .h2h .r.pc>span:first-child,.h2h .r.pc .b{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+  .h2h .r.pc .b{flex-direction:column-reverse;align-items:flex-end}
+  .h2h .r.pc .ph{margin:0}
+}
+
+.backlink{display:inline-block;margin-top:26px;font-size:.8rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--red);text-decoration:none}
+.backlink:hover{text-decoration:underline}
+@media print{.backlink{display:none}}
+
+/* Week 5: the manager's headshot sits above the fighter in the tale-of-the-tape block. */
+.tale{display:flex;flex-direction:column;align-items:center;gap:6px}
+.tale .mhs{width:110px;height:110px;display:block}
+@media (max-width:640px){.tale{flex-direction:row;justify-content:flex-start;gap:12px}.tale .mhs{width:96px;height:96px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="league">GREENVILLE NATIVES · 2026 SEASON · WEEK 5</p>
+  <h1>The Heavyweight <span>Division</span></h1>
+  <span class="belt">UNDISPUTED 2010 · HEAVYWEIGHT ROSTER</span>
+  <p class="sub">Ten fighters, one belt, and a champion the numbers say shouldn't be holding it.</p>
+  <figure class="cover">
+    <img src="img/week5-2026-heavyweights/undisputed-cover.jpg" width="760" height="1074" decoding="async" alt="Mock UFC Undisputed 2010 Xbox 360 box art with T Wood and Trey Wilder on the cover">
+    <figcaption><span class="tale-left">T WOOD · 5-0</span><span class="vs">VS</span><span class="tale-right">TREY WILDER · 5-0</span></figcaption>
+  </figure>
+  <div class="bigstats">
+    <div><b>178.9</b><span>POTTER · HIGHEST SCORE OF THE SEASON</span></div>
+    <div><b>723.2</b><span>REX · MOST POINTS, BY 73.7</span></div>
+    <div><b>+14.0</b><span>WOOD · LUCK SCORE, DOUBLE ANYBODY ELSE</span></div>
+  </div>
+</header>
+
+<section class="intro">
+  <p>Five weeks in and this league has a title picture that makes no sense.  Two teams are 5-0.  Neither of them is the best team in the league.  Rex has 723.2 points, 73.7 more than anybody else, a 37-8 record against the field and an expected win percentage of 82.22, and he is sitting at 4-1 looking up at two guys who have been getting hit all year and not feeling it.</p>
+  <p>Underneath that, Potter just put up 178.9, the highest score anybody has managed this season, and he's 3-2.  Waivers has more points than two teams with better records.  Clod has had 636.1 points thrown at him, the most in the league, and the defending champion is 1-4.  And Shain is 0-5 with the longest losing streak in the league after scoring 105.2 and losing by 7.5.</p>
+  <p>I wanted to do a category that tied the top four in the standings together and could not think of a better one than the game we spent many late nights playing on the couch at Lewis St.  This week's theme is the heavyweight division off UFC Undisputed 2010.  Let's set the mood: Wood's swiveling his ass off, Potter's complaining that nobody will stand and bang with him, and Rex just tried to throw the ottoman through the window.</p>
+  <p>Ten fighters, one belt, and a rankings page that does not match what anybody watching can see.</p>
+</section>
+
+<p class="kicker">01 / THE CARD</p>
+<h2 class="sec">Week 5 results</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>Winner</th><th class="n">Pts</th><th>Loser</th><th class="n">Pts</th><th class="n">Margin</th></tr></thead>
+  <tbody>
+    <tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">178.9</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td class="n">127.0</td><td class="n">51.9</td></tr>
+    <tr><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="n">159.2</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="n">94.3</td><td class="n">64.9</td></tr>
+    <tr><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">141.7</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="n">86.4</td><td class="n">55.3</td></tr>
+    <tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="n">128.0</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="n">92.4</td><td class="n">35.6</td></tr>
+    <tr><td><span class="mgr mgr-wood">T Wood</span></td><td class="n">112.7</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="n">105.2</td><td class="n">7.5</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="kicker">02 / THE RANKINGS</p>
+<h2 class="sec">Power rankings after Week 5</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">Rk</th><th>Manager</th><th>Record</th><th class="n">PF</th><th class="n">PA</th><th class="n">Power</th><th class="n">All-play</th><th class="n">XP win</th><th class="n">Luck</th><th class="n">Chg</th></tr></thead>
+  <tbody>
+    <tr class="top"><td class="n">1</td><td><span class="mgr mgr-wood">T Wood</span></td><td>5-0</td><td class="n">581.7</td><td class="n">471.4</td><td class="n">90.2</td><td class="n">24-21</td><td class="n">53.3%</td><td class="n up">+14.0</td><td class="n">–</td></tr>
+    <tr><td class="n">2</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td>4-1</td><td class="n">723.2</td><td class="n">484.7</td><td class="n">85.8</td><td class="n">37-8</td><td class="n">82.2%</td><td class="n">0.0</td><td class="n up">▲1</td></tr>
+    <tr><td class="n">3</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>5-0</td><td class="n">564.4</td><td class="n">434.7</td><td class="n">85.1</td><td class="n">26-19</td><td class="n">57.8%</td><td class="n up">+4.2</td><td class="n down">▼1</td></tr>
+    <tr><td class="n">4</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>3-2</td><td class="n">649.5</td><td class="n">582.2</td><td class="n">81.8</td><td class="n">32-13</td><td class="n">71.1%</td><td class="n down">-2.9</td><td class="n">–</td></tr>
+    <tr><td class="n">5</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>2-3</td><td class="n">569.9</td><td class="n">607.5</td><td class="n">65.1</td><td class="n">23-22</td><td class="n">51.1%</td><td class="n">0.0</td><td class="n up">▲3</td></tr>
+    <tr><td class="n">6</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td>2-3</td><td class="n">519.1</td><td class="n">590.0</td><td class="n">58.9</td><td class="n">20-25</td><td class="n">44.4%</td><td class="n down">-5.6</td><td class="n down">▼1</td></tr>
+    <tr><td class="n">7</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td>2-3</td><td class="n">466.9</td><td class="n">542.7</td><td class="n">52.7</td><td class="n">14-31</td><td class="n">31.1%</td><td class="n up">+6.9</td><td class="n down">▼1</td></tr>
+    <tr><td class="n">8</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>1-4</td><td class="n">540.7</td><td class="n">590.7</td><td class="n">52.5</td><td class="n">22-23</td><td class="n">48.9%</td><td class="n down">-5.1</td><td class="n down">▼1</td></tr>
+    <tr><td class="n">9</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>1-4</td><td class="n">474.7</td><td class="n">636.1</td><td class="n">45.6</td><td class="n">13-32</td><td class="n">28.9%</td><td class="n down">-7.1</td><td class="n">–</td></tr>
+    <tr><td class="n">10</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>0-5</td><td class="n">470.5</td><td class="n">620.6</td><td class="n">35.8</td><td class="n">14-31</td><td class="n">31.1%</td><td class="n down">-6.9</td><td class="n">–</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="kicker">03 / TALE OF THE TAPE</p>
+<h2 class="sec">The division, ranked</h2>
+
+<article class="entry">
+  <div class="tale">
+    <div class="rank">1</div><img class="mhs" src="img/managers/wood.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#d4af37" stroke="#8c6d1f" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#8c6d1f" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#8c6d1f"/><circle cx="16" cy="50" r="4" fill="#d4af37"/><circle cx="84" cy="50" r="4" fill="#d4af37"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-wood">Wood</span></h3>
+    <p class="fighter">Brock Lesnar</p>
+    <p class="rec">5-0 · Power 90.2 · 581.7 PF · Luck +14.0</p>
+    <p>Brock Lesnar was the kind of fighter who could make an entire division hate him simply by continuing to win, and Wood has apparently adopted the same strategy.  His latest escape came against winless Shain, surviving 112.7-105.2 thanks largely to <span class="ph" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4429795.png"></span>Jahmyr Gibbs, who rushed for 151 yards and two touchdowns while adding five catches for 56 yards.  Gibbs accounted for 35.2 fantasy points, nearly a third of Wood's offense, and the timing couldn't be worse because Detroit is on its bye in Week 6.  Wood also spent $16 FAAB on <span class="ph" aria-hidden="true">JM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cincinnati-bengals-joe-mixon2021-min--xpluiou8.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3116385.png"></span>Joe Mixon, only for Mixon to reportedly fail his physical and remain unsigned by an NFL team, leaving Wood with nothing to show for the investment.</p>
+    <p>Now comes the biggest matchup of the season against fellow undefeated Trey, who holds a 21-5 all-time advantage over Wood and has won their last five meetings.  Wood's +14.0 luck score is more than double anybody else's, but even Brock Lesnar might have trouble surviving this one without his best weapon.</p>
+    <p class="closer">Five wins. No Gibbs. $16 down the drain.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">2</div><img class="mhs" src="img/managers/hardee.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#d4af37" stroke="#8c6d1f" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#8c6d1f" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#8c6d1f"/><circle cx="16" cy="50" r="4" fill="#d4af37"/><circle cx="84" cy="50" r="4" fill="#d4af37"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-hardee">Rex</span></h3>
+    <p class="fighter">Cain Velasquez</p>
+    <p class="rec">4-1 · Power 85.8 · 723.2 PF · Expected Win 82.2%</p>
+    <p>723.2 points through five games, the highest-scoring start in seventeen seasons of Greenville Natives football, breaking Potter's 2011 record by 42.2 points.  Like Cain Velasquez relentlessly mauling opponents against the cage, Rex has been wearing down the entire division, but his greatest accomplishment this week might have been discovering that Shain's trash makes excellent fantasy football players.  Shain dropped <span class="ph" aria-hidden="true">DM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-england-patriots-drake-maye---fazjljg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"></span>Drake Maye to add Jaylen Wright, and Rex promptly scooped Maye up from free agency.</p>
+    <p>Maye immediately rewarded him with 374 passing yards, four passing touchdowns, 25 rushing yards, and another touchdown, producing a league-leading 39.3 fantasy points.  <span class="ph" aria-hidden="true">CW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-christian-watson-min--j-3vef4u.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4248528.png"></span>Christian Watson added six catches for 143 yards and two touchdowns, while <span class="ph" aria-hidden="true">BB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/las-vegas-raiders-brock-bowers--kdfllgua.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4432665.png"></span>Brock Bowers finally started looking like the third-round pick Rex expected.  Rex is averaging 144.6 points per game with an 82.2% expected winning percentage, while Shain is sitting at 0-5 watching his former quarterback throw five touchdowns for somebody else.</p>
+    <p class="closer">One man's trash is apparently Rex's QB1.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">3</div><img class="mhs" src="img/managers/wilder.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#d4af37" stroke="#8c6d1f" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#8c6d1f" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#8c6d1f"/><circle cx="16" cy="50" r="4" fill="#d4af37"/><circle cx="84" cy="50" r="4" fill="#d4af37"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-wilder">Trey</span></h3>
+    <p class="fighter">Frank Mir</p>
+    <p class="rec">5-0 · Power 85.1 · 434.7 PA · Fewest Points Against</p>
+    <p>Frank Mir wasn't the biggest or strongest heavyweight in the division, but he was perfectly comfortable waiting for somebody to make a mistake before locking in a submission.  My team has spent five weeks employing essentially the same strategy, winning every matchup without ever scoring more than 128 points.  This week <span class="ph" aria-hidden="true">JD<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/washington-commanders-jayden-daniels--e39_7-fd.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426348.png"></span>Jayden Daniels threw for 260 yards and two touchdowns while rushing for another 70, helping secure a 128.0-92.4 win over Waivers.</p>
+    <p>I've allowed just 434.7 points through five games, the fewest in the league, and there's no denying I've benefited from opponents repeatedly leaving themselves wide open.  But nobody asks how pretty the submission looked once the referee raises your hand.  Now comes a rematch of one of the UFC's most famous heavyweight rivalries, Brock Lesnar versus Frank Mir, with both Wood and me undefeated and a chance to become just the third team in league history to start 6-0.</p>
+    <p class="closer">No highlight reel. Five submissions.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">4</div><img class="mhs" src="img/managers/potter.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#d4af37" stroke="#8c6d1f" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#8c6d1f" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#8c6d1f"/><circle cx="16" cy="50" r="4" fill="#d4af37"/><circle cx="84" cy="50" r="4" fill="#d4af37"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-potter">Potter</span></h3>
+    <p class="fighter">Junior dos Santos</p>
+    <p class="rec">3-2 · Power 81.8 · 649.5 PF · Highest Score of 2026</p>
+    <p>Potter didn't just beat Clod on Sunday; he delivered 178.9 points, the fifth-highest regular-season score in league history, and did it without a single starter exceeding 31 fantasy points.  Like Junior dos Santos picking an opponent apart with combination after combination, Potter attacked Clod from every possible angle.  <span class="ph" aria-hidden="true">BI<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tampa-bay-buccaneers-bucky-irving--0yt7ucg3.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4596448.png"></span>Bucky Irving rushed for 165 yards and a touchdown while adding another receiving score, <span class="ph" aria-hidden="true">PN<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-puka-nacua-copy-min--x1stw0ms.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426515.png"></span>Puka Nacua caught an absurd 17 passes for 138 yards and a touchdown, and <span class="ph" aria-hidden="true">JB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cincinnati-bengals-joe-burrow-min--hedgxbuk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png"></span>Joe Burrow threw four touchdowns.  Even the kicker joined the beating, as Spencer Shrader rewarded Potter's $2 FAAB investment with 21 fantasy points.</p>
+    <p>Eight starters finished in double figures, leaving Clod's respectable 127-point performance looking completely irrelevant.  Potter now owns two of the ten highest-scoring weeks in league history, including his 225.4-point explosion in 2014, and Sunday's performance should remind everybody why nobody wants to stand and bang with Junior dos Santos.</p>
+    <p class="closer">178.9 points. Fifth all-time. Clod never stood a chance.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">5</div><img class="mhs" src="img/managers/hudson.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#d4af37" stroke="#8c6d1f" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#8c6d1f" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#8c6d1f"/><circle cx="16" cy="50" r="4" fill="#d4af37"/><circle cx="84" cy="50" r="4" fill="#d4af37"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-hudson">Hud</span></h3>
+    <p class="fighter">Shane Carwin</p>
+    <p class="rec">2-3 · Power 65.1 ▲3 · 159.2 Week 5</p>
+    <p>Shane Carwin built his reputation on frightening knockout power, and after four relatively uninspiring weeks, Hud finally decided to start throwing punches.  <span class="ph" aria-hidden="true">JW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/pittsburgh-steelers-jaylen-warren--shfmtwvy.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4569987.png"></span>Jaylen Warren delivered the biggest haymakers, rushing for 101 yards and a touchdown while catching six passes for 87 yards and another score, with touchdowns covering 50 and 80 yards.  <span class="ph" aria-hidden="true">ME<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tampa-bay-buccaneers-mike-evans2020-min--chrctowb.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/16737.png"></span>Mike Evans added seven catches for 113 yards and a touchdown, Jason Myers kicked five field goals, and the Jets defense contributed 16 points.  Hud demolished Ian 159.2-94.3, producing the week's largest margin of victory despite leaving Isaiah Likely's 26.9 points on the bench.</p>
+    <p>But at 2-3, Hud isn't nearly as far from the basement as this week's knockout performance might suggest.  He now faces Potter, who has won 17 of their 22 meetings, including nine consecutive victories at one point, and a loss would put Hud right back in Caddy Bowl territory.  Just like Carwin's famous fight against Brock Lesnar, Hud proved he can deliver a devastating first-round beating, but the question is whether he can keep it going when the fight gets tougher.</p>
+    <p class="closer">One big knockout doesn't guarantee you won't end up carrying somebody else's golf bag.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">6</div><img class="mhs" src="img/managers/galt.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#6b7280" stroke="#454b56" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#454b56" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#454b56"/><circle cx="16" cy="50" r="4" fill="#6b7280"/><circle cx="84" cy="50" r="4" fill="#6b7280"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-galt">Lee</span></h3>
+    <p class="fighter">Roy Nelson</p>
+    <p class="rec">2-3 · Power 58.9 · 519.1 PF</p>
+    <p>There was only one appropriate fighter for Lee Galt because Lee and Roy Nelson both proudly rock the mullet.  Big Country made a career out of looking completely unconcerned with conventional athletic appearances before occasionally knocking somebody unconscious with a massive overhand right, which feels appropriate for a team that has finished last in weekly scoring twice already.  Lee managed just 86.4 against Rex, with <span class="ph" aria-hidden="true">BP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-brock-purdy-min--cc0hh0oy.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4361741.png"></span>Brock Purdy throwing for 189 yards and two touchdowns but failing to provide enough offense to keep things competitive.  At least the quarterback position is settled, as Purdy has become Lee's established starter since being acquired for $10 FAAB.  Lee also spent $14 on Devaughn Vele, continuing to search for receiving help and presumably somebody capable of landing Roy Nelson's famous right hand.</p>
+    <p>Now he faces Shain in a matchup between the league's last two caddies, with Lee attempting to avoid becoming a repeat offender after his 2026 Caddy Bowl punishment.  The playoffs are still within reach, but after spending time carrying another man's golf clubs, Lee should understand better than anybody that there's more than one reason to avoid the bottom of the standings.</p>
+    <p class="closer">Big Country. Big mullet. No interest in carrying another golf bag.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">7</div><img class="mhs" src="img/managers/baro.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#6b7280" stroke="#454b56" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#454b56" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#454b56"/><circle cx="16" cy="50" r="4" fill="#6b7280"/><circle cx="84" cy="50" r="4" fill="#6b7280"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-baro">Ian</span></h3>
+    <p class="fighter">Cheick Kongo</p>
+    <p class="rec">2-3 · Power 52.7 · 466.9 PF</p>
+    <p>There was one night at Lewis Street when I was playing Rex in UFC Undisputed 2010 and somehow ended up with Cheick Kongo.  I was devastated, had absolutely no confidence in Kongo, and had practically accepted defeat before the fight even started.  Then Ian started giving me a pep talk, and whatever he said had me ready to run through a brick wall.  About a minute later, Rex was unconscious from a first-round knockout, and Cheick Kongo looked like the greatest heavyweight who had ever lived.  That's Ian.</p>
+    <p>His fantasy team might be 2-3 and dead last in points scored, but I've personally witnessed this man turn a hopeless situation into a first-round knockout with nothing more than a motivational speech.  His latest moves haven't exactly inspired confidence, as the $10 he spent on T.J. Hockenson produced one catch for seven yards, while his decisions to roster <span class="ph" aria-hidden="true">JJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-josh-jacobs--e5wiq7zw.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4047365.png"></span>Josh Jacobs and <span class="ph" aria-hidden="true">TH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/miami-dolphins-tyreek-hill2023-min--ga5zrvt5.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3116406.png"></span>Tyreek Hill remain legitimate headscratchers.  But they're lottery tickets, and if there's one locker room where a couple of questionable veterans might somehow revive their fantasy careers, it's Ian's.  Hud knocked him around for a 64.9-point defeat this week, and while Ian remains within striking distance of the playoffs, his league-low scoring total has also put him dangerously close to Caddy Bowl territory.  If anyone can coach a struggling heavyweight out of the basement and away from a future afternoon carrying someone else's golf clubs, it's the man who once convinced me Cheick Kongo could knock out Rex.</p>
+    <p class="closer">The record says 2-3. The corner man says the fight isn't over.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">8</div><img class="mhs" src="img/managers/waivers.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#6b7280" stroke="#454b56" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#454b56" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#454b56"/><circle cx="16" cy="50" r="4" fill="#6b7280"/><circle cx="84" cy="50" r="4" fill="#6b7280"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-waivers">Waivers</span></h3>
+    <p class="fighter">Brendan Schaub</p>
+    <p class="rec">1-4 · Power 52.5 · 540.7 PF</p>
+    <p>Yesterday, Waivers saw Brendan Schaub at a grocery store in Raleigh.  Waivers told him how cool it was to meet him in person, but explained that he didn't want to be a douche and bother him by asking for pictures or anything.  Schaub responded, "Oh, like you're doing now?"  Waivers was taken aback, and all he could manage was a confused "Huh?" before Schaub started cutting him off, repeatedly saying "huh? huh? huh?" while closing his hand in front of Waivers' face.  Eventually, Waivers walked away and continued shopping, hearing Schaub chuckling behind him.<br><br>A few minutes later, Waivers arrived at the front of the store and saw Schaub attempting to walk out with approximately fifteen Milky Ways without paying.  The cashier politely stopped him and explained that he needed to pay for the candy bars.  Schaub initially pretended to be tired and unable to hear her, but eventually returned to the counter.  When the cashier picked up one Milky Way and started scanning it multiple times, Schaub demanded that she scan each bar individually to prevent any "electrical infetterence," then turned around and winked at Waivers.  Waivers was fairly certain that wasn't even a word.  As the cashier finished scanning the bars and began reading the total, Schaub repeatedly interrupted her by yawning as loudly as humanly possible.</p>
+    <p>Anyway, Waivers lost again Sunday.  Like Brendan Schaub, Waivers looks perfectly capable of competing in the heavyweight division, but things have a habit of going horribly wrong once the fight starts.  <span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span>Josh Allen rushed for 121 yards while adding 210 passing yards, and <span class="ph" aria-hidden="true">GW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-jets-garrett-wilson-min--earb8htj.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4569618.png"></span>Garrett Wilson caught seven passes for 104 yards and a touchdown, but Waivers still managed just 92.4 points against Trey.  The real disaster was <span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"></span>CeeDee Lamb, who caught two passes for nine yards, meaning Schaub allegedly carried more Milky Ways out of that grocery store than Lamb gained receiving yards.  Waivers has enough talent to compete for a playoff spot, but at 1-4, he's getting dangerously close to fighting for something considerably less glamorous.  He now faces Clod, who has beaten him five consecutive times, and another loss would leave Waivers staring directly at the possibility of a Caddy Bowl appearance.  Schaub famously knocked Mirko Cro Cop unconscious in 2011, so perhaps Waivers can finally land a punch before his season turns into eighteen holes of carrying somebody else's clubs.</p>
+    <p class="closer">To prevent any electrical infetterence, please scan each loss individually.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">9</div><img class="mhs" src="img/managers/clod.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#6b7280" stroke="#454b56" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#454b56" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#454b56"/><circle cx="16" cy="50" r="4" fill="#6b7280"/><circle cx="84" cy="50" r="4" fill="#6b7280"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-clod">Clod</span></h3>
+    <p class="fighter">Mirko Cro Cop</p>
+    <p class="rec">1-4 · Power 45.6 · 636.1 PA</p>
+    <p>There was a time when Mirko Cro Cop was one of the most terrifying men in mixed martial arts, and Clod was similarly feared throughout the Greenville Natives after winning last year's championship.  Five weeks into his title defense, however, he's 1-4 and has allowed 636.1 points, more than anybody else in the league.  Sunday was particularly cruel, as <span class="ph" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-jared-goff2020-min--eokp2jye.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3046779.png"></span>Jared Goff contributed 28.9 points and <span class="ph" aria-hidden="true">MN<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-giants-malik-nabers--h5kx013u.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4595348.png"></span>Malik Nabers added 23.6, helping Clod reach a respectable 127.0, only for Potter to drop the fifth-highest score in league history on him.</p>
+    <p>Like Cro Cop in the later stages of his UFC career, Clod hasn't completely forgotten how to fight, but he keeps finding himself on the wrong side of somebody else's highlight reel.  He's been trying to repair the damage, including spending $24 FAAB on <span class="ph" aria-hidden="true">OG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" src="https://a.espncdn.com/i/headshots/nfl/players/full/4711533.png"></span>Ollie Gordon II, but the results haven't followed.  Clod knows all about the Caddy Bowl after earning the inaugural caddy punishment in 2024, and the defending champion now faces the very real possibility of returning to the competition he thought he'd left behind.  Fortunately, he faces Waivers in Week 6, a manager he's defeated five consecutive times, giving him a chance to revive his playoff hopes while avoiding another trip to the golf course.</p>
+    <p class="closer">Right leg hospital. Left leg cemetery. Please, not another golf bag.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="tale">
+    <div class="rank">10</div><img class="mhs" src="img/managers/collins.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+    <svg viewBox="0 0 100 100" aria-hidden="true"><polygon points="90.7,66.8 66.8,90.7 33.2,90.7 9.3,66.8 9.3,33.2 33.2,9.3 66.8,9.3 90.7,33.2" fill="#15171c" stroke="#c8102e" stroke-width="3"/><g transform="translate(14,14) scale(0.72)"><rect x="4" y="40" width="92" height="20" rx="4" fill="#23262d" stroke="#3a3f4a" stroke-width="1.5"/><rect x="10" y="44" width="80" height="12" fill="#1a1d23"/><ellipse cx="50" cy="50" rx="26" ry="22" fill="#6b7280" stroke="#454b56" stroke-width="2"/><ellipse cx="50" cy="50" rx="19" ry="15.5" fill="none" stroke="#454b56" stroke-width="1.5"/><polygon points="50,40 53,47 61,47 54,52 57,59 50,55 43,59 46,52 39,47 47,47" fill="#454b56"/><circle cx="16" cy="50" r="4" fill="#6b7280"/><circle cx="84" cy="50" r="4" fill="#6b7280"/></g></svg>
+  </div>
+  <div>
+    <h3><span class="mgr mgr-collins">Shain</span></h3>
+    <p class="fighter">Stefan Struve</p>
+    <p class="rec">0-5 · Power 35.8 · 470.5 PF</p>
+    <p>Six-foot-four, plenty of reach, and somehow every punch still finds the chin.  Like Stefan Struve, Shain has all the physical tools to look intimidating when he steps into the octagon, but things tend to unravel the moment somebody starts swinging.  Shain finally got some legitimate production Sunday, with <span class="ph" aria-hidden="true">MS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-matthew-stafford2018-min--iemevhwu.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/12483.png"></span>Matthew Stafford completing 40 of 54 passes for 383 yards and three touchdowns, while <span class="ph" aria-hidden="true">PW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/jacksonville-jaguars-parker-washington--mpfafvqm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4432620.png"></span>Parker Washington added six catches for 124 yards and two scores.  Unfortunately, Wood escaped with a 112.7-105.2 victory, handing Shain his fifth consecutive loss.</p>
+    <p>The week's biggest embarrassment might have been watching <span class="ph" aria-hidden="true">DM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-england-patriots-drake-maye---fazjljg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"></span>Drake Maye, whom Shain dropped to acquire Jaylen Wright, throw four touchdowns and rush for another after Rex picked him up from free agency.  Shain now enters Week 6 against Lee in a matchup between the league's last two caddies, with Shain having earned the punishment in 2025 and Lee following in 2026.  At 0-5, Shain isn't just watching his playoff hopes disappear; he's in serious danger of making a return trip to the Caddy Bowl, where another loss could leave him carrying golf clubs for the second time.</p>
+    <p class="closer">Six-foot-four. Zero wins. One quarterback charity. A potential second career as a caddy.</p>
+  </div>
+</article>
+
+<p class="kicker">04 / THE BONUSES</p>
+<h2 class="sec">Week 5 awards</h2>
+<div class="card">
+  <div class="row"><span class="k">Knockout of the Night</span><span class="d">Biggest blowout, <span class="mgr mgr-hudson">Hud</span> over <span class="mgr mgr-baro">Ian</span> by</span><span class="g">64.9</span></div>
+  <div class="row"><span class="k">Fight of the Night</span><span class="d">Closest game, <span class="mgr mgr-wood">Wood</span> over <span class="mgr mgr-collins">Shain</span> by</span><span class="g">7.5</span></div>
+  <div class="row"><span class="k">Performance of the Night</span><span class="d">Highest score, <span class="mgr mgr-potter">Potter</span> over <span class="mgr mgr-clod">Clod</span></span><span class="g">178.9</span></div>
+  <div class="row"><span class="k">Hardest Shot Landed</span><span class="d">Best starter, <span class="ph" aria-hidden="true">DM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-england-patriots-drake-maye---fazjljg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"></span>Drake Maye, QB (<span class="mgr mgr-hardee">Rex</span>)</span><span class="g">39.3</span></div>
+  <div class="row"><span class="k">Point Deduction</span><span class="d">Worst starter, Bears D/ST (<span class="mgr mgr-baro">Ian</span>)</span><span class="g">-2.0</span></div>
+  <div class="row"><span class="k">Left It in the Corner</span><span class="d">Best bench score, Isaiah Likely (<span class="mgr mgr-hudson">Hud</span>)</span><span class="g">26.9</span></div>
+  <div class="row"><span class="k">Hometown Decision</span><span class="d">Luckiest team on the season, <span class="mgr mgr-wood">Wood</span></span><span class="g">+14.0</span></div>
+  <div class="row"><span class="k">Robbed on the Cards</span><span class="d">Unluckiest team on the season, <span class="mgr mgr-clod">Clod</span></span><span class="g">-7.1</span></div>
+  <div class="row"><span class="k">Most Damage Absorbed</span><span class="d">Most points against, <span class="mgr mgr-clod">Clod</span></span><span class="g">636.1</span></div>
+  <div class="row"><span class="k">Still Undefeated</span><span class="d"><span class="mgr mgr-wood">Wood</span> and <span class="mgr mgr-wilder">Trey</span>, five fights, no losses</span><span class="g">5-0</span></div>
+</div>
+
+<p class="kicker">05 / THE MAIN CARD</p>
+<h2 class="sec">All-league lineup, Week 5</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>Pos</th><th>Player</th><th>Manager</th><th class="n">Pts</th></tr></thead>
+  <tbody>
+    <tr><td>QB</td><td><span class="ph" aria-hidden="true">DM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-england-patriots-drake-maye---fazjljg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4431452.png"></span>Drake Maye</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">39.3</td></tr>
+    <tr><td>RB</td><td><span class="ph" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4429795.png"></span>Jahmyr Gibbs</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="n">35.2</td></tr>
+    <tr><td>RB</td><td><span class="ph" aria-hidden="true">JW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/pittsburgh-steelers-jaylen-warren--shfmtwvy.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4569987.png"></span>Jaylen Warren</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="n">33.8</td></tr>
+    <tr><td>WR</td><td><span class="ph" aria-hidden="true">CW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-christian-watson-min--j-3vef4u.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4248528.png"></span>Christian Watson</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">29.3</td></tr>
+    <tr><td>WR</td><td><span class="ph" aria-hidden="true">PN<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-puka-nacua-copy-min--x1stw0ms.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426515.png"></span>Puka Nacua</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">29.2</td></tr>
+    <tr><td>Flex</td><td><span class="ph" aria-hidden="true">BI<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tampa-bay-buccaneers-bucky-irving--0yt7ucg3.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4596448.png"></span>Bucky Irving</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">30.5</td></tr>
+    <tr><td>TE</td><td><span class="ph" aria-hidden="true">BB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/las-vegas-raiders-brock-bowers--kdfllgua.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4432665.png"></span>Brock Bowers</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">19.0</td></tr>
+    <tr><td>D/ST</td><td>Jets</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="n">16.0</td></tr>
+    <tr><td>K</td><td>Jason Myers</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="n">23.0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="kicker">06 / LIONS &amp; LAMBS</p>
+<h2 class="sec">Season to date</h2>
+<div class="two">
+  <div><b>723.2</b><span>Most points for · <span class="mgr mgr-hardee">Taylor Hardee</span></span></div>
+  <div><b>466.9</b><span>Fewest points for · <span class="mgr mgr-baro">Ian Baro</span></span></div>
+  <div><b>636.1</b><span>Most points against · <span class="mgr mgr-clod">Cody Clodfelter</span></span></div>
+  <div><b>434.7</b><span>Fewest points against · <span class="mgr mgr-wilder">Trey Wilder</span></span></div>
+  <div><b>178.9</b><span>Highest ceiling · <span class="mgr mgr-potter">Mark Potter</span></span></div>
+  <div><b>58.8</b><span>Lowest floor · <span class="mgr mgr-clod">Cody Clodfelter</span></span></div>
+  <div><b>144.6</b><span>Highest average week · <span class="mgr mgr-hardee">Taylor Hardee</span></span></div>
+  <div><b>93.4</b><span>Lowest average week · <span class="mgr mgr-baro">Ian Baro</span></span></div>
+</div>
+
+
+<p class="kicker">07 / THE RECORD BOOK</p>
+<h2 class="sec">Most points through five weeks, all time</h2>
+<p class="dek">Rex didn't just lead the league this year. He has the best five-week start anybody has ever had.</p>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">#</th><th class="n">Year</th><th>Team</th><th class="n">Points</th></tr></thead>
+  <tbody>
+    <tr class="top"><td class="n">1</td><td class="n">2026</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">723.2</td></tr>
+    <tr><td class="n">2</td><td class="n">2011</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">681.0</td></tr>
+    <tr><td class="n">3</td><td class="n">2011</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="n">677.0</td></tr>
+    <tr><td class="n">4</td><td class="n">2015</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="n">671.0</td></tr>
+    <tr><td class="n">5</td><td class="n">2013</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td class="n">664.8</td></tr>
+    <tr><td class="n">6</td><td class="n">2022</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td class="n">656.1</td></tr>
+    <tr><td class="n">7</td><td class="n">2021</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="n">654.7</td></tr>
+    <tr class="top"><td class="n">8</td><td class="n">2026</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">649.5</td></tr>
+    <tr><td class="n">9</td><td class="n">2013</td><td><span class="mgr mgr-wood">T Wood</span></td><td class="n">646.6</td></tr>
+    <tr><td class="n">10</td><td class="n">2019</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td class="n">646.2</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note">Rex beat the fifteen-year-old record by 42.2 points and he is 4-1.  Potter's 649.5 knocked Trey Wilder's 2017 (645.3) and Shain Collins' 2021 (644.3) off the list entirely.  Two of the ten best starts in league history are happening right now, and neither one of those guys is in first place.</p>
+
+<p class="kicker">08 / THE RECORD BOOK</p>
+<h2 class="sec">Top 10 single-game scores, regular season</h2>
+<p class="dek">Potter's 178.9 didn't just win him the week. It's the fifth highest score in league history.</p>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">#</th><th class="n">Points</th><th>Team</th><th>Year / Week</th><th>Opponent</th><th class="n">Result</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1</td><td class="n">227.9</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>2015 wk3</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td class="n">W</td></tr>
+    <tr><td class="n">2</td><td class="n">225.4</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>2014 wk8</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="n">W</td></tr>
+    <tr><td class="n">3</td><td class="n">190.1</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>2021 wk5</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="n">W</td></tr>
+    <tr><td class="n">4</td><td class="n">179.7</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>2013 wk4</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td class="n">W</td></tr>
+    <tr class="top"><td class="n">5</td><td class="n">178.9</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>2026 wk5</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td class="n">W</td></tr>
+    <tr><td class="n">6</td><td class="n">178.3</td><td><span class="mgr mgr-wood">T Wood</span></td><td>2018 wk6</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td class="n">W</td></tr>
+    <tr><td class="n">7</td><td class="n">176.6</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td>2023 wk3</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td class="n">W</td></tr>
+    <tr><td class="n">8</td><td class="n">176.3</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>2024 wk11</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td class="n">W</td></tr>
+    <tr><td class="n">9</td><td class="n">175.0</td><td><span class="mgr mgr-hardee">Taylor Hardee</span></td><td>2025 wk6</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">W</td></tr>
+    <tr><td class="n">10</td><td class="n">174.0</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>2021 wk5</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td class="n">W</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note">Potter now owns two of the ten biggest weeks in league history, and both came against somebody who didn't do anything wrong: Lee in 2014, and Clod last week, whose 127.0 would have beaten five of the ten teams in this league.  Shain owns three of the top four, including the all-time record, which is its own kind of cruel for a man sitting at 0-5.</p>
+
+<p class="kicker">09 / THE RECORD BOOK</p>
+<h2 class="sec">All-time head-to-head win streaks</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">#</th><th class="n">Streak</th><th>Matchup</th><th>Span</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1</td><td class="n">10</td><td><span class="mgr mgr-wilder">Trey Wilder</span> over <span class="mgr mgr-wood">T Wood</span></td><td>2009 wk6 → 2015 wk5</td></tr>
+    <tr><td class="n">2</td><td class="n">9</td><td><span class="mgr mgr-potter">Mark Potter</span> over <span class="mgr mgr-hudson">Josh Hudson</span></td><td>2014 wk4 → 2021 wk8</td></tr>
+    <tr><td class="n">3</td><td class="n">8</td><td><span class="mgr mgr-baro">Ian Baro</span> over <span class="mgr mgr-potter">Mark Potter</span></td><td>2017 wk9 → 2023 wk10</td></tr>
+    <tr><td class="n">3</td><td class="n">8</td><td><span class="mgr mgr-hudson">Josh Hudson</span> over <span class="mgr mgr-collins">Shain Collins</span></td><td>2021 wk12 → 2025 wk11</td></tr>
+    <tr><td class="n">5</td><td class="n">7</td><td><span class="mgr mgr-wilder">Trey Wilder</span> over <span class="mgr mgr-potter">Mark Potter</span></td><td>2016 wk8 → 2020 wk1</td></tr>
+    <tr><td class="n">6</td><td class="n">6</td><td><span class="mgr mgr-baro">Ian Baro</span> over <span class="mgr mgr-clod">Cody Clodfelter</span></td><td>2019 wk4 → 2023 wk5</td></tr>
+    <tr><td class="n">6</td><td class="n">6</td><td><span class="mgr mgr-baro">Ian Baro</span> over <span class="mgr mgr-wilder">Trey Wilder</span></td><td>2019 wk6 → 2024 wk7</td></tr>
+    <tr><td class="n">6</td><td class="n">6</td><td><span class="mgr mgr-galt">Lee Galt</span> over <span class="mgr mgr-hudson">Josh Hudson</span></td><td>2021 wk4 → 2024 wk2</td></tr>
+    <tr><td class="n">6</td><td class="n">6</td><td><span class="mgr mgr-collins">Shain Collins</span> over <span class="mgr mgr-potter">Mark Potter</span></td><td>2021 wk13 → 2025 wk9</td></tr>
+    <tr><td class="n">6</td><td class="n">6</td><td><span class="mgr mgr-wilder">Trey Wilder</span> over <span class="mgr mgr-collins">Shain Collins</span></td><td>2009 wk9 → 2012 wk10</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2 class="sec" style="margin-top:34px">Active streaks through Week 5</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">#</th><th class="n">Streak</th><th>Matchup</th><th>Most recent</th></tr></thead>
+  <tbody>
+    <tr><td class="n">1</td><td class="n">8</td><td><span class="mgr mgr-hudson">Josh Hudson</span> over <span class="mgr mgr-collins">Shain Collins</span></td><td>2025 wk11</td></tr>
+    <tr><td class="n">2</td><td class="n">5</td><td><span class="mgr mgr-clod">Cody Clodfelter</span> over <span class="mgr mgr-waivers">Michael Waivers</span></td><td>2026 wk4</td></tr>
+    <tr><td class="n">2</td><td class="n">5</td><td><span class="mgr mgr-potter">Mark Potter</span> over <span class="mgr mgr-baro">Ian Baro</span></td><td>2025 wk10</td></tr>
+    <tr><td class="n">2</td><td class="n">5</td><td><span class="mgr mgr-baro">Ian Baro</span> over <span class="mgr mgr-collins">Shain Collins</span></td><td>2026 wk2</td></tr>
+    <tr><td class="n">2</td><td class="n">5</td><td><span class="mgr mgr-wilder">Trey Wilder</span> over <span class="mgr mgr-wood">T Wood</span></td><td>2025 wk11</td></tr>
+    <tr><td class="n">6</td><td class="n">4</td><td><span class="mgr mgr-waivers">Michael Waivers</span> over Josh Johnston</td><td>2013 wk10</td></tr>
+    <tr><td class="n">6</td><td class="n">4</td><td><span class="mgr mgr-wilder">Trey Wilder</span> over <span class="mgr mgr-galt">Lee Galt</span></td><td>2026 wk2</td></tr>
+    <tr><td class="n">6</td><td class="n">4</td><td><span class="mgr mgr-collins">Shain Collins</span> over Mark Lindsay</td><td>2010 wk9</td></tr>
+    <tr><td class="n">6</td><td class="n">4</td><td><span class="mgr mgr-waivers">Michael Waivers</span> over <span class="mgr mgr-collins">Shain Collins</span></td><td>2026 wk3</td></tr>
+    <tr><td class="n">6</td><td class="n">4</td><td><span class="mgr mgr-hardee">Taylor Hardee</span> over <span class="mgr mgr-waivers">Michael Waivers</span></td><td>2025 wk12</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note">Shain Collins appears on the wrong end of this list three times, which is what an 0-5 season looks like from the inside.  Clod has beaten Waivers five straight and they're matched up again this week, so one of those two walks out of Sunday feeling slightly better about a 1-4 season.  And the longest streak in league history is still mine over Wood, ten straight from 2009 to 2015.  We're both 5-0.  I'm currently on five in a row against him.  We have not played yet.</p>
+
+
+<p class="kicker">10 / NEXT UP</p>
+<h2 class="sec">Week 6 matchup previews</h2>
+<p class="dek">Head-to-head history, matchup marks and position comparison for all five Week 6 games.</p>
+<div class="two" style="margin-bottom:8px">
+  <div><b>57.3</b><span>All-time Week 6 low score · <span class="mgr mgr-baro">Ian Baro</span></span></div>
+  <div><b>5-0 vs 5-0</b><span>Wood and Trey meet for the first time this season</span></div>
+  <div><b>2</b><span>Teams that have ever started 6-0 · Potter 2014, Waivers 2022</span></div>
+  <div><b>0</b><span>Teams that have ever started 7-0 in league history</span></div>
+</div>
+<p class="note">In seventeen seasons exactly two teams have started 6-0: Mark Potter in 2014 and Michael Waivers in 2022.  Nobody has ever started 7-0.  Wood and I are both 5-0 and we play each other Sunday, so one of us joins that list and the other one doesn't, and whoever wins gets a crack at a record this league has never seen.</p>
+<div class="defs">
+  <h4>Matchup marks, defined</h4>
+  <dl class="deflist">
+    <div><dt>Buzzer Beater</dt><dd>Win or loss by less than 1</dd></div>
+    <div><dt>Nail Biter</dt><dd>Win or loss by more than 1, less than 5</dd></div>
+    <div><dt>Dunked On</dt><dd>Win or loss by more than 20</dd></div>
+    <div><dt>Blow Out</dt><dd>Win or loss by more than 40</dd></div>
+    <div><dt>Slug Fest</dt><dd>Combined score over 250</dd></div>
+    <div><dt>Pillow Fight</dt><dd>Combined score under 180</dd></div>
+  </dl>
+</div>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b><img class="mhs-sm" src="img/managers/clod.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-clod">Cody Clodfelter</span></b><span>9th · 1-4 · PF 474.7 · PA 636.1</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b><img class="mhs-sm" src="img/managers/baro.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-baro">Ian Baro</span></b><span>7th · 2-3 · PF 466.9 · PA 542.7</span></div>
+  </div>
+  <p class="hook">The 1-4 and the 2-3, and the two lowest-scoring teams in the league. Ian owns it 12-6 and has 196.6 more points in the series.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(6-12)</span><span class="s">Overall Record</span><span class="b">(12-6)</span></div>
+    <div class="r"><span>33%</span><span class="s">Winning %</span><span class="b">67%</span></div>
+    <div class="r"><span>(6-11)</span><span class="s">Regular Season Record</span><span class="b">(11-6)</span></div>
+    <div class="r"><span>(0-1)</span><span class="s">Playoff Record</span><span class="b">(1-0)</span></div>
+    <div class="r"><span>1844.7</span><span class="s">Points Scored</span><span class="b">2041.3</span></div>
+    <div class="r"><span>155.3</span><span class="s">High Score</span><span class="b">171.1</span></div>
+    <div class="r"><span>49.4</span><span class="s">Low Score</span><span class="b">83.9</span></div>
+    <div class="r"><span>102.5</span><span class="s">PPG</span><span class="b">113.4</span></div>
+    <div class="r"><span>96.9</span><span class="s">Regular Season PPG</span><span class="b">105.4</span></div>
+    <div class="r"><span>197.6</span><span class="s">Playoff PPG</span><span class="b">249.2</span></div>
+    <div class="r"><span>1</span><span class="s">Current Winning Streak</span><span class="b">0</span></div>
+    <div class="r"><span>3</span><span class="s">Longest Winning Streak</span><span class="b">6</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Nail Biter</span><span class="b">2</span></div>
+    <div class="r"><span>2</span><span class="s">Dunked On</span><span class="b">3</span></div>
+    <div class="r"><span>1</span><span class="s">Blow Out</span><span class="b">4</span></div>
+    <div class="r"><span>1</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>1</span><span class="s">Pillow Fight</span><span class="b">3</span></div>
+    <div class="r"><span>-196.6</span><span class="s">Point Dif</span><span class="b">196.6</span></div>
+    <div class="r"><span>19.3</span><span class="s">Max Point Dif</span><span class="b">40.9</span></div>
+    <h4>Position comparison</h4>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">BN<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/denver-broncos-bo-nix--pdm802q_.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426338.png"></span>Bo Nix <b>19.3</b></span><span class="s">QB</span><span class="b"><b>40.9</b> Aaron Rodgers<span class="ph" aria-hidden="true">AR<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-aaron-rodgers2022-min--z8qpfs5z.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/8439.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">NH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-chargers-najee-harris-01--6dot3szg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241457.png"></span>Najee Harris <b>35.5</b></span><span class="s">RB</span><span class="b"><b>79.5</b> Jonathan Taylor<span class="ph" aria-hidden="true">JT<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/indianapolis-colts-jonathan-taylor-min--iuvxyzln.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4242335.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">JS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/seattle-seahawks-jaxon-smith-njigba--vwagayj1.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4430878.png"></span>Jaxon SmithNjigba <b>51.2</b></span><span class="s">WR</span><span class="b"><b>64.9</b> Mike Evans<span class="ph" aria-hidden="true">ME<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tampa-bay-buccaneers-mike-evans2020-min--chrctowb.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/16737.png"></span></span></div>
+    <div class="r pc"><span>Emanuel Wilson <b>25.5</b></span><span class="s">TE</span><span class="b"><b>42.5</b> George Kittle<span class="ph" aria-hidden="true">GK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-george-kittle2021-min--tuoi5ebc.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3040151.png"></span></span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b><img class="mhs-sm" src="img/managers/waivers.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-waivers">Michael Waivers</span></b><span>8th · 1-4 · PF 540.7 · PA 590.7</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b><img class="mhs-sm" src="img/managers/hardee.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-hardee">Taylor Hardee</span></b><span>2nd · 4-1 · PF 723.2 · PA 484.7</span></div>
+  </div>
+  <p class="hook">The tightest series on the board: Rex leads the points by 14.0 over eighteen years, and Waivers still leads it 15-11. Rex has won the last three.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(15-11)</span><span class="s">Overall Record</span><span class="b">(11-15)</span></div>
+    <div class="r"><span>58%</span><span class="s">Winning %</span><span class="b">42%</span></div>
+    <div class="r"><span>(14-10)</span><span class="s">Regular Season Record</span><span class="b">(10-14)</span></div>
+    <div class="r"><span>(1-1)</span><span class="s">Playoff Record</span><span class="b">(1-1)</span></div>
+    <div class="r"><span>3034.3</span><span class="s">Points Scored</span><span class="b">3048.3</span></div>
+    <div class="r"><span>135.6</span><span class="s">High Score</span><span class="b">132</span></div>
+    <div class="r"><span>71.8</span><span class="s">Low Score</span><span class="b">59.7</span></div>
+    <div class="r"><span>116.7</span><span class="s">PPG</span><span class="b">117.2</span></div>
+    <div class="r"><span>106.7</span><span class="s">Regular Season PPG</span><span class="b">107.7</span></div>
+    <div class="r"><span>237.3</span><span class="s">Playoff PPG</span><span class="b">231.9</span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">3</span></div>
+    <div class="r"><span>5</span><span class="s">Longest Winning Streak</span><span class="b">3</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>2</span><span class="s">Buzzer Beater</span><span class="b">1</span></div>
+    <div class="r"><span>1</span><span class="s">Nail Biter</span><span class="b">0</span></div>
+    <div class="r"><span>3</span><span class="s">Dunked On</span><span class="b">5</span></div>
+    <div class="r"><span>0</span><span class="s">Blow Out</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>4</span><span class="s">Pillow Fight</span><span class="b">1</span></div>
+    <div class="r"><span>-14.0</span><span class="s">Point Dif</span><span class="b">14.0</span></div>
+    <div class="r"><span>53.1</span><span class="s">Max Point Dif</span><span class="b">63.8</span></div>
+    <h4>Position comparison</h4>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span>Josh Allen <b>53.1</b></span><span class="s">QB</span><span class="b"><b>63.8</b> Josh Allen<span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">CM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/carolina-panthers-christian-mccaffrey2019-min--zcohwh8y.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png"></span>Christian McCaffrey <b>71.2</b></span><span class="s">RB</span><span class="b"><b>59.2</b> Bijan Robinson<span class="ph" aria-hidden="true">BR<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/atlanta-falcons-bijan-robinson-copy-min--usk-hnej.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4430807.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"></span>CeeDee Lamb <b>41.0</b></span><span class="s">WR</span><span class="b"><b>40.4</b> George Pickens<span class="ph" aria-hidden="true">GP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-george-pickens-01-01--mk7e_crk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426354.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">RG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-england-patriots-rob-gronkowski2018-min--m_zqi-1r.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/13229.png"></span>Rob Gronkowski <b>23.3</b></span><span class="s">TE</span><span class="b"><b>23.1</b> Nick Chubb<span class="ph" aria-hidden="true">NC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cleveland-browns-nick-chubb-min--9p0u2ycs.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3128720.png"></span></span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b><img class="mhs-sm" src="img/managers/galt.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-galt">Lee Galt</span></b><span>6th · 2-3 · PF 519.1 · PA 590.0</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b><img class="mhs-sm" src="img/managers/collins.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-collins">Shain Collins</span></b><span>10th · 0-5 · PF 470.5 · PA 620.6</span></div>
+  </div>
+  <p class="hook">Lee leads 14-10, but the biggest single score in this matchup belongs to Shain: 190.1, which is also the third highest score in league history. He's 0-5.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(14-10)</span><span class="s">Overall Record</span><span class="b">(10-14)</span></div>
+    <div class="r"><span>58%</span><span class="s">Winning %</span><span class="b">42%</span></div>
+    <div class="r"><span>(14-9)</span><span class="s">Regular Season Record</span><span class="b">(9-14)</span></div>
+    <div class="r"><span>(0-1)</span><span class="s">Playoff Record</span><span class="b">(1-0)</span></div>
+    <div class="r"><span>2772.5</span><span class="s">Points Scored</span><span class="b">2670.8</span></div>
+    <div class="r"><span>154.5</span><span class="s">High Score</span><span class="b">190.1</span></div>
+    <div class="r"><span>58.5</span><span class="s">Low Score</span><span class="b">64.6</span></div>
+    <div class="r"><span>115.5</span><span class="s">PPG</span><span class="b">111.3</span></div>
+    <div class="r"><span>112.4</span><span class="s">Regular Season PPG</span><span class="b">106.1</span></div>
+    <div class="r"><span>187.1</span><span class="s">Playoff PPG</span><span class="b">231.3</span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">1</span></div>
+    <div class="r"><span>4</span><span class="s">Longest Winning Streak</span><span class="b">3</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">1</span></div>
+    <div class="r"><span>0</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Dunked On</span><span class="b">2</span></div>
+    <div class="r"><span>2</span><span class="s">Blow Out</span><span class="b">2</span></div>
+    <div class="r"><span>2</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>1</span><span class="s">Pillow Fight</span><span class="b">2</span></div>
+    <div class="r"><span>101.7</span><span class="s">Point Dif</span><span class="b">-101.7</span></div>
+    <div class="r"><span>71.6</span><span class="s">Max Point Dif</span><span class="b">60.9</span></div>
+    <h4>Position comparison</h4>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">PM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/kansas-city-chiefs-patrick-mahomes2020-min--jxpbawil.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png"></span>Patrick Mahomes <b>52.8</b></span><span class="s">QB</span><span class="b"><b>62.2</b> Lamar Jackson<span class="ph" aria-hidden="true">LJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/baltimore-ravens-lamar-jackson-min--itclg2yg.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3916387.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">NC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cleveland-browns-nick-chubb-min--9p0u2ycs.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3128720.png"></span>Nick Chubb <b>85.6</b></span><span class="s">RB</span><span class="b"><b>63.5</b> Derrick Henry<span class="ph" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3043078.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">WF<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/houston-texans-will-fuller-min--barw87dt.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3052876.png"></span>Will Fuller V <b>45.5</b></span><span class="s">WR</span><span class="b"><b>49.4</b> Keenan Allen<span class="ph" aria-hidden="true">KA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/chicago-bears-keenan-allen-alternate2020-01--hdvwa5dv.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/15818.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">TW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/indianapolis-colts-tyler-warren--5zcat19h.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4431459.png"></span>Tyler Warren <b>25.5</b></span><span class="s">TE</span><span class="b"><b>36.2</b> Mark Andrews<span class="ph" aria-hidden="true">MA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/baltimore-ravens-mark-andrews-min--u-9is4qy.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3116365.png"></span></span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b><img class="mhs-sm" src="img/managers/hudson.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-hudson">Josh Hudson</span></b><span>5th · 2-3 · PF 569.9 · PA 607.5</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b><img class="mhs-sm" src="img/managers/potter.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-potter">Mark Potter</span></b><span>4th · 3-2 · PF 649.5 · PA 582.2</span></div>
+  </div>
+  <p class="hook">Potter owns Hud 17-5 with a +261.4 point differential, and his nine-game run in this series is the second longest streak in league history.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(5-17)</span><span class="s">Overall Record</span><span class="b">(17-5)</span></div>
+    <div class="r"><span>23%</span><span class="s">Winning %</span><span class="b">77%</span></div>
+    <div class="r"><span>(5-16)</span><span class="s">Regular Season Record</span><span class="b">(16-5)</span></div>
+    <div class="r"><span>(0-1)</span><span class="s">Playoff Record</span><span class="b">(1-0)</span></div>
+    <div class="r"><span>2238.1</span><span class="s">Points Scored</span><span class="b">2499.5</span></div>
+    <div class="r"><span>127.9</span><span class="s">High Score</span><span class="b">152.5</span></div>
+    <div class="r"><span>74.2</span><span class="s">Low Score</span><span class="b">66.4</span></div>
+    <div class="r"><span>101.7</span><span class="s">PPG</span><span class="b">113.6</span></div>
+    <div class="r"><span>96.9</span><span class="s">Regular Season PPG</span><span class="b">108.1</span></div>
+    <div class="r"><span>203.2</span><span class="s">Playoff PPG</span><span class="b">229.8</span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Longest Winning Streak</span><span class="b">9</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Nail Biter</span><span class="b">4</span></div>
+    <div class="r"><span>1</span><span class="s">Dunked On</span><span class="b">4</span></div>
+    <div class="r"><span>2</span><span class="s">Blow Out</span><span class="b">4</span></div>
+    <div class="r"><span>0</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Pillow Fight</span><span class="b">2</span></div>
+    <div class="r"><span>-261.4</span><span class="s">Point Dif</span><span class="b">261.4</span></div>
+    <div class="r"><span>59.4</span><span class="s">Max Point Dif</span><span class="b">78.3</span></div>
+    <h4>Position comparison</h4>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">JH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-chargers-justin-herbert-min--c-6jp93i.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4038941.png"></span>Justin Herbert <b>42.5</b></span><span class="s">QB</span><span class="b"><b>47.5</b> Dak Prescott<span class="ph" aria-hidden="true">DP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-dak-prescott-alternate-min--p2ywnrpx.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/2577417.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">CM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/carolina-panthers-christian-mccaffrey2019-min--zcohwh8y.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png"></span>Christian McCaffrey <b>28.9</b></span><span class="s">RB</span><span class="b"><b>90.2</b> Derrick Henry<span class="ph" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3043078.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">AB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-amon-ra-st-brown-min--pmeveikv.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4374302.png"></span>AmonRa St Brown <b>120.8</b></span><span class="s">WR</span><span class="b"><b>37.6</b> Cooper Kupp<span class="ph" aria-hidden="true">CK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-cooper-kupp2025--ndek-zzk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/2977187.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">TK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/kansas-city-chiefs-travis-kelce2024-min--3ql43pq3.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/15847.png"></span>Travis Kelce <b>13.7</b></span><span class="s">TE</span><span class="b"><b>25.2</b> Trey McBride<span class="ph" aria-hidden="true">TM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/arizona-cardinals-trey-mcbride--83irwarj.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4361307.png"></span></span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b><img class="mhs-sm" src="img/managers/wood.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-wood">T Wood</span></b><span>1st · 5-0 · PF 581.7 · PA 471.4</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b><img class="mhs-sm" src="img/managers/wilder.webp" alt="" width="240" height="240" loading="lazy" decoding="async"><span class="mgr mgr-wilder">Trey Wilder</span></b><span>3rd · 5-0 · PF 564.4 · PA 434.7</span></div>
+  </div>
+  <p class="hook">Both 5-0, and only two teams in league history have ever started 6-0. I lead this series 21-5 with a +643.3 point differential, the widest in the league, and the ten-game run in it is the longest streak this league has ever seen.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(5-21)</span><span class="s">Overall Record</span><span class="b">(21-5)</span></div>
+    <div class="r"><span>19%</span><span class="s">Winning %</span><span class="b">81%</span></div>
+    <div class="r"><span>(5-19)</span><span class="s">Regular Season Record</span><span class="b">(19-5)</span></div>
+    <div class="r"><span>(0-2)</span><span class="s">Playoff Record</span><span class="b">(2-0)</span></div>
+    <div class="r"><span>2759.2</span><span class="s">Points Scored</span><span class="b">3402.5</span></div>
+    <div class="r"><span>154.7</span><span class="s">High Score</span><span class="b">165</span></div>
+    <div class="r"><span>76.0</span><span class="s">Low Score</span><span class="b">71.7</span></div>
+    <div class="r"><span>106.1</span><span class="s">PPG</span><span class="b">130.9</span></div>
+    <div class="r"><span>101.9</span><span class="s">Regular Season PPG</span><span class="b">122.6</span></div>
+    <div class="r"><span>157.2</span><span class="s">Playoff PPG</span><span class="b">230.5</span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">4</span></div>
+    <div class="r"><span>2</span><span class="s">Longest Winning Streak</span><span class="b">10</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>2</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>2</span><span class="s">Dunked On</span><span class="b">7</span></div>
+    <div class="r"><span>1</span><span class="s">Blow Out</span><span class="b">5</span></div>
+    <div class="r"><span>0</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Pillow Fight</span><span class="b">1</span></div>
+    <div class="r"><span>-643.3</span><span class="s">Point Dif</span><span class="b">643.3</span></div>
+    <div class="r"><span>83</span><span class="s">Max Point Dif</span><span class="b">89.0</span></div>
+    <h4>Position comparison</h4>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">PM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/kansas-city-chiefs-patrick-mahomes2020-min--jxpbawil.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png"></span>Patrick Mahomes <b>96.2</b></span><span class="s">QB</span><span class="b"><b>91.8</b> Josh Allen<span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4429795.png"></span>Jahmyr Gibbs <b>58.2</b></span><span class="s">RB</span><span class="b"><b>65.7</b> Saquon Barkley<span class="ph" aria-hidden="true">SB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-giants-saquon-barkley-alternate-min-1---clb2bidk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">TM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/carolina-panthers-tetairoa-mcmillan--oavdko67.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4685472.png"></span>Tetairoa McMillan <b>42.0</b></span><span class="s">WR</span><span class="b"><b>54.1</b> CeeDee Lamb<span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"></span></span></div>
+    <div class="r pc"><span><span class="ph" aria-hidden="true">DW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-giants-darren-waller-copy-min--j7q4f4qf.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/2576925.png"></span>Darren Waller <b>25.9</b></span><span class="s">TE</span><span class="b"><b>28.1</b> Darren Waller<span class="ph" aria-hidden="true">DW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-giants-darren-waller-copy-min--j7q4f4qf.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/2576925.png"></span></span></div>
+  </div>
+</section>
+
+<p class="sign">Two undefeated fighters, and neither one is the best man in the division. — Trey</p>
+<p style="text-align:center;"><a class="backlink" href="./">&larr; All write-ups</a></p>
+</div>
+</body>
+</html>
