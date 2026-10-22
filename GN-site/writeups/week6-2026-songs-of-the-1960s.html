@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Greenville Natives · 2026 Week 6: Songs of the 1960s</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&family=Karla:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3ead9; --paper:#fffdf7; --ink:#241f1b; --muted:#6b6058; --line:#ddd0b8;
+  --orange:#e4572e; --mustard:#f3a712; --teal:#2a9d8f; --plum:#6d4c7d;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#17130f;--paper:#211b16;--ink:#f2e9dc;--muted:#b4a594;--line:#3a3028;--orange:#ff7a52;--mustard:#ffc247;--teal:#53c4b4;--plum:#a98ab8}
+}
+:root[data-theme="dark"]{--bg:#17130f;--paper:#211b16;--ink:#f2e9dc;--muted:#b4a594;--line:#3a3028;--orange:#ff7a52;--mustard:#ffc247;--teal:#53c4b4;--plum:#a98ab8}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;-webkit-text-size-adjust:100%;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:Karla,"Trebuchet MS",Arial,sans-serif;font-size:1.06rem;line-height:1.62}
+img,svg{max-width:100%}
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 80px}
+h1,h2,h3,h4{font-family:Righteous,Impact,sans-serif;font-weight:400;line-height:1.14;margin:0}
+.hero{padding:40px 0 8px;text-align:center}
+.hero .league{font-weight:800;color:var(--muted);letter-spacing:.14em;font-size:.78rem;margin:0 0 12px}
+.hero h1{font-size:clamp(2.2rem,8vw,4rem);color:var(--orange)}
+.hero .sub{margin:12px auto 0;max-width:34em;color:var(--muted);font-style:italic}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+.turntable{width:100%;max-width:420px;margin:20px auto 0;display:block}
+.bigstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.bigstats div{background:var(--paper);border:1px solid var(--line);border-top:5px solid var(--orange);padding:12px 14px}
+.bigstats b{display:block;font-family:Righteous,Impact,sans-serif;font-size:1.6rem;color:var(--orange);line-height:1.15}
+.bigstats span{font-size:.78rem;font-weight:800;color:var(--muted);letter-spacing:.03em}
+.intro{background:var(--paper);border:1px solid var(--line);padding:20px 22px;margin:26px 0}
+.intro p{margin:0 0 12px}.intro p:last-child{margin:0}
+.kicker{font-family:Righteous,Impact,sans-serif;color:var(--teal);font-size:.86rem;letter-spacing:.12em;margin:44px 0 6px}
+h2.sec{font-size:1.8rem;margin:0 0 8px}
+.dek{color:var(--muted);margin:0 0 16px}
+.note{color:var(--muted);font-size:.93rem;margin:12px 0 0}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:460px;background:var(--paper)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-family:Righteous,Impact,sans-serif;font-weight:400;font-size:.85rem;letter-spacing:.04em;background:var(--ink);color:var(--bg)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.top td{background:rgba(243,167,18,.22)}
+.entry{display:grid;grid-template-columns:118px 1fr;gap:24px;padding:32px 0;border-bottom:1px solid var(--line)}
+.entry:last-of-type{border-bottom:0}
+.disc{position:relative}
+.disc svg{width:108px;height:108px}
+.num{position:absolute;top:-8px;left:-8px;background:var(--orange);color:#fff;font-family:Righteous,Impact,sans-serif;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;font-size:1rem;z-index:2}
+.entry h3{font-size:1.45rem}
+.artist{font-family:Righteous,Impact,sans-serif;color:var(--teal);margin:6px 0 0;font-size:.95rem}
+.entry .rec{color:var(--muted);font-weight:700;margin:4px 0 12px;font-size:.95rem}
+.entry p{margin:0 0 10px}
+.next{margin-top:12px!important;background:rgba(42,157,143,.12);border-left:4px solid var(--teal);padding:10px 14px}
+.closing{background:var(--ink);color:var(--bg);padding:26px 24px;margin:40px 0 0}
+.closing h2{color:var(--mustard);font-size:1.7rem}
+.closing .artist{color:var(--bg);opacity:.75;margin-bottom:14px}
+.closing p{margin:0 0 12px}.closing p:last-child{margin:0}
+.closing b{color:var(--mustard)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two div{background:var(--paper);border-left:5px solid var(--mustard);padding:10px 14px}
+.two b{display:block;font-family:Righteous,Impact,sans-serif;font-size:1.25rem}
+.two span{font-size:.88rem;color:var(--muted);font-weight:600}
+.vs-card{margin:22px 0 0;border:1px solid var(--line);background:var(--paper)}
+.vs-head{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;padding:14px 16px;background:var(--ink);color:var(--bg)}
+.vs-head .side b{display:block;font-family:Righteous,Impact,sans-serif;font-size:1rem}
+.vs-head .side span{font-size:.8rem;font-weight:700;opacity:.82}
+.vs-head .side:last-child{text-align:right}
+.vs-head .bug{font-family:Righteous,Impact,sans-serif;background:var(--orange);color:#fff;border-radius:50%;width:36px;height:36px;display:grid;place-items:center;font-size:.78rem}
+.hook{margin:0;padding:12px 16px;background:rgba(243,167,18,.18);font-weight:600}
+.h2h{padding:6px 14px 12px}
+.h2h .r{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;padding:6px 0;border-bottom:1px dotted var(--line);font-variant-numeric:tabular-nums}
+.h2h .r:last-child{border-bottom:0}
+.h2h .r .s{font-size:.78rem;font-weight:800;color:var(--muted);text-align:center}
+.h2h .r .b{text-align:right}
+.h2h h4{font-size:.84rem;margin:14px 0 4px;color:var(--orange);letter-spacing:.06em}
+.defs{background:var(--paper);border:1px dashed var(--muted);padding:12px 16px;margin:12px 0 4px}
+.defs h4{font-size:.9rem;margin-bottom:8px;color:var(--teal)}
+.deflist{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:6px 18px}
+.deflist dt{font-weight:800}
+.deflist dd{margin:0;font-size:.9rem;color:var(--muted)}
+.sign{margin-top:40px;font-family:Righteous,Impact,sans-serif;font-size:1.1rem;color:var(--muted)}
+.backlink{display:inline-block;margin-top:34px;font-family:Righteous,Impact,sans-serif;font-size:.86rem;letter-spacing:.12em;color:var(--teal);text-decoration:none}
+.backlink:hover{text-decoration:underline}
+@media (max-width:640px){
+  .wrap{padding:0 14px 60px}
+  .hero{padding:26px 0 4px}
+  .bigstats{grid-template-columns:1fr;gap:8px}
+  .entry{grid-template-columns:1fr;gap:14px;padding:26px 0}
+  .disc svg{width:92px;height:92px}
+  .entry h3{font-size:1.2rem}
+  h2.sec{font-size:1.4rem}
+  th,td{padding:8px 10px;font-size:.93rem}
+  .two,.deflist{grid-template-columns:1fr}
+  .vs-head{padding:12px}.vs-head .side b{font-size:.9rem}.vs-head .side span{font-size:.72rem}
+  .h2h{padding:4px 10px 10px}.h2h .r{font-size:.88rem;gap:4px}.h2h .r .s{font-size:.7rem}
+  .closing{padding:20px 16px}
+}
+@media print{
+  @page{size:letter portrait;margin:14mm}
+  body{background:#fff;font-size:10.5pt;line-height:1.45;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .wrap{max-width:none;padding:0}
+  .spin{animation:none!important}
+  .entry,.intro,.closing,.bigstats>div,table,.two>div,.vs-card,.defs{break-inside:avoid;page-break-inside:avoid}
+  h2.sec,.kicker{break-after:avoid}
+  .scroll{overflow:visible} table{min-width:0;font-size:9.5pt}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <p class="league">GREENVILLE NATIVES · 2026 SEASON · WEEK 6</p>
+  <h1>Songs of the 1960s</h1>
+  <p class="sub">17 seasons. 10 managers. One broken record after another.</p>
+  <svg class="turntable" viewBox="0 0 320 170" role="img" aria-label="A record player with a spinning 45">
+    <rect x="6" y="18" width="308" height="140" rx="10" fill="var(--paper)" stroke="var(--line)" stroke-width="2"/>
+    <g transform="translate(20,24) scale(1.2)"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#e4572e"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></g>
+    <rect x="178" y="44" width="118" height="10" rx="5" fill="var(--line)"/>
+    <rect x="178" y="64" width="90" height="10" rx="5" fill="var(--line)"/>
+    <circle cx="262" cy="118" r="16" fill="none" stroke="var(--teal)" stroke-width="4"/>
+    <path d="M262 102 L205 86" stroke="var(--ink)" stroke-width="4" stroke-linecap="round"/>
+    <rect x="196" y="78" width="16" height="10" rx="2" fill="var(--orange)" transform="rotate(-15 204 83)"/>
+  </svg>
+  <div class="bigstats">
+    <div><b>6-0</b><span>TREY · LAST UNDEFEATED TEAM STANDING</span></div>
+    <div><b>837.1</b><span>REX · MOST POINTS, 277.4 CLEAR OF LAST</span></div>
+    <div><b>2</b><span>INACTIVE STARTERS IN TWO WEEKS · WAIVERS, HUD</span></div>
+  </div>
+</header>
+
+<section class="intro">
+  <p>The 1960s gave us The Beatles, The Rolling Stones, Motown, Woodstock, and some of the greatest music ever recorded.  The Greenville Natives have given us a two-week streak of spectacular lineup incompetence: in Week 5, Waivers started Terry McLaurin despite him being ruled out before kickoff.  Apparently inspired by that stupidity, Hud followed suit in Week 6 by starting the already-inactive Quinshon Judkins.  Throw in a manager who can't figure out which running back belongs in his lineup and three teams sitting at 1-5, and you've got one hell of a shitty soundtrack.</p>
+  <p>At the top, Trey remains undefeated, Rex continues putting up ridiculous scoring numbers, and Wood finally tasted defeat.  At the bottom, it's less <i>Good Vibrations</i> and more <i>The Sounds of Silence</i>, particularly when the league's worst managers look at their waiver budgets and realize they haven't spent a damn thing.</p>
+  <p>Every team gets a 1960s classic to match its season.  Some get legendary anthems.  Others get songs about misery, heartbreak, and having absolutely nowhere to go.</p>
+  <p>The records are spinning.  Unfortunately, so are several managers' seasons.</p>
+</section>
+
+<p class="kicker">01 / THE CHARTS</p>
+<h2 class="sec">Week 6 results</h2>
+<div class="scroll">
+<table>
+  <thead><tr><th>Winner</th><th class="n">Pts</th><th>Loser</th><th class="n">Pts</th><th class="n">Margin</th></tr></thead>
+  <tbody>
+    <tr><td>Trey Wilder</td><td class="n">133.1</td><td>T-Wood</td><td class="n">100.6</td><td class="n">32.5</td></tr>
+    <tr><td>Rex</td><td class="n">113.9</td><td>Waivers</td><td class="n">102.7</td><td class="n">11.2</td></tr>
+    <tr><td>E-Bo</td><td class="n">109.7</td><td>Clod</td><td class="n">106.1</td><td class="n">3.6</td></tr>
+    <tr><td>Shain Collins</td><td class="n">89.2</td><td>Galt</td><td class="n">85.6</td><td class="n">3.6</td></tr>
+    <tr><td>Potter</td><td class="n">80.8</td><td>Hud</td><td class="n">65.6</td><td class="n">15.2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p class="kicker">02 / THE STANDINGS</p>
+<h2 class="sec">Power rankings after six weeks</h2>
+<p class="dek">Ranked by power score. Power record is the all-play: how each team would have done against every other team, every week.</p>
+<div class="scroll">
+<table>
+  <thead><tr><th class="n">#</th><th>Manager</th><th>Record</th><th class="n">PF</th><th class="n">PA</th><th class="n">Power rec</th><th class="n">Power score</th><th class="n">Chg</th><th class="n">Top scorer</th><th class="n">Top half</th><th class="n">Bottom</th></tr></thead>
+  <tbody>
+    <tr class="top"><td class="n">1</td><td>Taylor Hardee</td><td>5-1</td><td class="n">837.1</td><td class="n">587.4</td><td class="n">45-9</td><td class="n">87.1</td><td class="n up">▲1</td><td class="n">3</td><td class="n">5</td><td class="n">–</td></tr>
+    <tr><td class="n">2</td><td>Trey Wilder</td><td>6-0</td><td class="n">697.5</td><td class="n">535.3</td><td class="n">35-19</td><td class="n">86.1</td><td class="n up">▲1</td><td class="n">1</td><td class="n">5</td><td class="n">–</td></tr>
+    <tr><td class="n">3</td><td>T Wood</td><td>5-1</td><td class="n">682.3</td><td class="n">604.5</td><td class="n">28-26</td><td class="n">83.4</td><td class="n down">▼2</td><td class="n">–</td><td class="n">2</td><td class="n">–</td></tr>
+    <tr><td class="n">4</td><td>Mark Potter</td><td>4-2</td><td class="n">730.3</td><td class="n">647.8</td><td class="n">33-21</td><td class="n">79.3</td><td class="n">–</td><td class="n">1</td><td class="n">4</td><td class="n">–</td></tr>
+    <tr><td class="n">5</td><td>Josh Hudson</td><td>2-4</td><td class="n">635.5</td><td class="n">688.3</td><td class="n">23-31</td><td class="n">58.8</td><td class="n">–</td><td class="n">1</td><td class="n">2</td><td class="n">2</td></tr>
+    <tr><td class="n">6</td><td>Ian Baro</td><td>3-3</td><td class="n">576.6</td><td class="n">648.8</td><td class="n">21-33</td><td class="n">57.2</td><td class="n up">▲1</td><td class="n">–</td><td class="n">2</td><td class="n">–</td></tr>
+    <tr><td class="n">7</td><td>Lee Galt</td><td>2-4</td><td class="n">604.7</td><td class="n">679.2</td><td class="n">22-32</td><td class="n">56.3</td><td class="n down">▼1</td><td class="n">–</td><td class="n">3</td><td class="n">2</td></tr>
+    <tr><td class="n">8</td><td>Michael Waivers</td><td>1-5</td><td class="n">643.4</td><td class="n">704.6</td><td class="n">27-27</td><td class="n">51.2</td><td class="n">–</td><td class="n">–</td><td class="n">3</td><td class="n">–</td></tr>
+    <tr><td class="n">9</td><td>Cody Clodfelter</td><td>1-5</td><td class="n">580.8</td><td class="n">745.8</td><td class="n">19-35</td><td class="n">44.3</td><td class="n">–</td><td class="n">–</td><td class="n">3</td><td class="n">1</td></tr>
+    <tr><td class="n">10</td><td>Shain Collins</td><td>1-5</td><td class="n">559.7</td><td class="n">706.2</td><td class="n">17-37</td><td class="n">42.5</td><td class="n">–</td><td class="n">–</td><td class="n">1</td><td class="n">1</td></tr>
+  </tbody>
+</table>
+</div>
+<p class="note">Rex passed Wood for the top spot on the strength of a 45-9 all-play record, and Wood's two-spot fall is the biggest drop of the week after losing to me.  Waivers is 27-27 against the field, better than four teams with more wins, and he's 1-5.  Rex has been the week's top scorer three times; Hud and Lee have been the bottom scorer twice each.</p>
+
+<p class="kicker">03 / THE TRACK LIST</p>
+<h2 class="sec">Every team, every song</h2>
+
+<article class="entry">
+  <div class="disc"><span class="num">1</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#e4572e"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Rex — "Mrs. Robinson"</h3>
+    <p class="artist">Simon &amp; Garfunkel, 1968</p>
+    <p class="rec">5-1 · 837.1 PF · 45-9 Power Record</p>
+    <p>Here's to you, Bijan Robinson.  Although after Week 6, Kenneth Walker III might deserve his own fucking song.  Rex continues to lead the league with 837.1 points, averaging a ridiculous 139.5 per game, and his 45-9 power record proves this isn't some lucky streak.  Even with Bijan contributing just 6.3 points, Walker carried the offense with 128 rushing yards and two touchdowns against the Chargers, allowing Rex to handle Waivers 113.9–102.7.</p>
+    <p>Trevor Lawrence added 27.3 points from the bench, because apparently Rex can afford to waste more production than half the league can find in its starting lineup.  His only loss came against Pot in Week 2, and nobody else has managed to knock him off since.  At 5-1, Rex might not have the perfect record, but he has the deepest roster and most dangerous offense in the league.</p>
+    <p class="next"><b>Week 7:</b> E-Bo (3-3). Mrs. Robinson meets a man whose quarterback situation might require an actual miracle.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">2</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#f3a712"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Trey Wilder — "I Got You (I Feel Good)"</h3>
+    <p class="artist">James Brown, 1965</p>
+    <p class="rec">6-0 · 697.5 PF · 535.3 PA</p>
+    <p>I feel good.  I knew that I would.  Actually, the statistics suggest I should feel a whole lot worse, considering my 697.5 points scored and league-low 535.3 points against have me winning roughly two more games than my scoring deserves.  But Week 6 wasn't some lucky escape: despite injuries to Lamar Jackson, Rashee Rice, and Jeremiyah Love, I hung a season-high 133.1 on previously undefeated Wood, with Bhayshul Tuten delivering two receiving touchdowns and 22.7 fantasy points in the process.</p>
+    <p>The victory also marked my <b>league-leading 22nd career head-to-head win over T-Wood</b>, adding another chapter to a rivalry that's apparently been playing the same record for 17 seasons.  Six weeks in, I'm the last undefeated manager standing, although an approaching bye-week disaster threatens to turn James Brown's feel-good anthem into the blues.  James Cook, Tuten, Jayden Daniels, Ladd McConkey, and Stefon Diggs are all on bye in Week 7, and the lingering injuries to Lamar, Rice, and Love could leave me trying to field a lineup with whatever scraps are still available.</p>
+    <p class="next"><b>Week 7:</b> Shain (1-5). For the first time all season, the undefeated team might actually be the one with the bigger roster problem.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">3</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#2a9d8f"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Potter — "With a Little Help from My Friends"</h3>
+    <p class="artist">The Beatles, 1967</p>
+    <p class="rec">4-2 · 730.3 PF</p>
+    <p>What would you do if your team scored just 80.8 points?  Well, if you're Potter, you'd get by with a little help from your friend Josh Hudson.  One week after exploding for 178.9, Pot watched his offense completely shit the bed, with Derrick Henry managing just 4.5 points and Kamara, Harvey, and Keenan Allen all outscoring several starters from the bench.  Fortunately, Hud decided to start an inactive running back and produce an even more pathetic 65.6, allowing Potter to steal a 15.2-point victory that had absolutely no business being celebrated.</p>
+    <p>Going from 178.9 to 80.8 in consecutive weeks is the kind of musical whiplash you'd get if The Beatles followed "Hey Jude" with six minutes of Ringo farting into a microphone.  Still, at 4-2 with 730.3 points scored, Potter has the offensive firepower to make a legitimate playoff run, even if his latest victory was generously donated by the league's most charitable dumbass.</p>
+    <p class="next"><b>Week 7:</b> Waivers (1-5). Pot can probably count on another helping hand, considering his opponent's recent relationship with inactive players.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">4</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#8e7dbe"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>T-Wood — "Good Vibrations"</h3>
+    <p class="artist">The Beach Boys, 1966</p>
+    <p class="rec">5-1 · 682.3 PF · 28-26 Power Record</p>
+    <p>Wood's still picking up good vibrations at 5-1, although Week 6 delivered a pretty unpleasant buzz when Trey handed him his first loss of the season.  Mahomes threw for 272 yards against the Chargers but failed to produce a passing touchdown, leaving Wood with just 10.4 points while Jahmyr Gibbs enjoyed his bye week.  His 28-26 power record is the interesting part: despite having one of the league's best actual records, Wood has been a below-average team against the full field, surviving Ian by 2.4 and Shain by 7.5 before getting steamrolled by 32.5.</p>
+    <p>Meanwhile, Emeka Egbuka has scored 14.2 and 14.3 points from Wood's bench over the past two weeks, apparently performing a solo concert while the starting lineup struggles to stay in tune.  Still, one loss doesn't erase five wins, and Wood remains firmly positioned for a playoff run with seven regular-season games remaining.  The Beach Boys are still playing, but if Wood wants to keep those good vibrations going, he might want to stop relying on close escapes and start putting his best performers on the damn field.</p>
+    <p class="next"><b>Week 7:</b> Hud (2-4). A chance to get back on track against somebody who apparently thinks a zero in his starting lineup is perfectly acceptable.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">5</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#d6336c"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Hud — "Nowhere Man"</h3>
+    <p class="artist">The Beatles, 1965</p>
+    <p class="rec">2-4 · 635.5 PF</p>
+    <p>He's a real Nowhere Man, making all his nowhere plans, and apparently none of those plans involve checking whether his fucking running back is actually playing.  In Week 6, Hud started Quinshon Judkins despite the Browns ruling him out before kickoff, collecting a predictable zero in an embarrassing 65.6-point loss to Potter.  Just one week earlier, in Week 5, Waivers had started the already-ruled-out Terry McLaurin.  <b>Two different managers, two consecutive weeks, and two completely avoidable zeroes.</b></p>
+    <p>Hud has now scored anywhere from 65.6 to 159.2 in six weeks, somehow transforming from a team capable of destroying E-Bo by 64.9 into one that can't even beat a Potter lineup scoring 80.8.  Injuries and bye weeks have certainly hurt, but J-Hud has also spent exactly <b>zero FAAB dollars</b> this season, apparently saving his entire budget for a retirement party instead of trying to improve his roster.  Seventeen seasons without a championship, an inactive starter, and a 2-4 record: John Lennon couldn't have written a better song about a man going absolutely nowhere.</p>
+    <p class="next"><b>Week 7:</b> Wood (5-1). Hud might want to spend less time saving imaginary money and more time making sure his players are available on Sundays.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">6</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#2b7a9c"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Galt — "What Becomes of the Brokenhearted"</h3>
+    <p class="artist">Jimmy Ruffin, 1966</p>
+    <p class="rec">2-4 · 604.7 PF</p>
+    <p>Jimmy Ruffin spent 1966 wondering what becomes of the brokenhearted; Galt spends every Monday wondering why Blake Corum keeps scoring points on his fucking bench.  In Week 6, Galt lost 89.2–85.6 to previously winless Shain after starting Cam Skattebo, who received zero carries and zero targets against New Orleans following a reduction in his role because of his fumbling problems earlier in the season.  Skattebo had fumbled four times in his first five games, but <b>did not fumble in Week 6</b>; he simply barely saw the field, playing six offensive snaps while Corum put up 13.0 fantasy points on Galt's bench.</p>
+    <p>Had Galt started Corum, he wins by 9.4 points instead of losing by 3.6, and this becomes especially ridiculous considering Corum also outscored Skattebo from the bench in Week 5.  That's two consecutive weeks of watching the same mistake play out, which is less a broken heart and more a self-inflicted head injury.  At 2-4, Galt is drifting toward another Caddy Bowl, where his ability to repeatedly carry the wrong player might finally prove useful.</p>
+    <p class="next"><b>Week 7:</b> Clod (1-5). Two struggling teams, one important game, and a chance for Galt to prove he can learn from a mistake before making it three weeks in a row.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">7</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#e07a5f"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Waivers — "Tired of Waiting for You"</h3>
+    <p class="artist">The Kinks, 1965</p>
+    <p class="rec">1-5 · 643.4 PF</p>
+    <p>The Kinks were tired of waiting for love; Waivers is tired of waiting for his second victory, although the rest of the league is waiting for him to spend a fucking dollar.  Despite ranking fifth in total points scored, Waivers sits at 1-5 after losses by 3.0, 8.5, and 11.2 points, repeatedly coming close enough to win before finding another way to screw things up.  Josh Allen and Colston Loveland kept him competitive against Rex, but Kenneth Walker's two-touchdown performance was too much to overcome.</p>
+    <p>His decision to start the already-ruled-out Terry McLaurin in <b>Week 5</b> became an unfortunate trend when Hud repeated the mistake with Quinshon Judkins in <b>Week 6</b>, but perhaps the more baffling statistic is that <b>Waivers hasn't spent a single FAAB dollar all season</b>.  Now McLaurin is done for the year, Allen is on bye in Week 7, and Waivers is running out of healthy options while protecting his waiver budget like it's his children's college fund.  At 1-5, the only thing he's successfully accumulated is losses, and the Caddy Bowl is beginning to look like his most realistic postseason destination.</p>
+    <p class="next"><b>Week 7:</b> Potter (4-2). Maybe it's finally time to open the wallet, Michael.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">8</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#6a994e"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>E-Bo — "If I Had a Hammer"</h3>
+    <p class="artist">Peter, Paul and Mary, 1962</p>
+    <p class="rec">3-3 · 576.6 PF</p>
+    <p>"If I Had a Hammer" holds a special place in Ian's heart because he used to sing it to Curry to put her to bed, which is touching considering his fantasy offense has been putting the rest of the league to sleep for six straight weeks.  E-Bo has scored just 576.6 points, second-fewest in the league, yet somehow sits at 3-3 after escaping Clod 109.7–106.1.  Tyler Shough carried much of the offense with three passing touchdowns and another on the ground, while Kyle Pitts added 20.5 points and Denzel Boston contributed a miserable 2.0 from the flex.</p>
+    <p>Now Davante Adams is expected to miss 6–10 weeks and Jalen Hurts is done for the season, leaving E-Bo's already struggling roster looking like something assembled from the clearance section of a fantasy football draft.  The man has played three games decided by 4.5 points or fewer, and with his scoring numbers, it's remarkable he's won anything at all.  Ian once sang about having a hammer; against Rex next week, he might want to borrow the entire fucking toolbox.</p>
+    <p class="next"><b>Week 7:</b> Rex (5-1). Curry's lullaby has become the perfect soundtrack for an offense that's about to face the league's highest-scoring team.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">9</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#b5651d"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Clod — "Paint It Black"</h3>
+    <p class="artist">The Rolling Stones, 1966</p>
+    <p class="rec">1-5 · 745.8 PA · 19-35 Power Record</p>
+    <p>Mick Jagger wanted to paint everything black in 1966, and after six weeks of this bullshit, Clod probably wants to paint his entire fantasy season the same color.  Nobody has faced more points than Cody's 745.8, an average of 124.3 against every week, making his schedule less a series of football games and more a weekly ass-kicking subscription.  Week 6 delivered another masterpiece of misery as Clod scored 106.1, enough to beat six of the other nine teams, only to lose to E-Bo by 3.6 while Brandon Aubrey contributed just one miserable point.</p>
+    <p>Barkley has missed time, DJ Moore is battling a shoulder injury, and Shakir is on bye next week, but the 19-35 power record proves Clod isn't exactly dominating when you remove the schedule from the equation.  At 1-5, the man who has already served as a league caddy is dangerously close to another appearance in the Caddy Bowl, where he may once again discover that carrying clubs is the only thing he's qualified to do in the postseason.  The Rolling Stones wanted to paint a red door black; Clod probably just wants somebody to paint over the standings before anyone notices how shitty his season has become.</p>
+    <p class="next"><b>Week 7:</b> Galt (2-4). A crucial matchup that could determine which of these two disasters moves closer to the Caddy Bowl.</p>
+  </div>
+</article>
+<article class="entry">
+  <div class="disc"><span class="num">10</span><svg viewBox="0 0 100 100" aria-hidden="true"><g class="spin"><circle cx="50" cy="50" r="46" fill="#15110f"/><circle cx="50" cy="50" r="41" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="36" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="26" fill="none" stroke="#2a2422" stroke-width="1.4"/><circle cx="50" cy="50" r="20" fill="#7b6d8d"/><circle cx="50" cy="50" r="20" fill="none" stroke="#00000033" stroke-width="2"/><circle cx="50" cy="50" r="3.2" fill="#f6f1e7"/><path d="M50 30 a20 20 0 0 1 17 10" stroke="#ffffff55" stroke-width="2" fill="none"/></g></svg></div>
+  <div>
+    <h3>Shain — "At Last"</h3>
+    <p class="artist">Etta James, 1960</p>
+    <p class="rec">1-5 · 559.7 PF · 93.3 PPG</p>
+    <p>At last, Shain Collins has won a fucking football game, and all it took was finding an opponent incompetent enough to lose to 89.2 points.  Etta James recorded one of the greatest love songs of the decade, while Shain's version is a tribute to Galt leaving Blake Corum on the bench and gifting the league's last winless team its first victory.  Even in victory, Shain couldn't help making questionable decisions, leaving Bryce Young's two-touchdown performance and J.K. Dobbins' 12.1 points on the bench while his starters produced another offensive disaster.  His 559.7 points and 93.3 per-game average remain dead last in the league, a staggering 277.4 points behind Rex through six weeks.</p>
+    <p>But here's where the music takes an interesting turn: <b>Shain may actually have the best opportunity of anyone so far to hand Trey his first loss.</b>  James Cook, Bhayshul Tuten, Jayden Daniels, Ladd McConkey, and Stefon Diggs are all on bye for the undefeated team, while Lamar Jackson, Rashee Rice, and Jeremiyah Love continue dealing with injuries.  If those three are unable to suit up, Trey could be forced into a severely depleted lineup at the exact moment Shain needs another miracle.  Shain is still the league's lowest-scoring manager, but against a team missing potentially eight useful players, even this sorry bastard might have a chance.</p>
+    <p class="next"><b>Week 7:</b> Trey (6-0). For once, the biggest obstacle between Shain and victory might not be his own roster. If he pulls off the upset, Etta James might need to record a sequel.</p>
+  </div>
+</article>
+
+<section class="closing">
+  <h2>The Closing Track — "The End"</h2>
+  <p class="artist">The Doors, 1967</p>
+  <p>Six weeks down, seven regular-season games to go, and the Greenville Natives are beginning to sound like a record collection somebody left in a burning building.</p>
+  <p>Trey is 6-0 and has now beaten T-Wood a league-record 22 times.  Rex owns the best power record and highest-scoring offense.  Potter keeps finding ways to win games he has no business winning, Wood remains a legitimate playoff contender, and E-Bo somehow sits at .500 despite having one of the league's worst offenses.</p>
+  <p>At the bottom, <b>Waivers started an inactive McLaurin in Week 5, and Hud followed with an inactive Judkins in Week 6.</b>  Neither has spent a single FAAB dollar.  Galt has spent consecutive weeks watching Corum outperform his starting running back from the bench.  Clod is getting absolutely demolished by his schedule, and Shain finally won a game without doing anything particularly impressive.</p>
+  <p>But Week 7 brings an unexpected twist.  The league's only undefeated team is facing a potential bye-week and injury crisis, giving the league's worst-scoring manager a genuine opportunity to pull off the season's biggest upset.</p>
+  <p>The 1960s gave the world peace, love, and rock 'n' roll.  The Greenville Natives have given us injuries, excuses, inactive starters, and grown men who apparently can't operate a fantasy football app.</p>
+  <p><b>Until next week, keep the records spinning, spend some fucking FAAB, and for the love of God, check your lineups before kickoff.</b></p>
+</section>
+
+<p class="kicker">04 / LIONS &amp; LAMBS</p>
+<h2 class="sec">Season to date</h2>
+<div class="two">
+  <div><b>837.1</b><span>Most points for · Taylor Hardee</span></div>
+  <div><b>559.7</b><span>Fewest points for · Shain Collins</span></div>
+  <div><b>745.8</b><span>Most points against · Cody Clodfelter</span></div>
+  <div><b>535.3</b><span>Fewest points against · Trey Wilder</span></div>
+  <div><b>178.9</b><span>Highest ceiling · Mark Potter</span></div>
+  <div><b>109.4</b><span>Lowest ceiling · Shain Collins</span></div>
+  <div><b>139.5</b><span>Highest average week · Taylor Hardee</span></div>
+  <div><b>93.3</b><span>Lowest average week · Shain Collins</span></div>
+  <div><b>+14.4</b><span>Luckiest · T Wood</span></div>
+  <div><b>-13.0</b><span>Unluckiest · Cody Clodfelter</span></div>
+</div>
+
+<p class="kicker">05 / NEXT UP</p>
+<h2 class="sec">Week 7 matchup previews</h2>
+<p class="dek">Head-to-head history, matchup marks and position comparison for all five Week 7 games.</p>
+<div class="two" style="margin-bottom:8px">
+  <div><b>169.4</b><span>All-time Week 7 high score · Mark Potter</span></div>
+  <div><b>45.5</b><span>All-time Week 7 low score · Mark Lindsay</span></div>
+</div>
+<div class="defs">
+  <h4>Matchup marks, defined</h4>
+  <dl class="deflist">
+    <div><dt>Buzzer Beater</dt><dd>Win or loss by less than 1</dd></div>
+    <div><dt>Nail Biter</dt><dd>Win or loss by more than 1, less than 5</dd></div>
+    <div><dt>Dunked On</dt><dd>Win or loss by more than 20</dd></div>
+    <div><dt>Blow Out</dt><dd>Win or loss by more than 40</dd></div>
+    <div><dt>Slug Fest</dt><dd>Combined score over 250</dd></div>
+    <div><dt>Pillow Fight</dt><dd>Combined score under 180</dd></div>
+  </dl>
+</div>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b>Taylor Hardee</b><span>2nd · 5-1 · PF 837.1 · PA 587.4</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b>Ian Baro</b><span>5th · 3-3 · PF 576.6 · PA 648.8</span></div>
+  </div>
+  <p class="hook">The league's highest-scoring team against the one with the second fewest points. Ian leads this series 8-7, the tightest matchup on the board, and he's never lost to Rex by more than 30.9.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(7-8)</span><span class="s">Overall Record</span><span class="b">(8-7)</span></div>
+    <div class="r"><span>47%</span><span class="s">Winning %</span><span class="b">53%</span></div>
+    <div class="r"><span>(6-8)</span><span class="s">Regular Season Record</span><span class="b">(8-6)</span></div>
+    <div class="r"><span>(1-0)</span><span class="s">Playoff Record</span><span class="b">(0-1)</span></div>
+    <div class="r"><span>1695.5</span><span class="s">Points Scored</span><span class="b">1787.3</span></div>
+    <div class="r"><span>138.3</span><span class="s">High Score</span><span class="b">157.5</span></div>
+    <div class="r"><span>72.7</span><span class="s">Low Score</span><span class="b">82.2</span></div>
+    <div class="r"><span>113.0</span><span class="s">PPG</span><span class="b">119.2</span></div>
+    <div class="r"><span>107.3</span><span class="s">Regular Season PPG</span><span class="b">114.4</span></div>
+    <div class="r"><span>192.8</span><span class="s">Playoff PPG</span><span class="b">186.4</span></div>
+    <div class="r"><span>1</span><span class="s">Current Winning Streak</span><span class="b">0</span></div>
+    <div class="r"><span>2</span><span class="s">Longest Winning Streak</span><span class="b">4</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>2</span><span class="s">Dunked On</span><span class="b">3</span></div>
+    <div class="r"><span>1</span><span class="s">Blow Out</span><span class="b">2</span></div>
+    <div class="r"><span>0</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Pillow Fight</span><span class="b">0</span></div>
+    <div class="r"><span>-91.8</span><span class="s">Point Dif</span><span class="b">91.8</span></div>
+    <div class="r"><span>30.9</span><span class="s">Max Point Dif</span><span class="b">38.9</span></div>
+    <h4>Position comparison</h4>
+    <div class="r"><span>Lamar Jackson <b>30.9</b></span><span class="s">QB</span><span class="b"><b>38.9</b> Tom Brady</span></div>
+    <div class="r"><span>Bijan Robinson <b>72.2</b></span><span class="s">RB</span><span class="b"><b>79.8</b> Jonathan Taylor</span></div>
+    <div class="r"><span>George Pickens <b>40.2</b></span><span class="s">WR</span><span class="b"><b>59.2</b> Justin Jefferson</span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b>T Wood</b><span>3rd · 5-1 · PF 682.3 · PA 604.5</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b>Josh Hudson</b><span>6th · 2-4 · PF 635.5 · PA 688.3</span></div>
+  </div>
+  <p class="hook">Wood is 16-11 all time with a +177.5 differential and a 125-point win somewhere in there. Hud has won the last two, and both of these guys are coming off weeks they'd rather forget.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(16-11)</span><span class="s">Overall Record</span><span class="b">(11-16)</span></div>
+    <div class="r"><span>59%</span><span class="s">Winning %</span><span class="b">41%</span></div>
+    <div class="r"><span>(16-11)</span><span class="s">Regular Season Record</span><span class="b">(11-16)</span></div>
+    <div class="r"><span>(0-0)</span><span class="s">Playoff Record</span><span class="b">(0-0)</span></div>
+    <div class="r"><span>2984.9</span><span class="s">Points Scored</span><span class="b">2807.4</span></div>
+    <div class="r"><span>178.3</span><span class="s">High Score</span><span class="b">161.1</span></div>
+    <div class="r"><span>63.2</span><span class="s">Low Score</span><span class="b">69.7</span></div>
+    <div class="r"><span>110.6</span><span class="s">PPG</span><span class="b">104.0</span></div>
+    <div class="r"><span>110.6</span><span class="s">Regular Season PPG</span><span class="b">104.0</span></div>
+    <div class="r"><span></span><span class="s">Playoff PPG</span><span class="b"></span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">2</span></div>
+    <div class="r"><span>3</span><span class="s">Longest Winning Streak</span><span class="b">2</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>2</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>4</span><span class="s">Dunked On</span><span class="b">4</span></div>
+    <div class="r"><span>4</span><span class="s">Blow Out</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Pillow Fight</span><span class="b">3</span></div>
+    <div class="r"><span>177.5</span><span class="s">Point Dif</span><span class="b">-177.5</span></div>
+    <div class="r"><span>125.0</span><span class="s">Max Point Dif</span><span class="b">51.9</span></div>
+    <h4>Position comparison</h4>
+    <div class="r"><span>Lamar Jackson <b>125.0</b></span><span class="s">QB</span><span class="b"><b>51.9</b> Josh Allen</span></div>
+    <div class="r"><span>Jahmyr Gibbs <b>99.8</b></span><span class="s">RB</span><span class="b"><b>55.6</b> Travis Etienne</span></div>
+    <div class="r"><span>DJ Moore <b>40.6</b></span><span class="s">WR</span><span class="b"><b>99.7</b> JaMarr Chase</span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b>Cody Clodfelter</b><span>9th · 1-5 · PF 580.8 · PA 745.8</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b>Lee Galt</b><span>7th · 2-4 · PF 604.7 · PA 679.2</span></div>
+  </div>
+  <p class="hook">The 1-5 against the 2-4, and the closest series in the league by points: Lee is +21.1 over twenty meetings. Clod has won the last two. One of these two is walking toward the Caddy Bowl.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(11-9)</span><span class="s">Overall Record</span><span class="b">(9-11)</span></div>
+    <div class="r"><span>55%</span><span class="s">Winning %</span><span class="b">45%</span></div>
+    <div class="r"><span>(11-9)</span><span class="s">Regular Season Record</span><span class="b">(9-11)</span></div>
+    <div class="r"><span>(0-0)</span><span class="s">Playoff Record</span><span class="b">(0-0)</span></div>
+    <div class="r"><span>2063.4</span><span class="s">Points Scored</span><span class="b">2084.5</span></div>
+    <div class="r"><span>145.1</span><span class="s">High Score</span><span class="b">173.1</span></div>
+    <div class="r"><span>66.3</span><span class="s">Low Score</span><span class="b">65.9</span></div>
+    <div class="r"><span>103.2</span><span class="s">PPG</span><span class="b">104.2</span></div>
+    <div class="r"><span>103.2</span><span class="s">Regular Season PPG</span><span class="b">104.2</span></div>
+    <div class="r"><span></span><span class="s">Playoff PPG</span><span class="b"></span></div>
+    <div class="r"><span>2</span><span class="s">Current Winning Streak</span><span class="b">0</span></div>
+    <div class="r"><span>3</span><span class="s">Longest Winning Streak</span><span class="b">2</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Nail Biter</span><span class="b">0</span></div>
+    <div class="r"><span>3</span><span class="s">Dunked On</span><span class="b">2</span></div>
+    <div class="r"><span>3</span><span class="s">Blow Out</span><span class="b">4</span></div>
+    <div class="r"><span>1</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>4</span><span class="s">Pillow Fight</span><span class="b">1</span></div>
+    <div class="r"><span>-21.1</span><span class="s">Point Dif</span><span class="b">21.1</span></div>
+    <div class="r"><span>67.9</span><span class="s">Max Point Dif</span><span class="b">102.1</span></div>
+    <h4>Position comparison</h4>
+    <div class="r"><span>Justin Herbert <b>45.7</b></span><span class="s">QB</span><span class="b"><b>83.9</b> Patrick Mahomes</span></div>
+    <div class="r"><span>Josh Jacobs <b>97.1</b></span><span class="s">RB</span><span class="b"><b>48.6</b> Nick Chubb</span></div>
+    <div class="r"><span>DK Metcalf <b>39.8</b></span><span class="s">WR</span><span class="b"><b>41.2</b> Justin Jefferson</span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b>Michael Waivers</b><span>8th · 1-5 · PF 643.4 · PA 704.6</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b>Mark Potter</b><span>4th · 4-2 · PF 730.3 · PA 647.8</span></div>
+  </div>
+  <p class="hook">Potter is 16-10 with a +146.2 differential and eight games where he's dunked on Waivers. Waivers hasn't beaten him in his last two tries and hasn't spent a dollar all year.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(10-16)</span><span class="s">Overall Record</span><span class="b">(16-10)</span></div>
+    <div class="r"><span>38%</span><span class="s">Winning %</span><span class="b">62%</span></div>
+    <div class="r"><span>(10-14)</span><span class="s">Regular Season Record</span><span class="b">(14-10)</span></div>
+    <div class="r"><span>(0-2)</span><span class="s">Playoff Record</span><span class="b">(2-0)</span></div>
+    <div class="r"><span>2953.7</span><span class="s">Points Scored</span><span class="b">3099.9</span></div>
+    <div class="r"><span>154.3</span><span class="s">High Score</span><span class="b">158.7</span></div>
+    <div class="r"><span>71.5</span><span class="s">Low Score</span><span class="b">69.5</span></div>
+    <div class="r"><span>113.6</span><span class="s">PPG</span><span class="b">119.2</span></div>
+    <div class="r"><span>106.0</span><span class="s">Regular Season PPG</span><span class="b">109.8</span></div>
+    <div class="r"><span>205.1</span><span class="s">Playoff PPG</span><span class="b">232.3</span></div>
+    <div class="r"><span>0</span><span class="s">Current Winning Streak</span><span class="b">2</span></div>
+    <div class="r"><span>3</span><span class="s">Longest Winning Streak</span><span class="b">2</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>1</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Dunked On</span><span class="b">8</span></div>
+    <div class="r"><span>2</span><span class="s">Blow Out</span><span class="b">1</span></div>
+    <div class="r"><span>3</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>1</span><span class="s">Pillow Fight</span><span class="b">0</span></div>
+    <div class="r"><span>-146.2</span><span class="s">Point Dif</span><span class="b">146.2</span></div>
+    <div class="r"><span>76.8</span><span class="s">Max Point Dif</span><span class="b">43.9</span></div>
+    <h4>Position comparison</h4>
+    <div class="r"><span>Josh Allen <b>61.1</b></span><span class="s">QB</span><span class="b"><b>33.3</b> Lamar Jackson</span></div>
+    <div class="r"><span>Christian McCaffrey <b>56.7</b></span><span class="s">RB</span><span class="b"><b>44.3</b> Christian McCaffrey</span></div>
+    <div class="r"><span>Tyreek Hill <b>46.0</b></span><span class="s">WR</span><span class="b"><b>47.6</b> DK Metcalf</span></div>
+  </div>
+</section>
+<section class="vs-card">
+  <div class="vs-head">
+    <div class="side"><b>Shain Collins</b><span>10th · 1-5 · PF 559.7 · PA 706.2</span></div>
+    <div class="bug">VS</div>
+    <div class="side"><b>Trey Wilder</b><span>1st · 6-0 · PF 697.5 · PA 535.3</span></div>
+  </div>
+  <p class="hook">The undefeated team against the team that just got its first win. I'm 16-10 with a +168.8 differential and a six-game run in this series, which is the longest streak either of us has against anybody. Shain owns the 179.7 high score in it.</p>
+  <div class="h2h">
+    <h4>Head-to-head · the history</h4>
+    <div class="r"><span>(10-16)</span><span class="s">Overall Record</span><span class="b">(16-10)</span></div>
+    <div class="r"><span>38%</span><span class="s">Winning %</span><span class="b">62%</span></div>
+    <div class="r"><span>(10-14)</span><span class="s">Regular Season Record</span><span class="b">(14-10)</span></div>
+    <div class="r"><span>(0-2)</span><span class="s">Playoff Record</span><span class="b">(2-0)</span></div>
+    <div class="r"><span>3002.3</span><span class="s">Points Scored</span><span class="b">3171.1</span></div>
+    <div class="r"><span>179.7</span><span class="s">High Score</span><span class="b">168.7</span></div>
+    <div class="r"><span>59.2</span><span class="s">Low Score</span><span class="b">62</span></div>
+    <div class="r"><span>115.5</span><span class="s">PPG</span><span class="b">122.0</span></div>
+    <div class="r"><span>108.9</span><span class="s">Regular Season PPG</span><span class="b">113.2</span></div>
+    <div class="r"><span>194.8</span><span class="s">Playoff PPG</span><span class="b">227.7</span></div>
+    <div class="r"><span>2</span><span class="s">Current Winning Streak</span><span class="b">0</span></div>
+    <div class="r"><span>2</span><span class="s">Longest Winning Streak</span><span class="b">6</span></div>
+    <h4>Matchup marks · the margins</h4>
+    <div class="r"><span>0</span><span class="s">Buzzer Beater</span><span class="b">0</span></div>
+    <div class="r"><span>0</span><span class="s">Nail Biter</span><span class="b">1</span></div>
+    <div class="r"><span>7</span><span class="s">Dunked On</span><span class="b">8</span></div>
+    <div class="r"><span>2</span><span class="s">Blow Out</span><span class="b">3</span></div>
+    <div class="r"><span>5</span><span class="s">Slug Fest</span><span class="b">0</span></div>
+    <div class="r"><span>1</span><span class="s">Pillow Fight</span><span class="b">4</span></div>
+    <div class="r"><span>-168.8</span><span class="s">Point Dif</span><span class="b">168.8</span></div>
+    <div class="r"><span>70</span><span class="s">Max Point Dif</span><span class="b">71.3</span></div>
+    <h4>Position comparison</h4>
+    <div class="r"><span>Jalen Hurts <b>110.7</b></span><span class="s">QB</span><span class="b"><b>76.5</b> Josh Allen</span></div>
+    <div class="r"><span>Gus Edwards <b>28.4</b></span><span class="s">RB</span><span class="b"><b>61.0</b> Saquon Barkley</span></div>
+    <div class="r"><span>Tyreek Hill <b>78.5</b></span><span class="s">WR</span><span class="b"><b>64.0</b> Davante Adams</span></div>
+  </div>
+</section>
+
+<p class="sign">Keep the records spinning. — Trey</p>
+<a class="backlink" href="./">&larr; All write-ups</a>
+</div>
+</body>
+</html>
