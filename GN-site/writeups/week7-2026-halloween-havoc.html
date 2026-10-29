@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Halloween Havoc | Greenville Natives 2026, Week 7</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Archivo:wdth,wght@100,400..700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f0e8d6; --panel:#e4dac2; --ink:#1a0e27; --muted:#5a4a63; --pump:#c25400; --blood:#a30f1b; --rule:#1a0e27;
+  --chip-bg:#1a0e27; --chip-ink:#f0e8d6; --good:#1f6b3a; --bad:#a30f1b;
+  --disp:"Big Shoulders Display","Impact","Haettenschweiler","Arial Narrow Bold",sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#140a1e; --panel:#1f1230; --ink:#f0e8d6; --muted:#b3a4bd; --pump:#ff7b00; --blood:#e23342; --rule:#f0e8d6;
+    --chip-bg:#f0e8d6; --chip-ink:#140a1e; --good:#5fd08a; --bad:#ff6b76;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#140a1e; --panel:#1f1230; --ink:#f0e8d6; --muted:#b3a4bd; --pump:#ff7b00; --blood:#e23342; --rule:#f0e8d6;
+  --chip-bg:#f0e8d6; --chip-ink:#140a1e; --good:#5fd08a; --bad:#ff6b76;
+}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:border-box;}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-text-size-adjust:100%;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10;}
+.wrap{max-width:780px;margin:0 auto;padding:0 20px 64px;}
+p{margin:0 0 1em;max-width:68ch;}
+a{color:inherit;}
+:focus-visible{outline:3px solid var(--pump);outline-offset:3px;}
+
+/* Masthead */
+.mast{border-bottom:6px solid var(--rule);padding:44px 0 22px;margin-bottom:8px;}
+.mast .cover{margin:0 auto;max-width:520px;}
+.mast .cover img{display:block;width:100%;height:auto;box-shadow:0 10px 30px rgba(0,0,0,.45);}
+.mast .kick{text-align:center;}
+.mast .show{font-family:var(--disp);font-weight:900;font-size:clamp(76px,22vw,168px);line-height:.82;letter-spacing:-.01em;margin:0;text-transform:uppercase;}
+.mast .show span{display:block;}
+.mast .show .l2{color:var(--pump);margin-left:.06em;animation:flick 6s steps(1,end) 1.2s 1 both;}
+@keyframes flick{0%,8%,12%,16%,100%{opacity:1}9%,13%{opacity:.25}10%,14%{opacity:1}}
+.mast .kick{font-family:var(--disp);font-weight:700;font-size:clamp(20px,4.6vw,30px);line-height:1.1;margin:18px 0 6px;}
+.mast .sub{color:var(--muted);margin:0;font-size:15px;max-width:60ch;}
+.hazard{height:14px;margin:18px 0 0;background:repeating-linear-gradient(-45deg,var(--rule) 0 14px,var(--pump) 14px 28px);}
+
+h2{font-family:var(--disp);font-weight:900;font-size:clamp(34px,8vw,52px);line-height:.95;margin:52px 0 14px;text-transform:uppercase;}
+h2 small{display:block;font-family:var(--body);font-weight:600;font-size:14px;text-transform:none;color:var(--muted);margin-top:8px;letter-spacing:0;}
+h3{font-family:var(--disp);font-weight:900;font-size:clamp(28px,6.5vw,38px);line-height:1;margin:0;text-transform:uppercase;}
+
+/* Chart + callouts */
+.bars{list-style:none;margin:18px 0 6px;padding:0;border:3px solid var(--rule);background:var(--panel);}
+.bars li{display:grid;grid-template-columns:120px 1fr 36px;gap:10px;align-items:center;padding:7px 12px;border-bottom:1px solid color-mix(in srgb,var(--rule) 25%,transparent);}
+.bars li:last-child{border-bottom:0;}
+.bars .nm{font-weight:600;font-size:15px;}
+.bars .trk{height:16px;background:color-mix(in srgb,var(--rule) 12%,transparent);}
+.bars .fill{display:block;height:100%;width:calc(var(--n) * 10%);background:var(--pump);transform-origin:left;animation:grow .9s cubic-bezier(.2,.7,.2,1) both;}
+.bars .hud .fill{background:var(--blood);}
+.bars .num{font-family:var(--disp);font-weight:900;font-size:22px;text-align:right;}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.note{font-size:14px;color:var(--muted);margin:6px 0 22px;max-width:70ch;}
+
+.tbl{width:100%;border-collapse:collapse;margin:16px 0 6px;font-size:15px;}
+.tbl th,.tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid color-mix(in srgb,var(--rule) 25%,transparent);vertical-align:top;}
+.tbl th{font-family:var(--disp);font-weight:700;font-size:18px;border-bottom:3px solid var(--rule);}
+.tbl .neg{color:var(--bad);font-weight:700;}
+.scroll{overflow-x:auto;}
+
+.slab{border-left:8px solid var(--pump);background:var(--panel);padding:16px 18px;margin:22px 0;}
+.slab p:last-child{margin-bottom:0;}
+
+/* Scores */
+.fight{display:grid;grid-template-columns:1fr auto;gap:2px 14px;padding:12px 0;border-bottom:2px solid var(--rule);}
+.fight .w{font-weight:700;}
+.fight .l{color:var(--muted);}
+.fight .pts{font-family:var(--disp);font-weight:900;font-size:26px;text-align:right;line-height:1.1;}
+.fight .tag{grid-column:1/-1;font-size:14px;color:var(--pump);font-weight:700;}
+.fight .tag:empty{display:none;}
+
+/* Entries */
+.entry{margin:46px 0 0;padding-top:8px;border-top:6px solid var(--rule);}
+.hd{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;}
+.rk{font-family:var(--disp);font-weight:900;font-size:clamp(76px,18vw,112px);line-height:.8;color:var(--pump);min-width:.9ch;}
+.champ{font-family:var(--disp);font-weight:700;font-size:clamp(18px,4.4vw,24px);margin:0 0 2px;color:var(--muted);}
+.team{margin:4px 0 0;font-size:15px;color:var(--muted);}
+.belt{width:clamp(64px,16vw,96px);height:auto;color:var(--ink);}
+.chy{display:grid;grid-template-columns:repeat(4,1fr);margin:14px 0 14px;background:var(--chip-bg);color:var(--chip-ink);}
+.chy div{padding:8px 12px;border-right:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}
+.chy div:last-child{border-right:0;}
+.chy dt{font-size:12px;opacity:.75;}
+.chy dd{margin:0;font-family:var(--disp);font-weight:900;font-size:24px;line-height:1.1;}
+.say{font-family:var(--disp);font-weight:700;font-size:clamp(20px,4.8vw,26px);line-height:1.15;margin:0 0 12px;color:var(--blood);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .say{color:var(--pump);}}
+:root[data-theme="dark"] .say{color:var(--pump);}
+@media (max-width:560px){
+  .chy{grid-template-columns:repeat(2,1fr);}
+  .chy div:nth-child(2){border-right:0;}
+  .chy div:nth-child(-n+2){border-bottom:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}
+  .bars li{grid-template-columns:96px 1fr 30px;}
+  .hd{grid-template-columns:auto 1fr;}
+  .belt{display:none;}
+}
+.draftgrid td:nth-child(2),.draftgrid td:nth-child(3){width:38%;}
+.up{color:var(--good);font-weight:700;}
+.dn{color:var(--bad);font-weight:700;}
+.std td.cut{border-top:3px dashed var(--pump);}
+.std tr.caddy td{background:color-mix(in srgb,var(--blood) 14%,transparent);}
+.std .st{font-size:13px;color:var(--muted);}
+.awards{list-style:none;margin:16px 0;padding:0;border-top:3px solid var(--rule);}
+.awards li{padding:12px 0;border-bottom:1px solid color-mix(in srgb,var(--rule) 25%,transparent);}
+.awards b{font-family:var(--disp);font-weight:900;font-size:22px;display:block;line-height:1.1;}
+.awards span{font-size:15px;}
+.hist{font-size:15px;color:var(--muted);margin:-4px 0 12px;}
+.draftgrid td{font-size:14px;}
+.draftgrid .meta{display:block;color:var(--muted);font-size:13px;}
+.chy.six{grid-template-columns:repeat(6,1fr);}
+.chy.six dd{font-size:21px;}
+.say.close{margin:16px 0 0;}
+.gif{margin:4px 0 18px;border:4px solid var(--rule);max-width:640px;}
+.gif img{display:block;width:100%;height:auto;}
+.gif-link{display:inline-block;font-family:var(--disp);font-weight:700;font-size:20px;text-decoration:none;background:var(--chip-bg);color:var(--chip-ink);padding:8px 14px;border-left:6px solid var(--pump);}
+.gif-link:hover{text-decoration:underline;}
+.entry p{max-width:68ch;}
+.odds td:nth-child(5){font-weight:700;}
+.method-box{border:3px solid var(--rule);padding:12px 16px;margin:20px 0;background:var(--panel);font-size:15px;}
+.method-box summary{font-family:var(--disp);font-weight:900;font-size:22px;cursor:pointer;}
+.method-box h4{font-family:var(--disp);font-size:20px;margin:18px 0 6px;}
+.method li{margin:0 0 8px;}
+@media (max-width:640px){.chy.six{grid-template-columns:repeat(3,1fr);}.chy.six div{border-bottom:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}}
+.pv{margin:34px 0 0;padding-top:10px;border-top:6px solid var(--rule);}
+.pv h3{font-size:clamp(26px,6vw,34px);}
+.pv .hook{margin:6px 0 4px;color:var(--muted);}
+.h2h{font-size:15px;}
+.h2h th:nth-child(2),.h2h th:nth-child(3),.h2h td:nth-child(2),.h2h td:nth-child(3){text-align:right;width:34%;}
+.h2h td:first-child{color:var(--muted);}
+.h2h tr.grp th{font-family:var(--disp);font-size:18px;text-align:left;padding-top:16px;color:var(--pump);border-bottom:2px solid var(--rule);}
+.mu{max-width:520px;margin:30px auto 0;background:var(--panel);border:1px solid color-mix(in srgb,var(--rule) 25%,transparent);}
+.mu-hd{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;background:var(--ink);color:var(--bg);padding:10px 12px;}
+.mu-hd h3{font-family:var(--body);text-transform:none;font-size:17px;font-weight:700;margin:0;}
+.mu-hd p{margin:2px 0 0;font-size:12px;font-weight:600;opacity:.85;}
+.mu-hd .rt{text-align:right;}
+.vs{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--pump);color:#fff;font-size:11px;font-weight:800;}
+.mu-blurb{margin:0;padding:12px 12px;font-weight:600;font-size:16px;line-height:1.55;background:color-mix(in srgb,var(--pump) 16%,var(--panel));}
+.mu-sec{padding:6px 10px 2px;}
+.mu .lbl{margin:8px 0 2px;color:var(--pump);font-weight:800;font-size:14px;}
+.mu .r{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:baseline;padding:7px 0;border-bottom:1px solid color-mix(in srgb,var(--rule) 12%,transparent);font-size:16px;}
+.mu .r b{font-size:12px;color:var(--muted);text-align:center;}
+.mu .r span:last-child{text-align:right;}
+.mu .r.pos span{font-size:15px;}
+.zh{font-size:clamp(22px,5vw,28px);margin:22px 0 0;}
+.zt td:not(:first-child),.zt th:not(:first-child){text-align:right;}
+.zt tr.hl td{color:var(--blood);font-weight:700;}
+.zt tr.lg td{border-top:3px solid var(--rule);font-weight:700;}
+.foot{margin-top:56px;padding-top:14px;border-top:6px solid var(--rule);color:var(--muted);font-size:14px;}
+@media (prefers-reduced-motion:reduce){.mast .show .l2,.bars .fill{animation:none;}}
+
+.backlink{display:inline-block;margin:34px 0 0;font-family:var(--disp);font-weight:700;font-size:16px;letter-spacing:.06em;text-transform:uppercase;color:var(--pump);text-decoration:none;}
+.backlink:hover{text-decoration:underline;}
+
+/* ---- manager colours, photos and player headshots ---- */
+.mgr{display:inline-block;padding:.1em .5em;border-radius:7px;border:1px solid transparent;
+  font-family:var(--body);font-weight:700;line-height:1.25;white-space:nowrap;letter-spacing:0;}
+h3 .mgr{font-size:.82em;vertical-align:.06em;}
+.fight .mgr,.tbl .mgr{font-size:.92em;}
+.awards .mgr{font-size:.95em;}
+@media (max-width:560px){.mgr{white-space:normal;}}
+@media print{.mgr{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+.mgr-hardee{background:#FDB927;border-color:#C8102E;color:#C8102E;}
+.mgr-wood{background:#005030;border-color:#F47321;color:#F47321;}
+.mgr-potter{background:#CE1141;border-color:#13274F;color:#FFFFFF;}
+.mgr-wilder{background:#CEB888;border-color:#782F40;color:#782F40;}
+.mgr-baro{background:#00539B;border-color:#012169;color:#FFFFFF;}
+.mgr-waivers{background:#00788C;border-color:#1D1160;color:#1D1160;}
+.mgr-collins{background:#000000;border-color:#CC0000;color:#CC0000;}
+.mgr-hudson{background:#13294B;border-color:#4B9CD3;color:#4B9CD3;}
+.mgr-clod{background:#FDC82F;border-color:#592A8A;color:#592A8A;}
+.mgr-galt{background:#000000;border-color:#73000A;color:#FFFFFF;}
+.mhs{width:96px;height:96px;display:block;border-radius:12px;border:3px solid var(--rule);
+  object-fit:cover;background:var(--panel);}
+/* the manager photo adds a fourth child to the entry header grid */
+.entry .hd{grid-template-columns:auto auto 1fr auto;}
+@media (max-width:640px){
+  .mhs{width:72px;height:72px;}
+  .entry .hd{grid-template-columns:auto auto 1fr;}
+}
+.ph{position:relative;display:inline-flex;align-items:center;justify-content:center;
+  width:26px;height:26px;border-radius:50%;overflow:hidden;background:var(--panel);
+  border:1px solid var(--rule);vertical-align:-8px;margin:0 5px 0 2px;font-size:.58rem;
+  font-weight:700;line-height:1;color:var(--muted);font-style:normal;}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  object-position:center top;border-radius:50%;}
+@media (max-width:640px){.ph{width:22px;height:22px;vertical-align:-6px;font-size:.52rem;}}
+
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="belt" viewBox="0 0 120 60">
+    <rect x="0" y="20" width="120" height="20" rx="3" fill="currentColor" opacity=".9"/>
+    <rect x="0" y="26" width="120" height="2" fill="var(--pump)"/>
+    <rect x="0" y="32" width="120" height="2" fill="var(--pump)"/>
+    <ellipse cx="60" cy="30" rx="34" ry="27" fill="var(--bg)" stroke="currentColor" stroke-width="4"/>
+    <ellipse cx="60" cy="30" rx="26" ry="20" fill="none" stroke="var(--pump)" stroke-width="2"/>
+    <text x="60" y="37" text-anchor="middle" font-family="Impact,Haettenschweiler,'Arial Narrow Bold',sans-serif" font-size="17" fill="currentColor">TAG</text>
+  </symbol>
+</svg>
+
+<main class="wrap">
+
+<header class="mast">
+  <h1 class="cover"><img src="img/week7-2026-halloween-havoc/halloween-havoc-cover.jpg" width="1024" height="1536" alt="Halloween Havoc: Greenville Natives"></h1>
+  <p class="kick">Greenville Natives, 2026 season. Week 7 recap, Week 8 preview, and the halfway-point draft autopsy.</p>
+  <div class="hazard" aria-hidden="true"></div>
+</header>
+
+<section aria-labelledby="open">
+  <h2 id="open">Opening segment: Hud-astrophe</h2>
+  <p>First, before anyone says anything (looking at you, Clod): yes, I know Halloween Havoc was a WCW event and I’m doing WWF tag teams. WWF &gt; WCW.</p>
+  <p>For the second week in a row, Hud started a player who was ruled out before kickoff, and for the third week in a row, somebody in this league did. We’re on a roll, boys. This week’s corpse was <span class="ph" aria-hidden="true">BH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/new-york-jets-breece-hall-copy-min--wshmh-gt.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4427366.png"></span>Breece Hall: 0 points. ESPN told him. The man’s own app put a big zero next to the name like a toe tag, and Hud looked at it and said, “Yeah, that’s my RB1.” Two straight weeks for Hud, three straight for the league. In wrestling that’s called a push. In Hud’s case it’s called a pattern, and soon it’s going to be called a diagnosis.</p>
+  <p>Since 2018, managers in this league have started a player who was confirmed ruled out before kickoff 22 times. Hud owns 10 of them, the most in the league, and Breece Hall last week was number 10. Michael Waivers is next with six, and then everybody else falls off a cliff. Six of Hud’s 10 were running backs. Nobody else in the league has more than one at any position except Waivers, who has three receivers.</p>
+  <h3 class="zh">Started a player ruled out before kickoff</h3>
+  <div class="scroll"><table class="tbl zt"><thead><tr><th>Manager</th><th>QB</th><th>RB</th><th>WR</th><th>TE</th><th>K</th><th>Total</th></tr></thead><tbody><tr class="hl"><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>0</td><td>6</td><td>1</td><td>1</td><td>2</td><td><strong>10</strong></td></tr><tr><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>1</td><td>1</td><td>3</td><td>1</td><td>0</td><td><strong>6</strong></td></tr><tr><td><span class="mgr mgr-collins">Shain Collins</span></td><td>0</td><td>0</td><td>0</td><td>1</td><td>1</td><td><strong>2</strong></td></tr><tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td><strong>1</strong></td></tr><tr><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td><strong>1</strong></td></tr><tr><td><span class="mgr mgr-galt">Lee Galt</span></td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td><strong>1</strong></td></tr><tr><td><span class="mgr mgr-wood">T Wood</span></td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td><strong>1</strong></td></tr><tr><td><span class="mgr mgr-hardee">Rex</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr><tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr><tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><strong>0</strong></td></tr><tr class="lg"><td>League</td><td>1</td><td>7</td><td>6</td><td>5</td><td>3</td><td><strong>22</strong></td></tr></tbody></table></div>
+  <p class="note">Confirmed cases, regular season, 2018–2026, including Breece Hall in Week 7. D/ST excluded. COVID-list cases (<span class="ph" aria-hidden="true">MA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/baltimore-ravens-mark-andrews-min--u-9is4qy.png"></span>Mark Andrews for Trey, <span class="ph" aria-hidden="true">JC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/arizona-cardinals-james-conner-min--yxnquf6r.png"></span>James Conner for Rex) removed.</p>
+  <p>Widen it out to every starter who scored 0 or worse: 271 of them since 2018, and more than half (137) were defenses. This past week added four more: three defenses (T Wood’s Panthers at −7, Ian’s 49ers at −4 and Hud’s Jets at −2) plus Breece Hall at 0. Waivers leads with 36, half of them D/ST. T Wood has 11 receivers at 0 or worse, the most in the league. Hud has 10 running backs. No other manager has more than two. Mark has the fewest (16), which is impressive until you remember what he does with the guys who actually score.</p>
+  <h3 class="zh">Starters who scored 0 or worse</h3>
+  <div class="scroll"><table class="tbl zt"><thead><tr><th>Manager</th><th>QB</th><th>RB</th><th>WR</th><th>TE</th><th>K</th><th>D/ST</th><th>Total</th></tr></thead><tbody><tr><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>1</td><td>2</td><td>9</td><td>4</td><td>2</td><td>18</td><td><strong>36</strong></td></tr><tr><td><span class="mgr mgr-wood">T Wood</span></td><td>1</td><td>0</td><td>11</td><td>5</td><td>3</td><td>15</td><td><strong>35</strong></td></tr><tr class="hl"><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>0</td><td>10</td><td>3</td><td>3</td><td>5</td><td>13</td><td><strong>34</strong></td></tr><tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td>0</td><td>0</td><td>4</td><td>7</td><td>3</td><td>18</td><td><strong>32</strong></td></tr><tr><td><span class="mgr mgr-galt">Lee Galt</span></td><td>0</td><td>2</td><td>4</td><td>2</td><td>1</td><td>17</td><td><strong>26</strong></td></tr><tr><td><span class="mgr mgr-collins">Shain Collins</span></td><td>0</td><td>0</td><td>3</td><td>4</td><td>2</td><td>16</td><td><strong>25</strong></td></tr><tr><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>0</td><td>1</td><td>5</td><td>3</td><td>2</td><td>12</td><td><strong>23</strong></td></tr><tr><td><span class="mgr mgr-hardee">Rex</span></td><td>0</td><td>1</td><td>5</td><td>4</td><td>3</td><td>10</td><td><strong>23</strong></td></tr><tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>0</td><td>1</td><td>5</td><td>4</td><td>1</td><td>10</td><td><strong>21</strong></td></tr><tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td>0</td><td>0</td><td>4</td><td>3</td><td>1</td><td>8</td><td><strong>16</strong></td></tr><tr class="lg"><td>League</td><td>2</td><td>17</td><td>53</td><td>39</td><td>23</td><td>137</td><td><strong>271</strong></td></tr></tbody></table></div>
+  <p class="note">Every active starter at 0 or below, regular season, 2018–2026, including D/ST and negative scores.</p>
+
+
+</section>
+
+<section aria-labelledby="scores">
+  <h2 id="scores">Week 7 final</h2>
+  <div class="fight"><div class="w"><span class="mgr mgr-hardee">Rex</span></div><div class="pts">115.6</div><div class="l"><span class="mgr mgr-baro">Ian Baro</span></div><div class="pts l">81.5</div><div class="tag"></div></div>
+  <div class="fight"><div class="w"><span class="mgr mgr-waivers">Michael Waivers</span></div><div class="pts">123.6</div><div class="l"><span class="mgr mgr-potter">Mark Potter</span></div><div class="pts l">100.3</div><div class="tag">Dunked On: 23.3 points</div></div>
+  <div class="fight"><div class="w"><span class="mgr mgr-clod">Cody Clodfelter</span></div><div class="pts">103.5</div><div class="l"><span class="mgr mgr-galt">Lee Galt</span></div><div class="pts l">100.6</div><div class="tag">Nail Biter: 2.9 points</div></div>
+  <div class="fight"><div class="w"><span class="mgr mgr-hudson">Josh Hudson</span></div><div class="pts">103.9</div><div class="l"><span class="mgr mgr-wood">T Wood</span></div><div class="pts l">97.6</div><div class="tag"></div></div>
+  <div class="fight"><div class="w"><span class="mgr mgr-wilder">Trey Wilder</span></div><div class="pts">86.2</div><div class="l"><span class="mgr mgr-collins">Shain Collins</span></div><div class="pts l">84.0</div><div class="tag">Nail Biter and Pillow Fight: 2.2 points, 170.2 combined</div></div>
+</section>
+
+<section aria-labelledby="standings">
+  <h2 id="standings">Standings and the playoff picture</h2>
+  <div class="scroll">
+  <table class="tbl std">
+    <thead><tr><th>Seed</th><th>Manager</th><th>Record</th><th>PF</th><th>Power record</th><th>Power rank</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>7-0</td><td>783.7</td><td>37-26</td><td>2</td></tr>
+      <tr><td>2</td><td><span class="mgr mgr-hardee">Rex</span></td><td>6-1</td><td>952.7</td><td>53-10</td><td>1</td></tr>
+      <tr><td>3</td><td><span class="mgr mgr-wood">T Wood</span></td><td>5-2</td><td>779.9</td><td>31-32</td><td>3</td></tr>
+      <tr><td>4</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>4-3</td><td>830.6</td><td>37-26</td><td>4</td></tr>
+      <tr><td class="cut">5</td><td class="cut">Josh Hudson</td><td class="cut">3-4</td><td class="cut">739.4</td><td class="cut">30-33</td><td class="cut">5</td></tr>
+      <tr><td>6</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td>3-4</td><td>658.1</td><td>21-42</td><td>8</td></tr>
+      <tr><td>7</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>2-5</td><td>767.0</td><td>36-27</td><td>6</td></tr>
+      <tr><td>8</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td>2-5</td><td>705.3</td><td>27-36</td><td>7</td></tr>
+      <tr class="caddy"><td>9</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>2-5</td><td>684.3</td><td>25-38</td><td>9</td></tr>
+      <tr class="caddy"><td>10</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>1-6</td><td>643.7</td><td>18-45</td><td>10</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><strong>Caddy Bowl watch:</strong> if the season ended today, it’s Cody vs. Shain, and they play each other this week.</p>
+</section>
+
+<section aria-labelledby="awards">
+  <h2 id="awards">Week 7 awards</h2>
+  <ul class="awards">
+    <li><b>The Ass Kicking Award</b><span><span class="mgr mgr-waivers">Michael Waivers</span>, 123.6. The week’s top score.</span></li>
+    <li><b>The Toilet Bowl Plunger</b><span><span class="mgr mgr-baro">Ian Baro</span>, 81.5. Lowest score of the week, a −4 defense and a kicker who scored 1.0.</span></li>
+    <li><b>The Séance Award</b><span><span class="mgr mgr-hudson">Josh Hudson</span>, for starting Breece Hall. Second straight week of trying to contact the dead.</span></li>
+    <li><b>Dumbass of the Week</b><span><span class="mgr mgr-potter">Mark Potter</span>, for starting <span class="ph" aria-hidden="true">JL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/green-bay-packers-jordan-love-copy-min--rxqilav0.png"></span>Jordan Love (18.8) over <span class="ph" aria-hidden="true">JB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cincinnati-bengals-joe-burrow-min--hedgxbuk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png"></span>Joe Burrow (28.8). He lost by 23.3 with 42.5 points on the bench.</span></li>
+    <li><b>Horseshoe Up the Ass</b><span>Me. 86.2 points, eighth-best score of the week, a win.</span></li>
+    <li><b>The Pine Tar Award</b><span><span class="ph" aria-hidden="true">LB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/chicago-bears-luther-burden-iii--twt3ie1i.png"></span>Luther Burden III, 21.7 on T Wood’s bench. Start him over <span class="ph" aria-hidden="true">XW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/kansas-city-chiefs-xavier-worthy--icj50ed3.png"></span>Xavier Worthy (2.6) and T Wood wins by 12.8.</span></li>
+    <li><b>Defense? I Hardly Know Her</b><span>T Wood’s Panthers, −7.</span></li>
+    <li><b>Holy Shit, Tony</b><span><span class="ph" aria-hidden="true">TP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/dallas-cowboys-tony-pollard-min-1--ncmy1rcj.png"></span>Tony Pollard, 35.0 points, the biggest overperformance by any starter.</span></li>
+    <li><b>The $46 Turd</b><span>Jalen Coker, Shain’s most expensive waiver claim of the season: 1.4 points as a starting receiver.</span></li>
+  </ul>
+</section>
+
+<section aria-labelledby="rankings">
+  <h2 id="rankings">The tag team ladder</h2>
+  <article class="entry">
+    <div class="hd"><div class="rk">1</div><img class="mhs" src="img/managers/hardee.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Hardy Boyz</p><h3><span class="mgr mgr-hardee">Taylor Hardee</span></h3><p class="team">R.I.P the Surfer</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>6–1</dd></div><div><dt>Power score</dt><dd>88.1</dd></div><div><dt>Points for</dt><dd>952.7</dd></div><div><dt>Points against</dt><dd>668.9</dd></div><div><dt>Power record</dt><dd>53–10</dd></div><div><dt>Luck score</dt><dd>0.0</dd></div></dl>
+        <p class="say">CLIMB THE LADDER. GRAB THE BELT. DO IT AGAIN NEXT WEEK.</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/taylor-hardee.gif" width="320" height="320" alt="Jeff Hardy on top of a ladder before a Swanton Bomb" loading="lazy"></figure>
+    <p>Growing up, the Hardy Boyz were Rex’s favorite wrestlers, which is how he ended up flat on his back on a cheap folding table in the living room at Lewis Street, staring up at the light. Goat hopped onto the back of the couch, launched the most beautiful Swanton Bomb Lewis Street had ever seen, and folded Rex and the table in half. Goat trotted off to get in the trash, and Rex spent the next ten minutes on the carpet wondering why his upper lip smelled like muff.</p>
+    <p>He’s been taking it out on the league ever since. Week 7 was a 115.6 to 81.5 demolition behind Drake Maye’s 27.4 and Zay Flowers’ 23.7, and he’s already had the league’s top score three times this year. On the season he has 952.7 points, 122.1 more than anybody else, a 53-10 power record and the league’s highest floor at 94.5. He’s the best team in the league and he’s in second place, because I apparently made a deal with Satan. Jeff Hardy used to stand on top of the ladder and point at the crowd before he jumped, and right now Rex is pointing at the rest of us.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">2</div><img class="mhs" src="img/managers/wilder.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The New Age Outlaws</p><h3><span class="mgr mgr-wilder">Trey Wilder</span></h3><p class="team">I Love Tuten</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>7–0</dd></div><div><dt>Power score</dt><dd>84.6</dd></div><div><dt>Points for</dt><dd>783.7</dd></div><div><dt>Points against</dt><dd>619.3</dd></div><div><dt>Power record</dt><dd>37–26</dd></div><div><dt>Luck score</dt><dd>+8.3</dd></div></dl>
+        <p class="say">LADIES AND GENTLEMEN, BOYS AND GIRLS, CHILDREN OF ALL AGES: THE GREENVILLE NATIVES PROUDLY BRING TO YOU THE UNDEFEATED, UNDESERVING, LUCKIEST SON OF A BITCH IN EASTERN NORTH CAROLINA… I LOVE TUTEN!</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/trey-wilder.gif" width="640" height="360" alt="Road Dogg on the mic: Oh, you didn’t know?" loading="lazy"></figure>
+    <figure class="gif"><video src="img/week7-2026-halloween-havoc/nao-royal-rumble-2000.mp4" controls playsinline preload="metadata" width="640" height="480" style="display:block;width:100%;height:auto;background:#000" aria-label="New Age Outlaws entrance and promo at Royal Rumble 2000"></video></figure>
+    <p>Seven games, seven wins: the first 7-0 start in league history, and eight straight wins counting last year’s finale. Naturally, it’s the guy whose numbers say he should have about four. Road Dogg and Billy Gunn talked shit and won titles without anybody knowing why, and I understand them on a spiritual level.</p>
+    <p>I scored 86.2 this week, my season low and the eighth-best score of the week, with Roschon Johnson (1.3) and <span class="ph" aria-hidden="true">SL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/detroit-lions-sam-laporta-01--xcaxjhy6.png"></span>Sam LaPorta (2.3) in the lineup and a bench full of injuries and byes. Tre Tucker caught five balls for 103 yards, <span class="ph" aria-hidden="true">MS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/detroit-lions-matthew-stafford2018-min--iemevhwu.png"></span>Matthew Stafford threw for 290 yards and two scores, and Braelon Allen ran for 104, which was just enough. My opponents have scored 619.3 against me, the fewest in the league by nearly 50 points. My 37-26 power record is barely above average, and my +8.3 luck score still undersells the bullshit. Mark gets the next shot at ending it. And if you’re not down with that, I’ve got two words for ya.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">3</div><img class="mhs" src="img/managers/wood.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Dudley Boyz</p><h3><span class="mgr mgr-wood">T Wood</span></h3><p class="team">Bands Emeka Dance</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>5–2</dd></div><div><dt>Power score</dt><dd>78.7</dd></div><div><dt>Points for</dt><dd>779.9</dd></div><div><dt>Points against</dt><dd>708.4</dd></div><div><dt>Power record</dt><dd>31–32</dd></div><div><dt>Luck score</dt><dd>+15.2</dd></div></dl>
+        <p class="say">D-VON! GET THE TABLES! T WOOD’S ABOUT TO PUT HIS ENTIRE FUCKING SEASON THROUGH ONE!</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/t-wood.gif" width="260" height="195" alt="Bubba Ray Dudley yelling “Get the tables”" loading="lazy"></figure>
+    <p>The Dudley Boyz built a career on putting people through tables, and T Wood spent Week 7 putting himself through one. Luther Burden III caught six balls for 130 yards and 21.7 points on his bench while Xavier Worthy started and scored 2.6. Swap those two and he wins 116.7 to 103.9. <span class="ph" aria-hidden="true">NC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/houston-texans-nico-collins-copy-min--jz3dvqiv.png"></span>Nico Collins chipped in 1.6 for good measure, and then the Panthers defense went for −7 and wasted Jaxon Smith-Njigba’s 26.8 and Caleb Williams’ 22.0.</p>
+    <p>He’s 5-2 with a 31-32 power record, which means a perfectly average team is sitting in the third playoff seed. His +15.2 luck score is the highest in the league, so the schedule has been doing the heavy lifting. Last year he went 3-10, and this two-game skid looks a lot more like the real T Wood than the 5-0 start did.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">4</div><img class="mhs" src="img/managers/potter.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Brothers of Destruction</p><h3><span class="mgr mgr-potter">Mark Potter</span></h3><p class="team">Uncle Baby Billy’s Boys</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>4–3</dd></div><div><dt>Power score</dt><dd>75.4</dd></div><div><dt>Points for</dt><dd>830.6</dd></div><div><dt>Points against</dt><dd>771.4</dd></div><div><dt>Power record</dt><dd>37–26</dd></div><div><dt>Luck score</dt><dd>0.0</dd></div></dl>
+        <p class="say">REST. IN. PEACE. SPECIFICALLY, THE 42.5 POINTS MARK LEFT ON HIS FUCKING BENCH.</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/mark-potter.gif" width="360" height="278" alt="The Undertaker and Kane in the ring" loading="lazy"></figure>
+    <p>Mark has the Undertaker and Kane on his roster and keeps sending Paul Bearer out to wrestle. He was trying to teach Joe Burrow a lesson by benching him for Jordan Love; Burrow scored 28.8, Love scored 18.8, and the lesson did not work out. <span class="ph" aria-hidden="true">RS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/new-england-patriots-rhamondre-stevenson-min--mezekg0d.png"></span>Rhamondre Stevenson (20.0) and the Seahawks defense (10) sat next to Burrow while <span class="ph" aria-hidden="true">AJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/green-bay-packers-aaron-jones2022-min--jnj0eyty.png"></span>Aaron Jones (3.1) and the Texans (2) started. His best possible lineup beats Waivers by about 21 instead of losing by 23.3. <span class="ph" aria-hidden="true">DH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tennessee-titans-derrick-henry-01--bozegu6n.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3043078.png"></span>Derrick Henry ran for 45 yards, just so Mark didn’t have to take all the blame himself.</p>
+    <p>It’s like picking the Undertaker and Kane in <em>WrestleMania 2000</em> and losing to two computer jobbers because you forgot how to tag. He’s second in points (830.6) and owns the season’s high score (178.9), yet he’s 4-3 and hanging onto the last playoff spot by one game with a roster that should be running away with it. Rest in peace, motherfucker.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">5</div><img class="mhs" src="img/managers/hudson.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Hurricane &amp; Rosey</p><h3><span class="mgr mgr-hudson">Josh Hudson</span></h3><p class="team">Still tRyan</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>3–4</dd></div><div><dt>Power score</dt><dd>62.7</dd></div><div><dt>Points for</dt><dd>739.4</dd></div><div><dt>Points against</dt><dd>785.9</dd></div><div><dt>Power record</dt><dd>30–33</dd></div><div><dt>Luck score</dt><dd>0.0</dd></div></dl>
+        <p class="say">STAND BACK! THERE’S A HURRICANE COMING THROUGH! AND HE HAS ABSOLUTELY NO FUCKING IDEA WHO’S ACTIVE THIS WEEK!</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/josh-hudson.gif" width="400" height="301" alt="The Hurricane in the ring" loading="lazy"></figure>
+    <p>The Hurricane and Rosey were superheroes in training, which is generous for a man who spent another Sunday starting a running back who wasn’t playing. The Hurricane used to promise that justice was coming, and Hud’s version of justice is a 0 in the RB slot. <span class="ph" aria-hidden="true">DP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/dallas-cowboys-dak-prescott-alternate-min--p2ywnrpx.png"></span>Dak Prescott threw three touchdowns for 23.2, <span class="ph" aria-hidden="true">QJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/cleveland-browns-quinshon-judkins--r5v3mnwm.png"></span>Quinshon Judkins added 22.9 and <span class="ph" aria-hidden="true">AS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-amon-ra-st-brown-min--pmeveikv.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4374302.png"></span>Amon-Ra St. Brown hauled in 153 yards. That was enough to drag a dead roster spot past T Wood 103.9 to 97.6.</p>
+    <p>He’s 3-4, one game out of the playoffs, with a 30-33 power record that says he’s exactly as mediocre as his record. He also hasn’t spent a single dollar of FAAB all season, which makes sense: you can’t pick up a replacement if you don’t know your guy is hurt. His high this year is 159.2 and his low is 65.6, so nobody knows which Hud is showing up, including Hud. His luck score is a perfect 0.0, which means the universe has decided he doesn’t need any help screwing this up. He’s still chasing his first championship, and at this rate the Hurricane is going to get there first.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">6</div><img class="mhs" src="img/managers/waivers.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Acolytes Protection Agency (APA)</p><h3><span class="mgr mgr-waivers">Michael Waivers</span></h3><p class="team">Dirty Mike and the Boys</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>2–5</dd></div><div><dt>Power score</dt><dd>56.0</dd></div><div><dt>Points for</dt><dd>767.0</dd></div><div><dt>Points against</dt><dd>804.9</dd></div><div><dt>Power record</dt><dd>36–27</dd></div><div><dt>Luck score</dt><dd>−8.6</dd></div></dl>
+        <p class="say">DAMN!</p>
+    <figure class="gif"><video src="img/week7-2026-halloween-havoc/apa-backstage.mp4" controls playsinline preload="metadata" width="480" height="320" style="display:block;width:100%;height:auto;background:#000" aria-label="APA funny backstage video"></video></figure>
+    <p>The APA ran their business out of a shitty office with no wall, drinking beer and playing cards until somebody needed their ass kicked. Waivers has adopted the business model, minus the part where he does any work. He hasn’t spent a single dollar of FAAB all season, so even the door is getting more action than his wallet. Then Tony Pollard ran for 129 yards and 35.0 points, the biggest game by any starter this week. <span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"></span>CeeDee Lamb added 21.9, <span class="ph" aria-hidden="true">CM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-christian-mccaffrey-min--l1p0cmsu.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png"></span>Christian McCaffrey 19.0 and <span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/chicago-bears-colston-loveland--borai84o.png"></span>Colston Loveland 16.4, and Waivers posted the week’s top score, 123.6. That’s a Clothesline from Hell straight into Mark’s mouth.</p>
+    <p>His 36-27 power record is fourth-best in the league, and a −8.6 luck score is the only reason he’s 2-5. Opponents have scored 804.9 against him, so he’s been getting jumped in the parking lot every week. He climbed two spots in the power rankings, and he’s a good team sitting two games out of a playoff spot. DAMN.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">7</div><img class="mhs" src="img/managers/galt.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">Edge &amp; Christian</p><h3><span class="mgr mgr-galt">Lee Galt</span></h3><p class="team">What Chane?</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>2–5</dd></div><div><dt>Power score</dt><dd>54.4</dd></div><div><dt>Points for</dt><dd>705.3</dd></div><div><dt>Points against</dt><dd>782.7</dd></div><div><dt>Power record</dt><dd>27–36</dd></div><div><dt>Luck score</dt><dd>−11.4</dd></div></dl>
+        <p class="say">FOR THE BENEFIT OF THOSE WITH FLASH PHOTOGRAPHY, PLEASE CAPTURE THIS: LEE GALT FUCKED UP ANOTHER WIN.</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/lee-galt.gif" width="260" height="192" alt="Edge and Christian posing in the ring" loading="lazy"></figure>
+    <p>Edge and Christian stole titles off the top of ladders. Lee keeps getting knocked off at the last second, like every <em>No Mercy</em> ladder match you ever lost. <span class="ph" aria-hidden="true">CS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/new-york-giants-cam-skattebo--0wisculj.png"></span>Cam Skattebo ran for 124 yards and 18.6 points and Emanuel Wilson added 18.0, which should have been plenty. But Blake Corum’s 16.6 sat on the bench while Gerrid Bernard scored 4.2 at flex, and Lee lost to Cody by 2.9. That one decision was a 12.4-point swing.</p>
+    <p>His 27-36 power record and −11.4 luck score say he’s bad and unlucky, the worst combination in fantasy football. He’s 2-5 and only out of the bottom two on points. Edge used to ask if you thought you knew him, and everybody knows exactly how this ends. Lee should spend his five-second pose practicing how to hold somebody else’s driver.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">8</div><img class="mhs" src="img/managers/baro.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Hart Foundation</p><h3><span class="mgr mgr-baro">Ian Baro</span></h3><p class="team">Justin the Tool Man Taylor</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>3–4</dd></div><div><dt>Power score</dt><dd>54.4</dd></div><div><dt>Points for</dt><dd>658.1</dd></div><div><dt>Points against</dt><dd>764.4</dd></div><div><dt>Power record</dt><dd>21–42</dd></div><div><dt>Luck score</dt><dd>+6.7</dd></div></dl>
+        <p class="say">THE BEST THERE IS. THE BEST THERE WAS. THE BEST THERE EVER WILL BE. UNLESS YOU CHECK THE LAST THREE FUCKING SEASONS.</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/ian-baro.gif" width="210" height="158" alt="The Hart Foundation tagging in the ring" loading="lazy"></figure>
+    <p>Four titles in seven seasons made Ian the Hitman of this league. Those days look over, and his Week 7 looked more like Jim Neidhart losing his dentures than the Excellence of Execution. He put up 81.5, the week’s lowest score, with a kicker who scored 1.0 and <span class="ph" aria-hidden="true">JJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/minnesota-vikings-justin-jefferson-min--3b9qicz_.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4262921.png"></span>Justin Jefferson managing 44 yards. <span class="ph" aria-hidden="true">JT<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/indianapolis-colts-jonathan-taylor-min--iuvxyzln.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4242335.png"></span>Jonathan Taylor (18.0) and <span class="ph" aria-hidden="true">JJ<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-josh-jacobs--e5wiq7zw.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4047365.png"></span>Josh Jacobs (17.6, in his season debut) were the only things keeping it from being a funeral, and Rex still won by 34.1.</p>
+    <p>His 21-42 power record is second-worst in the league and his 658.1 points are second-fewest. Somehow, thanks to a +6.7 luck score, he’s 3-4 and one game out of the playoffs. He dropped two spots in the power rankings this week and earned every one of them. Right now he’s got the technical skill of a Sharpshooter with two broken fingers and the power of Jim Neidhart’s mustache.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">9</div><img class="mhs" src="img/managers/clod.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">Too Cool</p><h3><span class="mgr mgr-clod">Cody Clodfelter</span></h3><p class="team">Daddy Thrice</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>2–5</dd></div><div><dt>Power score</dt><dd>49.1</dd></div><div><dt>Points for</dt><dd>684.3</dd></div><div><dt>Points against</dt><dd>846.4</dd></div><div><dt>Power record</dt><dd>25–38</dd></div><div><dt>Luck score</dt><dd>−12.1</dd></div></dl>
+        <p class="say">HERE COMES THE WORM. STRAIGHT DOWN THE FUCKING STANDINGS.</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/too-cool-wwe.gif" width="356" height="272" alt="Too Cool dancing down the entrance ramp" loading="lazy"></figure>
+    <p>Back in the early 2010s, Cody could be found at beach clubs all across the East Coast doing the Worm, just like his favorite wrestler, Scotty 2 Hotty. Too Cool were two goofs in wraparound shades, bucket hats and baggy hip-hop gear who danced their way into a tag team title nobody thought they’d ever win, and Cody pulled off the same trick: caddy in 2024, champion in 2025. Too Cool held the belts for about a month before somebody took them back to reality, and the defending champ is now 2-5 and ninth in the power rankings. He did beat Lee 103.5 to 100.6 behind C.J. Stroud (18.4), <span class="ph" aria-hidden="true">KW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-kyren-williams-min--4cwyzj5t.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4430737.png"></span>Kyren Williams (17.1), <span class="ph" aria-hidden="true">OG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" src="https://a.espncdn.com/i/headshots/nfl/players/full/4711533.png"></span>Ollie Gordon II (16.8) and Brandon Aubrey (14.0).</p>
+    <p>Opponents have hung 846.4 on him, the most in the league, and his −12.1 luck score is the worst of all ten teams, but a 25-38 power record says it isn’t all bad luck. His 58.8 in Week 2 is still the lowest score anybody has put up this season. Next up is Shain, the other team in a Caddy Bowl spot, and the loser takes a big step back toward the bag. Scotty 2 Hotty used to wave his hand in front of his face before hitting the Worm, and Cody should start waving goodbye to that title.</p>
+  </article>
+  <article class="entry">
+    <div class="hd"><div class="rk">10</div><img class="mhs" src="img/managers/collins.webp" alt="" width="240" height="240" loading="lazy" decoding="async">
+      <div><p class="champ">The Spirit Squad</p><h3><span class="mgr mgr-collins">Shain Collins</span></h3><p class="team">Jeantly Does It</p></div>
+      <svg class="belt" role="img" aria-label="Tag team title belt"><use href="#belt"/></svg></div>
+    <dl class="chy six"><div><dt>Record</dt><dd>1–6</dd></div><div><dt>Power score</dt><dd>41.5</dd></div><div><dt>Points for</dt><dd>643.7</dd></div><div><dt>Points against</dt><dd>792.4</dd></div><div><dt>Power record</dt><dd>18–45</dd></div><div><dt>Luck score</dt><dd>0.0</dd></div></dl>
+        <p class="say">GIVE ME AN S! GIVE ME AN H! GIVE ME AN A! GIVE ME AN I! GIVE ME AN N! WHAT DOES THAT SPELL? ANOTHER FUCKING LOSS!</p>
+    <figure class="gif"><img src="img/week7-2026-halloween-havoc/spirit-squad-wwe.gif" width="374" height="192" alt="The Spirit Squad stomping an opponent in the ring" loading="lazy"></figure>
+    <p>I’m sure everyone thought the Spirit Squad would go to Cody, considering he’s the only former cheerleader in the league. But the Spirit Squad were grown men in cheerleader outfits getting their asses kicked while smiling, which is the most accurate description of Shain’s season I can write. He’s 1-6 with the fewest points in the league and hasn’t cracked 110 once. His 18-45 power record is the worst in the league, so this isn’t bad luck, it’s just bad. He’s also spent $81 in FAAB, the most in the league, including $46 on Jalen Coker, who scored 1.4 this week. That’s like paying for front-row seats and watching the main event get pinned in seventeen seconds.</p>
+    <p>He lost to me by 2.2 this week, with Bryce Young throwing for 163 yards and <span class="ph" aria-hidden="true">RD<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-rico-dowdle--5thmb18y.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4038815.png"></span>Rico Dowdle, <span class="ph" aria-hidden="true">MW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/arizona-cardinals-michael-wilson--p2c02dqf.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4360761.png"></span>Michael Wilson and <span class="ph" aria-hidden="true">JW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/denver-broncos-jaylen-waddle2025--0bo7ynye.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4372016.png"></span>Jaylen Waddle sitting on his bench, 11.7 points that would have ended my undefeated season. His only win this year came against Lee. Thank you, Shain.</p>
+  </article>
+</section>
+
+<section aria-labelledby="odds">
+  <h2 id="odds">The road to the final four<small>2026 playoff odds after Week 7: 10,000 simulated seasons.</small></h2>
+  <p>Rex and Trey have a hand on the ropes, but neither gets to leave the ring yet. Rex made the playoffs in 9,992 of 10,000 simulated seasons; Trey made it in 9,948. Rex’s 136.10-point weekly average gives him the stronger scoring outlook, while Trey’s 7–0 start gives him an extra win in the bank.</p>
+<p>Wood made it in 85.94% of runs and Potter in 83.54%. Waivers is the strongest challenger at 14.21%, just ahead of Hud at 13.24% despite starting a game behind him. Waivers averages 109.57 points to Hud’s 105.63 and avoids both Rex and Trey over the final six weeks. Hud still has to face both.</p>
+<p>Lee, Ian and Cody need a lot to break their way. Shain went 0-for-10,000 in this run. That’s a miserable result for the Spirit Squad, but it is not proof of mathematical elimination.</p>
+  <div class="scroll">
+  <table class="tbl odds">
+    <thead><tr><th>Manager</th><th>Record</th><th>Scoring mean</th><th>Sample SD</th><th>Playoff odds</th><th>History only</th></tr></thead>
+    <tbody><tr><td><span class="mgr mgr-hardee">Rex</span></td><td>6–1</td><td>136.10</td><td>28.41</td><td><strong>99.92%</strong></td><td>99.93%</td></tr><tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>7–0</td><td>111.96</td><td>17.33</td><td><strong>99.48%</strong></td><td>99.40%</td></tr><tr><td><span class="mgr mgr-wood">T Wood</span></td><td>5–2</td><td>111.41</td><td>22.55</td><td><strong>85.94%</strong></td><td>84.14%</td></tr><tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td>4–3</td><td>118.66</td><td>31.50</td><td><strong>83.54%</strong></td><td>84.22%</td></tr><tr><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>2–5</td><td>109.57</td><td>12.90</td><td><strong>14.21%</strong></td><td>15.76%</td></tr><tr><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>3–4</td><td>105.63</td><td>31.33</td><td><strong>13.24%</strong></td><td>12.98%</td></tr><tr><td><span class="mgr mgr-galt">Lee Galt</span></td><td>2–5</td><td>100.76</td><td>23.11</td><td><strong>1.76%</strong></td><td>1.77%</td></tr><tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td>3–4</td><td>94.01</td><td>12.85</td><td><strong>1.53%</strong></td><td>1.46%</td></tr><tr><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>2–5</td><td>97.76</td><td>21.43</td><td><strong>0.38%</strong></td><td>0.34%</td></tr><tr><td><span class="mgr mgr-collins">Shain Collins</span></td><td>1–6</td><td>91.96</td><td>14.05</td><td><strong>0 of 10,000</strong>*</td><td>0.00%</td></tr></tbody>
+  </table>
+  </div>
+  <p class="note">Shain’s result means no qualifying seasons were observed, not that his true model probability is exactly zero. The 95% Wilson interval for Monte Carlo sampling error is 0%–0.0384%. A sensitivity run with a larger bye adjustment produced one qualifying season.</p>
+  <p><strong>What the numbers mean.</strong> These are estimates of finishing in the top four after Week 13, not championship odds. “History only” uses the same schedule and random draws with no bye adjustment. Scoring mean and sample standard deviation use only each manager’s seven actual 2026 scores. The two-decimal percentages report simulation counts; they do not imply that the forecast is accurate to a hundredth of a percentage point.</p>
+  <h3 id="caddy-odds" style="margin-top:34px">Caddy Bowl odds</h3>
+  <p>Same 10,000 simulated seasons, other end of the standings. Shain landed in the Caddy Bowl in 9,036 of 10,000 seasons. Cody, the reigning champion, is next at 43.48%, with Ian and Lee close behind.</p>
+  <div class="scroll">
+  <table class="tbl odds">
+    <thead><tr><th>Manager</th><th>Record</th><th>9th</th><th>10th</th><th>Caddy Bowl</th></tr></thead>
+    <tbody><tr><td><span class="mgr mgr-collins">Shain Collins</span></td><td>1–6</td><td>16.70%</td><td>73.66%</td><td><strong>90.36%</strong></td></tr><tr><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>2–5</td><td>30.76%</td><td>12.72%</td><td><strong>43.48%</strong></td></tr><tr><td><span class="mgr mgr-baro">Ian Baro</span></td><td>3–4</td><td>23.29%</td><td>6.89%</td><td><strong>30.18%</strong></td></tr><tr><td><span class="mgr mgr-galt">Lee Galt</span></td><td>2–5</td><td>22.72%</td><td>5.38%</td><td><strong>28.10%</strong></td></tr><tr><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>3–4</td><td>4.05%</td><td>0.74%</td><td><strong>4.79%</strong></td></tr><tr><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>2–5</td><td>2.38%</td><td>0.61%</td><td><strong>2.99%</strong></td></tr><tr><td><span class="mgr mgr-wood">T Wood</span></td><td>5–2</td><td>0.07%</td><td>0 of 10,000</td><td><strong>0.07%</strong></td></tr><tr><td><span class="mgr mgr-potter">Mark Potter</span></td><td>4–3</td><td>0.03%</td><td>0 of 10,000</td><td><strong>0.03%</strong></td></tr><tr><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>7–0</td><td>0 of 10,000</td><td>0 of 10,000</td><td><strong>0 of 10,000</strong></td></tr><tr><td><span class="mgr mgr-hardee">Rex</span></td><td>6–1</td><td>0 of 10,000</td><td>0 of 10,000</td><td><strong>0 of 10,000</strong></td></tr></tbody>
+  </table>
+  </div>
+  <p class="note">Most likely Caddy Bowl: Cody vs. Shain (35.71% of seasons), then Ian vs. Shain (24.43%) and Lee vs. Shain (23.84%). This run uses the history-only model: each team’s seven actual 2026 scores, with no bye adjustment, the remaining Weeks 8–13 schedule, standings by record, then points scored, then a random draw. Its playoff odds land within about half a point of the history-only column above.</p>
+  <details class="method-box">
+    <summary>How the odds were calculated</summary>
+    <ul class="method"><li><strong>Lock in Weeks 1–7.</strong> Retain each team’s actual wins, losses, ties and points scored. Calculate its arithmetic scoring mean and sample standard deviation (the sum of squared deviations divided by 6, then square-rooted). No prior seasons, power scores, optimal lineups or projected scores enter those two estimates.</li></ul>
+<ul class="method"><li><strong>Apply a small bye adjustment.</strong> There were no 2026 Week 8–13 player projections in the workbook’s projection table. Instead, use current roster NFL affiliations and the confirmed NFL bye schedule. Give each rostered player a proxy equal to the mean of their positive Weeks 1–7 projections; these are historical availability weights, not forecasts for future games. Compare the strongest available legal lineup each week with the average availability of that same current roster under the Weeks 1–7 bye calendar. This reference helps avoid charging again for the typical bye burden already reflected in actual scores.</li></ul>
+<ul class="method"><li><strong>Keep history in control.</strong> The weekly scoring mean is: historical mean × [1 + clamp(0.25 × (weekly lineup proxy ÷ reference lineup proxy − 1), −0.10, +0.10)]. Only one quarter of the relative availability change carries through. Actual adjustments range from −4.61% to +0.53%; the historical sample standard deviation stays unchanged. The 25% weight and 10% cap are conservative modeling choices, not fitted or validated coefficients.</li></ul>
+<ul class="method"><li><strong>Allow replacements.</strong> The availability calculation fills one QB, two RBs, two WRs, one RB/WR flex, one TE, one D/ST and one kicker. Bench players can fill eligible slots. Generic free-agent options are valued at 60% of the league median positive historical starter projection for that position: QB 11.25, RB 8.46, WR 7.32, TE 5.40, D/ST 4.08 and K 5.46. Players without a matched positive projection receive that fallback; free agents without an NFL team are excluded. These proxy points affect only the small bye adjustment.</li></ul>
+<ul class="method"><li><strong>Simulate complete seasons.</strong> Run 10,000 seasons, each containing all 30 remaining matchups. In every week, draw one independent normal score per team using its adjusted mean and historical sample SD; floor negative draws at zero and round scores to one decimal. Each team’s score determines both its matchup result and added points for. Seed: 20261027, NumPy 2.3.5 PCG64. This produces 600,000 team-week scores.</li></ul>
+<ul class="method"><li><strong>Select four qualifiers.</strong> Add simulated Weeks 8–13 to actual Weeks 1–7. Rank by record (wins plus half a win per tie), then full-season points scored, and take the top four. A seeded random draw resolves an exact tie in both record and points; this affected the fourth/fifth boundary once in 10,000 seasons. Each team’s odds are its qualifying count divided by 10,000.</li></ul>
+<ul class="method"><li><strong>Check the result.</strong> All 70 historical scores agree with the ESPN import; all ten records and points totals agree with the season summary. The schedule agrees across both sources for all 65 regular-season games. Every simulation has four qualifiers, the unrounded odds sum to 400%, rerunning the seed reproduces the results, and an independent ranking implementation agrees for every season.</li></ul>
+    <h4>Assumptions and limits</h4>
+    <p>Seven games are a small sample. The model treats team strength and scoring variability as stable, with independent scores across teams and weeks. It does not forecast injuries, trades, waiver moves, changing roles, weather, NFL opponent effects or lineup mistakes. Current rosters and NFL team labels are taken from the workbook; using them under the earlier bye calendar is an availability reference, not a reconstruction of historical rosters. Historical projections with zero or missing values are excluded from player weights, so this is not an injury adjustment.</p>
+<p>Doubling the bye weight to 50% moved Wood to 87.92%, Potter to 82.71%, Waivers to 12.67% and Hud to 13.36%. Those are sensitivity results, not confidence limits. Simulation noise is generally smaller than the uncertainty in the model itself; at 10,000 runs, the worst-case approximate 95% sampling margin is ±0.98 percentage points. The source checks verify the inputs and arithmetic, not the future accuracy of these odds.</p>
+<p><strong>Data note:</strong> Five Week 7 player-score sums differ from their recorded team totals: Shain 83.0 vs. 84.0, Ian 80.5 vs. 81.5, Potter 102.3 vs. 100.3, Lee 99.6 vs. 100.6 and Cody 105.5 vs. 103.5. The model uses the team totals, which match the ESPN import and season standings. Pacheco, Charbonnet and Germie Bernard had no matched positive historical projection and received replacement proxies; <span class="ph" aria-hidden="true">TH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/kansas-city-chiefs-tyreek-hill2020-min--97nn3pz_.png"></span>Tyreek Hill was excluded because the roster lists his NFL team as FA. Germie Bernard was not silently merged with the differently spelled player in the weekly data.</p>
+    <h4>Sources</h4>
+    <p>League data: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit">Greenville Natives Stats and Records</a>, read October 27, 2026. Scores and standings: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit#gid=1016857739">’2026’!A3:H86</a>; schedule: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit#gid=1524436084">Schedule!A1:N12</a>; cross-check: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit#gid=1989871453">ESPNMatchupImport!A3:E67</a>; current rosters: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit#gid=1684311357">Roster_Stack!A1:H162</a>; historical player projections: <a href="https://docs.google.com/spreadsheets/d/1Ocy-T5q_4vBebcP7xmrymC1pEQ_D9O9vhzb-mntfpYw/edit#gid=524562897">WEEKLYPLAYERStats&amp;Projections!A1:P1106</a>. The year/week columns were scanned through row 22,260 to confirm the absence of forward 2026 projections.</p>
+<p>NFL bye inputs: <a href="https://www.nfl.com/news/2026-nfl-schedule-release-every-team-bye-week">Weeks 5–7 and the bye-calendar reference</a>; <a href="https://www.nfl.com/schedules/2026/by-week/week-8">Week 8</a>: HOU, NO, NYG, SF; <a href="https://www.nfl.com/schedules/2026/by-week/week-9">Week 9</a>: PIT, TEN; <a href="https://www.nfl.com/schedules/2026/by-week/week-10">Week 10</a>: CHI, DEN, PHI, TB; <a href="https://www.nfl.com/schedules/2026/by-week/week-11">Week 11</a>: ATL, CLE, GB, LAR, NE, SEA; <a href="https://www.nfl.com/schedules/2026/by-week/week-12">Week 12</a>: none; <a href="https://www.nfl.com/schedules/2026/by-week/week-13">Week 13</a>: BAL, IND, LV, NYJ.</p>
+  </details>
+</section>
+
+<section aria-labelledby="draft">
+  <h2 id="draft">Halftime report: the draft, revisited<small>Rounds 3 through 12, seven games in.</small></h2>
+  <div class="scroll">
+  <table class="tbl draftgrid">
+    <thead><tr><th>Rd</th><th>Best pick</th><th>Worst pick</th></tr></thead>
+    <tbody>
+      <tr><td>3</td><td><span class="ph" aria-hidden="true">TM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/arizona-cardinals-trey-mcbride--83irwarj.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4361307.png"></span>Trey McBride, Potter (3.08)<span class="meta">7 G, 100.7 pts, TE1, still rostered</span></td><td><span class="ph" aria-hidden="true">TE<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/jacksonville-jaguars-travis-etienne-min--mzfbc66t.png"></span>Travis Etienne, Ian (3.06)<span class="meta">3 G, 25.4 pts, RB56, on Ian’s bench</span></td></tr>
+      <tr><td>4</td><td><span class="ph" aria-hidden="true">CO<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/new-orleans-saints-chris-olave-min--6ewn9vdw.png"></span>Chris Olave, Rex (4.04)<span class="meta">7 G, 100.1 pts, WR6, still rostered</span></td><td><span class="ph" aria-hidden="true">EE<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/tampa-bay-buccaneers-emeka-egbuka--a2beybht.png"></span>Emeka Egbuka, T Wood (4.09)<span class="meta">6 G, 57.1 pts, WR32, on T Wood’s bench</span></td></tr>
+      <tr><td>5</td><td>D’Andre Swift, T Wood (5.02)<span class="meta">7 G, 111.8 pts, RB9, still rostered</span></td><td><span class="ph" aria-hidden="true">JP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/seattle-seahawks-jadarian-price--vtmxvif9.png"></span>Jadarian Price, Clod (5.10)<span class="meta">3 G, 12.0 pts, RB77, on Cody’s IR</span></td></tr>
+      <tr><td>6</td><td>Tony Pollard, Waivers (6.06)<span class="meta">7 G, 82.3 pts, RB15, still rostered</span></td><td>Josh Jacobs, Ian (6.05)<span class="meta">1 G, 17.6 pts, RB66, still rostered</span></td></tr>
+      <tr><td>7</td><td><span class="ph" aria-hidden="true">CW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-christian-watson-min--j-3vef4u.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4248528.png"></span>Christian Watson, Rex (7.07)<span class="meta">7 G, 112.5 pts, WR3, still rostered</span></td><td>MarShawn Lloyd, Trey (7.03)<span class="meta">7 G, 43.2 pts, RB34, dropped</span></td></tr>
+      <tr><td>8</td><td><span class="ph" aria-hidden="true">GK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-george-kittle2021-min--tuoi5ebc.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3040151.png"></span>George Kittle, Galt (8.10)<span class="meta">7 G, 87.5 pts, TE3, still rostered</span></td><td>Jonathon Brooks, Waivers (8.06)<span class="meta">2 G, 8.3 pts, RB86, gone</span></td></tr>
+      <tr><td>9</td><td><span class="ph" aria-hidden="true">CH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/carolina-panthers-chuba-hubbard--pvz1oovg.png"></span>Chuba Hubbard, Ian (9.06)<span class="meta">6 G, 100.6 pts, RB13, still rostered</span></td><td><span class="ph" aria-hidden="true">AP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/indianapolis-colts-alec-pierce--vw43ow14.png"></span>Alec Pierce, Clod (9.10)<span class="meta">2 G, 9.7 pts, WR125, gone</span></td></tr>
+      <tr><td>10</td><td>Dak Prescott, Hud (10.02)<span class="meta">7 G, 133.1 pts, QB5, still rostered</span></td><td><span class="ph" aria-hidden="true">MP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/indianapolis-colts-michael-pittman-jr-min--k6kuihfe.png"></span>Michael Pittman, Galt (10.10)<span class="meta">3 G, 12.4 pts, WR111, gone</span></td></tr>
+      <tr><td>11</td><td>Aaron Jones, Potter (11.08)<span class="meta">6 G, 67.3 pts, RB21, still rostered</span></td><td><span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/minnesota-vikings-jordan-addison-min--nbrzbfte.png"></span>Jordan Addison, Hud (11.09)<span class="meta">5 G, 31.0 pts, WR72, on Hud’s bench</span></td></tr>
+      <tr><td>12</td><td><span class="ph" aria-hidden="true">TK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/kansas-city-chiefs-travis-kelce2024-min--3ql43pq3.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/15847.png"></span>Travis Kelce, Clod (12.01)<span class="meta">6 G, 58.3 pts, TE6, still rostered</span></td><td>Quentin Johnston, Rex (12.04)<span class="meta">5 G, 20.8 pts, WR93, gone</span></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="next">
+  <h2 id="next">Week 8 previews</h2>
+  <article class="mu">
+    <div class="mu-hd"><div><h3><span class="mgr mgr-waivers">Michael Waivers</span></h3><p>7th · 2-5 · PF 767.0 · PA 804.9</p></div><span class="vs">VS</span><div class="rt"><h3><span class="mgr mgr-baro">Ian Baro</span></h3><p>6th · 3-4 · PF 658.1 · PA 764.4</p></div></div>
+    <p class="mu-blurb">Ian is 12-8 all time with a +78.2 differential, but Waivers has won two of their three playoff meetings. Waivers is coming off the week’s top score. Ian is coming off the week’s lowest.</p>
+    <div class="mu-sec"><p class="lbl">Head-to-head · the history</p><div class="r"><span>(8-12)</span><b>Overall Record</b><span>(12-8)</span></div><div class="r"><span>40%</span><b>Winning %</b><span>60%</span></div><div class="r"><span>(6-11)</span><b>Regular Season Record</b><span>(11-6)</span></div><div class="r"><span>(2-1)</span><b>Playoff Record</b><span>(1-2)</span></div><div class="r"><span>2499.5</span><b>Points Scored</b><span>2421.3</span></div><div class="r"><span>146.8</span><b>High Score</b><span>141.3</span></div><div class="r"><span>71.0</span><b>Low Score</b><span>74.0</span></div><div class="r"><span>125.0</span><b>PPG</b><span>121.1</span></div><div class="r"><span>105.3</span><b>Regular Season PPG</b><span>106.7</span></div><div class="r"><span>236.3</span><b>Playoff PPG</b><span>202.3</span></div><div class="r"><span>0</span><b>Current Winning Streak</b><span>2</span></div><div class="r"><span>3</span><b>Longest Winning Streak</b><span>4</span></div></div>
+    <div class="mu-sec"><p class="lbl">Matchup marks · the margins</p><div class="r"><span>0</span><b>Buzzer Beater</b><span>1</span></div><div class="r"><span>1</span><b>Nail Biter</b><span>2</span></div><div class="r"><span>2</span><b>Dunked On</b><span>3</span></div><div class="r"><span>2</span><b>Blow Out</b><span>1</span></div><div class="r"><span>1</span><b>Slug Fest</b><span>0</span></div><div class="r"><span>0</span><b>Pillow Fight</b><span>3</span></div><div class="r"><span>78.2</span><b>Point Dif</b><span>-78.2</span></div><div class="r"><span>82.1</span><b>Max Point Dif</b><span>56.7</span></div></div>
+    <div class="mu-sec"><p class="lbl">Position comparison</p><div class="r pos"><span><span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span>Josh Allen <strong>82.1</strong></span><b>QB</b><span><strong>56.7</strong> <span class="ph" aria-hidden="true">PM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/kansas-city-chiefs-patrick-mahomes2020-min--jxpbawil.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3139477.png"></span>Patrick Mahomes</span></div><div class="r pos"><span>Christian McCaffrey <strong>62.9</strong></span><b>RB</b><span><strong>79.7</strong> Jonathan Taylor</span></div><div class="r pos"><span>CeeDee Lamb <strong>41.5</strong></span><b>WR</b><span><strong>125.1</strong> Tyreek Hill</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">ZE<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/arizona-cardinals-zach-ertz-alternate-min--gfhxe28h.png"></span>Zach Ertz <strong>29.5</strong></span><b>TE</b><span><strong>32.6</strong> <span class="ph" aria-hidden="true">KP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/atlanta-falcons-kyle-pitts-min--a5fjcssj.png"></span>Kyle Pitts</span></div></div>
+  </article>
+  <article class="mu">
+    <div class="mu-hd"><div><h3><span class="mgr mgr-hardee">Rex</span></h3><p>2nd · 6-1 · PF 952.7 · PA 668.9</p></div><span class="vs">VS</span><div class="rt"><h3><span class="mgr mgr-hudson">Josh Hudson</span></h3><p>5th · 3-4 · PF 739.4 · PA 785.9</p></div></div>
+    <p class="mu-blurb">Rex is 14-9 all time, +94.0, with four Blow Outs to Hud’s one. Hud won their only playoff meeting, and he’ll need that kind of magic again.</p>
+    <div class="mu-sec"><p class="lbl">Head-to-head · the history</p><div class="r"><span>(14-9)</span><b>Overall Record</b><span>(9-14)</span></div><div class="r"><span>61%</span><b>Winning %</b><span>39%</span></div><div class="r"><span>(14-8)</span><b>Regular Season Record</b><span>(8-14)</span></div><div class="r"><span>(0-1)</span><b>Playoff Record</b><span>(1-0)</span></div><div class="r"><span>2506.5</span><b>Points Scored</b><span>2412.5</span></div><div class="r"><span>170.2</span><b>High Score</b><span>145.3</span></div><div class="r"><span>62.3</span><b>Low Score</b><span>64.0</span></div><div class="r"><span>109.0</span><b>PPG</b><span>104.9</span></div><div class="r"><span>103.8</span><b>Regular Season PPG</b><span>98.5</span></div><div class="r"><span>223.7</span><b>Playoff PPG</b><span>246.0</span></div><div class="r"><span>1</span><b>Current Winning Streak</b><span>0</span></div><div class="r"><span>4</span><b>Longest Winning Streak</b><span>2</span></div></div>
+    <div class="mu-sec"><p class="lbl">Matchup marks · the margins</p><div class="r"><span>0</span><b>Buzzer Beater</b><span>0</span></div><div class="r"><span>3</span><b>Nail Biter</b><span>0</span></div><div class="r"><span>1</span><b>Dunked On</b><span>6</span></div><div class="r"><span>4</span><b>Blow Out</b><span>1</span></div><div class="r"><span>1</span><b>Slug Fest</b><span>0</span></div><div class="r"><span>4</span><b>Pillow Fight</b><span>2</span></div><div class="r"><span>94.0</span><b>Point Dif</b><span>-94.0</span></div><div class="r"><span>39.4</span><b>Max Point Dif</b><span>32.5</span></div></div>
+    <div class="mu-sec"><p class="lbl">Position comparison</p><div class="r pos"><span><span class="ph" aria-hidden="true">KM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/arizona-cardinals-kyler-murray2021-min--bxhkribm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3917315.png"></span>Kyler Murray <strong>39.4</strong></span><b>QB</b><span><strong>32.5</strong> <span class="ph" aria-hidden="true">RW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/denver-broncos-russell-wilson-min--idhurcu1.png"></span>Russell Wilson</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">BR<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/atlanta-falcons-bijan-robinson-copy-min--usk-hnej.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4430807.png"></span>Bijan Robinson <strong>96.4</strong></span><b>RB</b><span><strong>46.2</strong> <span class="ph" aria-hidden="true">JW<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/dallas-cowboys-javonte-williams2025--dp2lxbub.png"></span>Javonte Williams</span></div><div class="r pos"><span>Michael Wilson <strong>45.6</strong></span><b>WR</b><span><strong>66.9</strong> Amon-Ra St. Brown</span></div><div class="r pos"><span>Jonnu Smith <strong>18.5</strong></span><b>TE</b><span><strong>58.7</strong> Travis Kelce</span></div></div>
+  </article>
+  <article class="mu">
+    <div class="mu-hd"><div><h3><span class="mgr mgr-wood">T Wood</span></h3><p>3rd · 5-2 · PF 779.9 · PA 708.4</p></div><span class="vs">VS</span><div class="rt"><h3><span class="mgr mgr-galt">Lee Galt</span></h3><p>8th · 2-5 · PF 705.3 · PA 782.7</p></div></div>
+    <p class="mu-blurb">T Wood is 14-6 all time with a +209.0 differential and has Dunked On Lee six times. Lee has never won more than two straight in this series.</p>
+    <div class="mu-sec"><p class="lbl">Head-to-head · the history</p><div class="r"><span>(14-6)</span><b>Overall Record</b><span>(6-14)</span></div><div class="r"><span>70%</span><b>Winning %</b><span>30%</span></div><div class="r"><span>(13-6)</span><b>Regular Season Record</b><span>(6-13)</span></div><div class="r"><span>(1-0)</span><b>Playoff Record</b><span>(0-1)</span></div><div class="r"><span>2321.1</span><b>Points Scored</b><span>2112.1</span></div><div class="r"><span>169.8</span><b>High Score</b><span>135.6</span></div><div class="r"><span>69.0</span><b>Low Score</b><span>65.1</span></div><div class="r"><span>116.1</span><b>PPG</b><span>105.6</span></div><div class="r"><span>110.6</span><b>Regular Season PPG</b><span>99.9</span></div><div class="r"><span>218.8</span><b>Playoff PPG</b><span>214.6</span></div><div class="r"><span>2</span><b>Current Winning Streak</b><span>0</span></div><div class="r"><span>4</span><b>Longest Winning Streak</b><span>2</span></div></div>
+    <div class="mu-sec"><p class="lbl">Matchup marks · the margins</p><div class="r"><span>0</span><b>Buzzer Beater</b><span>0</span></div><div class="r"><span>3</span><b>Nail Biter</b><span>1</span></div><div class="r"><span>6</span><b>Dunked On</b><span>3</span></div><div class="r"><span>2</span><b>Blow Out</b><span>0</span></div><div class="r"><span>1</span><b>Slug Fest</b><span>0</span></div><div class="r"><span>2</span><b>Pillow Fight</b><span>1</span></div><div class="r"><span>209.0</span><b>Point Dif</b><span>-209.0</span></div><div class="r"><span>76.0</span><b>Max Point Dif</b><span>39.5</span></div></div>
+    <div class="mu-sec"><p class="lbl">Position comparison</p><div class="r pos"><span>Patrick Mahomes <strong>48.1</strong></span><b>QB</b><span><strong>30.4</strong> <span class="ph" aria-hidden="true">JD<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/washington-commanders-jayden-daniels--e39_7-fd.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426348.png"></span>Jayden Daniels</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">JG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/detroit-lions-jahmyr-gibbs-copy-min--a_rgqi8j.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4429795.png"></span>Jahmyr Gibbs <strong>129.4</strong></span><b>RB</b><span><strong>21.9</strong> D’Andre Swift</span></div><div class="r pos"><span>Steelers <strong>32.0</strong></span><b>WR</b><span><strong>37.6</strong> <span class="ph" aria-hidden="true">SD<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/washington-commanders-stefon-diggs--iqaypg1d.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/2976212.png"></span>Stefon Diggs</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">BB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/las-vegas-raiders-brock-bowers--kdfllgua.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4432665.png"></span>Brock Bowers <strong>16.3</strong></span><b>TE</b><span><strong>21.6</strong> Sam LaPorta</span></div></div>
+  </article>
+  <article class="mu">
+    <div class="mu-hd"><div><h3><span class="mgr mgr-wilder">Trey Wilder</span></h3><p>1st · 7-0 · PF 783.7 · PA 619.3</p></div><span class="vs">VS</span><div class="rt"><h3><span class="mgr mgr-potter">Mark Potter</span></h3><p>4th · 4-3 · PF 830.6 · PA 771.4</p></div></div>
+    <p class="mu-blurb">Trey is 18-9 all time, +323.8, and once won seven straight. Mark owns the biggest single performance in the series: Alvin Kamara’s 159.5.</p>
+    <div class="mu-sec"><p class="lbl">Head-to-head · the history</p><div class="r"><span>(18-9)</span><b>Overall Record</b><span>(9-18)</span></div><div class="r"><span>67%</span><b>Winning %</b><span>33%</span></div><div class="r"><span>(17-8)</span><b>Regular Season Record</b><span>(8-17)</span></div><div class="r"><span>(1-1)</span><b>Playoff Record</b><span>(1-1)</span></div><div class="r"><span>3457.9</span><b>Points Scored</b><span>3134.1</span></div><div class="r"><span>174.0</span><b>High Score</b><span>153.0</span></div><div class="r"><span>66.7</span><b>Low Score</b><span>58.2</span></div><div class="r"><span>128.1</span><b>PPG</b><span>116.1</span></div><div class="r"><span>120.2</span><b>Regular Season PPG</b><span>106.8</span></div><div class="r"><span>226.4</span><b>Playoff PPG</b><span>231.5</span></div><div class="r"><span>1</span><b>Current Winning Streak</b><span>0</span></div><div class="r"><span>7</span><b>Longest Winning Streak</b><span>2</span></div></div>
+    <div class="mu-sec"><p class="lbl">Matchup marks · the margins</p><div class="r"><span>2</span><b>Buzzer Beater</b><span>0</span></div><div class="r"><span>2</span><b>Nail Biter</b><span>2</span></div><div class="r"><span>3</span><b>Dunked On</b><span>2</span></div><div class="r"><span>5</span><b>Blow Out</b><span>1</span></div><div class="r"><span>3</span><b>Slug Fest</b><span>0</span></div><div class="r"><span>1</span><b>Pillow Fight</b><span>0</span></div><div class="r"><span>323.8</span><b>Point Dif</b><span>-323.8</span></div><div class="r"><span>76.6</span><b>Max Point Dif</b><span>51.9</span></div></div>
+    <div class="mu-sec"><p class="lbl">Position comparison</p><div class="r pos"><span>Josh Allen <strong>96.1</strong></span><b>QB</b><span><strong>82.1</strong> <span class="ph" aria-hidden="true">JH<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/philadelphia-eagles-jalen-hurts2023-min--h20cxlpy.png"></span>Jalen Hurts</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">SB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/philadelphia-eagles-saquon-barkley-alternate--g4y3_52x.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3929630.png"></span>Saquon Barkley <strong>88.0</strong></span><b>RB</b><span><strong>159.5</strong> <span class="ph" aria-hidden="true">AK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/new-orleans-saints-alvin-kamara-alternate-min--xfiega9m.png"></span>Alvin Kamara</span></div><div class="r pos"><span><span class="ph" aria-hidden="true">BT<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/jacksonville-jaguars-brian-thomas-jr--zhiqyun7.png"></span>Brian Thomas <strong>74.1</strong></span><b>WR</b><span><strong>55.2</strong> <span class="ph" aria-hidden="true">CK<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/los-angeles-rams-cooper-kupp2021-min--d41a0tvg.png"></span>Cooper Kupp</span></div><div class="r pos"><span>Mark Andrews <strong>29.9</strong></span><b>TE</b><span><strong>61.8</strong> Trey McBride</span></div></div>
+  </article>
+  <article class="mu">
+    <div class="mu-hd"><div><h3><span class="mgr mgr-collins">Shain Collins</span></h3><p>10th · 1-6 · PF 643.7 · PA 792.4</p></div><span class="vs">VS</span><div class="rt"><h3><span class="mgr mgr-clod">Cody Clodfelter</span></h3><p>9th · 2-5 · PF 684.3 · PA 846.4</p></div></div>
+    <p class="mu-blurb">Dead even at 8-8 in the regular season. Cody’s 9-8 overall edge is the 2016 title game. Both have caddied before, and the loser sits in the Caddy Bowl zone.</p>
+    <div class="mu-sec"><p class="lbl">Head-to-head · the history</p><div class="r"><span>(8-9)</span><b>Overall Record</b><span>(9-8)</span></div><div class="r"><span>47%</span><b>Winning %</b><span>53%</span></div><div class="r"><span>(8-8)</span><b>Regular Season Record</b><span>(8-8)</span></div><div class="r"><span>(0-1)</span><b>Playoff Record</b><span>(1-0)</span></div><div class="r"><span>1942.2</span><b>Points Scored</b><span>1875.6</span></div><div class="r"><span>227.9</span><b>High Score</b><span>141.9</span></div><div class="r"><span>45.4</span><b>Low Score</b><span>73.0</span></div><div class="r"><span>114.2</span><b>PPG</b><span>110.3</span></div><div class="r"><span>109.1</span><b>Regular Season PPG</b><span>103.4</span></div><div class="r"><span>197.0</span><b>Playoff PPG</b><span>220.6</span></div><div class="r"><span>0</span><b>Current Winning Streak</b><span>2</span></div><div class="r"><span>4</span><b>Longest Winning Streak</b><span>2</span></div></div>
+    <div class="mu-sec"><p class="lbl">Matchup marks · the margins</p><div class="r"><span>0</span><b>Buzzer Beater</b><span>0</span></div><div class="r"><span>2</span><b>Nail Biter</b><span>1</span></div><div class="r"><span>4</span><b>Dunked On</b><span>0</span></div><div class="r"><span>1</span><b>Blow Out</b><span>3</span></div><div class="r"><span>4</span><b>Slug Fest</b><span>0</span></div><div class="r"><span>1</span><b>Pillow Fight</b><span>1</span></div><div class="r"><span>66.6</span><b>Point Dif</b><span>-66.6</span></div><div class="r"><span>152.5</span><b>Max Point Dif</b><span>71.1</span></div></div>
+    <div class="mu-sec"><p class="lbl">Position comparison</p><div class="r pos"><span>Jalen Hurts <strong>36.1</strong></span><b>QB</b><span><strong>23.5</strong> C.J. Stroud</span></div><div class="r pos"><span>Derrick Henry <strong>39.4</strong></span><b>RB</b><span><strong>52.5</strong> De’Von Achane</span></div><div class="r pos"><span>Nico Collins <strong>50.2</strong></span><b>WR</b><span><strong>32.7</strong> <span class="ph" aria-hidden="true">JS<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/seattle-seahawks-jaxon-smith-njigba--vwagayj1.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4430878.png"></span>Jaxon Smith-Njigba</span></div><div class="r pos"><span>George Kittle <strong>34.7</strong></span><b>TE</b><span><strong>24.1</strong> Cole Kmet</span></div></div>
+  </article>
+</section>
+
+</main>
+<a class="backlink" href="./">&larr; All write-ups</a>
+
+</body>
+</html>
