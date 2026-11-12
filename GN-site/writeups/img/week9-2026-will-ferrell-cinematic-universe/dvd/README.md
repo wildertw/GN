@@ -14,6 +14,8 @@ same keys used by `img/managers/*.webp`:
     baro.jpg     Ian Baro         A Night at the Roxbury  as Steve Butabi
     collins.jpg  Shain Collins    Zoolander            as Mugatu
 
-The page reserves a 2:3 slot for each. Until a cover is dropped in here, that
+These were sliced from the Week 9 contact sheet (`../cover.jpg`), which is a 5x2
+grid of 400x600 tiles, so each file here is that manager's tile at native size.
+The page reserves a 2:3 slot for each.
 slot falls back to the manager's square photo from `img/managers/`, so a
 missing file never leaves a gap.
