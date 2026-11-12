@@ -86,12 +86,11 @@ h3{font-family:var(--disp);font-weight:900;font-size:clamp(28px,6.5vw,38px);line
 
 /* Entries */
 .entry{margin:46px 0 0;padding-top:8px;border-top:6px solid var(--rule);}
-.hd{display:grid;grid-template-columns:auto auto 1fr auto;gap:14px;align-items:center;}
+.hd{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;}
 .rk{font-family:var(--disp);font-weight:900;font-size:clamp(66px,16vw,104px);line-height:.8;color:var(--pump);min-width:.9ch;}
 .champ{font-family:var(--disp);font-weight:700;font-size:clamp(18px,4.4vw,24px);margin:0 0 2px;color:var(--muted);}
 .team{margin:4px 0 0;font-size:15px;color:var(--muted);}
 .team .mv{font-weight:700;}
-.belt{width:clamp(56px,14vw,84px);height:auto;color:var(--ink);}
 .chy{display:grid;grid-template-columns:repeat(6,1fr);margin:14px 0 14px;background:var(--chip-bg);color:var(--chip-ink);}
 .chy div{padding:8px 10px;border-right:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}
 .chy div:last-child{border-right:0;}
@@ -104,7 +103,7 @@ h3{font-family:var(--disp);font-weight:900;font-size:clamp(28px,6.5vw,38px);line
 @media (max-width:640px){.chy{grid-template-columns:repeat(3,1fr);}
   .chy div{border-bottom:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}
   .chy div:nth-child(3n){border-right:0;}}
-@media (max-width:560px){.hd{grid-template-columns:auto auto 1fr;}.belt{display:none;}}
+@media (max-width:560px){.hd{grid-template-columns:auto 1fr;}}
 
 /* Awards table */
 .awards{list-style:none;margin:16px 0;padding:0;border-top:3px solid var(--rule);}
@@ -148,11 +147,11 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
 .mgr-hudson{background:#13294B;border-color:#4B9CD3;color:#4B9CD3;}
 .mgr-clod{background:#FDC82F;border-color:#592A8A;color:#592A8A;}
 .mgr-galt{background:#000000;border-color:#73000A;color:#FFFFFF;}
-.dvd{display:block;width:clamp(96px,21vw,152px);}
-.dvd img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;object-position:center top;
-  border:3px solid var(--rule);border-radius:4px;background:var(--panel);
-  box-shadow:0 8px 20px rgba(0,0,0,.3);}
-@media (max-width:560px){.dvd{width:88px;}}
+.poster{margin:20px auto 24px;width:clamp(230px,56vw,300px);}
+.poster img{display:block;width:100%;height:auto;aspect-ratio:2/3;object-fit:cover;
+  border:4px solid var(--rule);border-radius:6px;background:var(--panel);
+  box-shadow:0 16px 38px rgba(0,0,0,.38);}
+@media (max-width:560px){.poster{margin:16px auto 20px;width:min(76vw,280px);}}
 .ph{position:relative;display:inline-flex;align-items:center;justify-content:center;
   width:26px;height:26px;border-radius:50%;overflow:hidden;background:var(--panel);
   border:1px solid var(--rule);vertical-align:-8px;margin:0 5px 0 2px;font-size:.58rem;
@@ -168,14 +167,6 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <symbol id="clap" viewBox="0 0 120 90">
-    <rect x="6" y="34" width="108" height="50" rx="5" fill="currentColor" opacity=".92"/>
-    <path d="M8 10 L112 22 L110 36 L6 24 Z" fill="currentColor"/>
-    <path d="M26 12 L18 25 M50 15 L42 28 M74 18 L66 31 M98 21 L90 34" stroke="var(--bg)" stroke-width="5"/>
-  </symbol>
-</svg>
-
 <main class="wrap">
 
 <header class="mast">
@@ -194,9 +185,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
   <div class="scroll"><table class="tbl zt"><thead><tr><th>#</th><th>Manager</th><th>Character</th><th>Move</th><th>Power score</th><th>Change</th><th>Record</th><th>PF</th><th>Power record</th></tr></thead><tbody><tr><td>1</td><td><span class="mgr mgr-hardee">Rex</span></td><td>Ron Burgundy</td><td>–</td><td>89.8</td><td>+1.00</td><td>8–1</td><td>1,245.0</td><td>68–13</td></tr><tr><td>2</td><td><span class="mgr mgr-wilder">Trey Wilder</span></td><td>Chazz Michael Michaels</td><td><span class="up">▲ 1</span></td><td>80.2</td><td>+0.57</td><td>8–1</td><td>1,005.0</td><td>46–35</td></tr><tr><td>3</td><td><span class="mgr mgr-wood">T Wood</span></td><td>Frank the Tank</td><td><span class="dn">▼ 1</span></td><td>76.7</td><td>−3.36</td><td>6–3</td><td>1,023.3</td><td>43–38</td></tr><tr><td>4</td><td><span class="mgr mgr-potter">Mark Potter</span></td><td>Brad Whitaker</td><td>–</td><td>74.8</td><td>−2.80</td><td>5–4</td><td>1,106.1</td><td>53–28</td></tr><tr><td>5</td><td><span class="mgr mgr-hudson">Josh Hudson</span></td><td>Jackie Moon</td><td>–</td><td>63.3</td><td>+2.79</td><td>4–5</td><td>935.9</td><td>36–45</td></tr><tr><td>6</td><td><span class="mgr mgr-waivers">Michael Waivers</span></td><td>Allen Gamble</td><td>–</td><td>62.4</td><td>+2.79</td><td>4–5</td><td>1,012.4</td><td>50–31</td></tr><tr><td>7</td><td><span class="mgr mgr-galt">Lee Galt</span></td><td>Buddy the Elf</td><td>–</td><td>56.3</td><td>+3.37</td><td>3–6</td><td>912.9</td><td>35–46</td></tr><tr><td>8</td><td><span class="mgr mgr-clod">Cody Clodfelter</span></td><td>Ashley Schaeffer</td><td>–</td><td>51.0</td><td>−1.68</td><td>3–6</td><td>851.8</td><td>29–52</td></tr><tr><td>9</td><td><span class="mgr mgr-baro">Ian Baro</span></td><td>Steve Butabi</td><td>–</td><td>48.1</td><td>−4.15</td><td>3–6</td><td>824.2</td><td>25–56</td></tr><tr><td>10</td><td><span class="mgr mgr-collins">Shain Collins</span></td><td>Mugatu</td><td>–</td><td>40.3</td><td>−0.55</td><td>1–8</td><td>826.9</td><td>20–61</td></tr></tbody></table></div>
   <p class="note">Power score after Week 9. Move is the change in rank from Week 8.</p>
   <article class="entry">
-    <div class="hd"><div class="rk">1</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/hardee.jpg" alt="DVD cover: Rex as Ron Burgundy in Anchorman: The Legend of Ron Burgundy" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/hardee.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/hardee.jpg" alt="DVD cover: Rex as Ron Burgundy in Anchorman: The Legend of Ron Burgundy" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/hardee.webp'"></figure>
+    <div class="hd"><div class="rk">1</div>
       <div><p class="champ">Ron Burgundy</p><h3><span class="mgr mgr-hardee">Rex</span></h3><p class="team"><em>Anchorman: The Legend of Ron Burgundy</em> (2004)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>8–1</dd></div><div><dt>Power score</dt><dd>89.8</dd></div><div><dt>Points for</dt><dd>1,245.0</dd></div><div><dt>Points against</dt><dd>903.5</dd></div><div><dt>Power record</dt><dd>68–13</dd></div><div><dt>Avg score</dt><dd>138.3</dd></div></dl>
     <p>Rex doesn’t know how to put this, but he’s kind of a big deal. People know him. He’s very important. He has many leather-bound books, and his apartment smells of rich mahogany.</p>
     <p>At least that’s how Ron Burgundy would introduce the man currently terrorizing the Greenville Natives.</p>
@@ -205,9 +197,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Ron Burgundy believed San Diego was lucky to have him. Rex probably feels the same way about Greenville Natives, and unfortunately, the numbers are making it difficult to tell him otherwise. Next week brings the Annual Taylor Bowl against Wood, the very man whose scoring-average record Rex is threatening to destroy. Somebody might want to keep Burgundy away from the scotch if that broadcast doesn’t go according to plan.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">2</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/wilder.jpg" alt="DVD cover: Trey Wilder as Chazz Michael Michaels in Blades of Glory" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/wilder.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/wilder.jpg" alt="DVD cover: Trey Wilder as Chazz Michael Michaels in Blades of Glory" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/wilder.webp'"></figure>
+    <div class="hd"><div class="rk">2</div>
       <div><p class="champ">Chazz Michael Michaels</p><h3><span class="mgr mgr-wilder">Trey Wilder</span></h3><p class="team"><em>Blades of Glory</em> (2007) &middot; <span class="mv up">▲ up 1</span></p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>8–1</dd></div><div><dt>Power score</dt><dd>80.2</dd></div><div><dt>Points for</dt><dd>1,005.0</dd></div><div><dt>Points against</dt><dd>820.5</dd></div><div><dt>Power record</dt><dd>46–35</dd></div><div><dt>Avg score</dt><dd>111.7</dd></div></dl>
     <p>Chazz Michael Michaels was an arrogant, hard-drinking figure skater who somehow kept winning competitions despite having the personal discipline of a seventeen-year-old on spring break. His performances weren’t always technically impressive, but the man knew how to finish on the podium and celebrate like he’d personally invented ice skating.</p>
     <p>Trey defeated Clod 103.3–69.2 to improve to 8-1, with <span class="ph" aria-hidden="true">MG<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/green-bay-packers-matthew-golden--zpgm8ka1.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4701936.png"></span>Matthew Golden catching ten passes for 164 yards and a touchdown and <span class="ph" aria-hidden="true">JC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-james-cook-copy-min--dd9k4xlw.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4379399.png"></span>James Cook rushing for 107 yards. The win moved Trey back up to No. 2 in the official power rankings, although beating a defending champion in the middle of a collapse wasn’t exactly Olympic-level competition.</p>
@@ -216,9 +209,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Another victory against Galt would put Trey at 9-1 and strengthen his playoff position, but eventually Chazz is going to have to perform against somebody who can actually stay upright on the ice.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">3</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/wood.jpg" alt="DVD cover: T Wood as Frank the Tank in Old School" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/wood.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/wood.jpg" alt="DVD cover: T Wood as Frank the Tank in Old School" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/wood.webp'"></figure>
+    <div class="hd"><div class="rk">3</div>
       <div><p class="champ">Frank the Tank</p><h3><span class="mgr mgr-wood">T Wood</span></h3><p class="team"><em>Old School</em> (2003) &middot; <span class="mv dn">▼ down 1</span></p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>6–3</dd></div><div><dt>Power score</dt><dd>76.7</dd></div><div><dt>Points for</dt><dd>1,023.3</dd></div><div><dt>Points against</dt><dd>926.3</dd></div><div><dt>Power record</dt><dd>43–38</dd></div><div><dt>Avg score</dt><dd>113.7</dd></div></dl>
     <p>Frank Ricard started <em>Old School</em> as a respectable married man before discovering that his true calling involved drinking enormous quantities of alcohol and running naked through the neighborhood. The transformation was spectacular, embarrassing, and ultimately unsustainable.</p>
     <p>Wood’s season is beginning to resemble the morning after.</p>
@@ -228,9 +222,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>The Taylor Bowl is next, and Rex isn’t only coming for the win. He’s coming for the record and the title of best Taylor. Losing a fantasy matchup is one thing. Losing your fucking identity is another.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">4</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/potter.jpg" alt="DVD cover: Mark Potter as Brad Whitaker in Daddy&#x27;s Home" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/potter.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/potter.jpg" alt="DVD cover: Mark Potter as Brad Whitaker in Daddy&#x27;s Home" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/potter.webp'"></figure>
+    <div class="hd"><div class="rk">4</div>
       <div><p class="champ">Brad Whitaker</p><h3><span class="mgr mgr-potter">Mark Potter</span></h3><p class="team"><em>Daddy&#x27;s Home</em> (2015)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>5–4</dd></div><div><dt>Power score</dt><dd>74.8</dd></div><div><dt>Points for</dt><dd>1,106.1</dd></div><div><dt>Points against</dt><dd>1,061.9</dd></div><div><dt>Power record</dt><dd>53–28</dd></div><div><dt>Avg score</dt><dd>122.9</dd></div></dl>
     <p>Brad Whitaker did everything a good stepfather was supposed to do. He provided for the family, showed up every day, and genuinely cared about the kids. Unfortunately, Mark Wahlberg kept showing up on a motorcycle, taking his shirt off, and making Brad look like a complete asshole without lifting a finger.</p>
     <p>Potter has spent nine weeks playing the role of Brad, assembling one of the best teams in the league while everybody else somehow gets the glory. <span class="ph" aria-hidden="true">JB<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/cincinnati-bengals-joe-burrow-min--hedgxbuk.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3915511.png"></span>Joe Burrow threw for 271 yards and three touchdowns, <span class="ph" aria-hidden="true">BI<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/tampa-bay-buccaneers-bucky-irving--0yt7ucg3.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4596448.png"></span>Bucky Irving scored twice, and <span class="ph" aria-hidden="true">PN<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/los-angeles-rams-puka-nacua-copy-min--x1stw0ms.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4426515.png"></span>Puka Nacua caught 14 passes for 150 yards and a touchdown. Potter produced another excellent offensive performance and still walked away with absolutely nothing.</p>
@@ -239,9 +234,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Brad eventually earned his family’s respect, but Potter’s next opponent is E, a team averaging just 91.6 points. Beating E would be the fantasy equivalent of Brad finally getting his stepchildren to call him Dad. It’s nice, but nobody’s throwing you a fucking parade.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">5</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/hudson.jpg" alt="DVD cover: Josh Hudson as Jackie Moon in Semi-Pro" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/hudson.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/hudson.jpg" alt="DVD cover: Josh Hudson as Jackie Moon in Semi-Pro" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/hudson.webp'"></figure>
+    <div class="hd"><div class="rk">5</div>
       <div><p class="champ">Jackie Moon</p><h3><span class="mgr mgr-hudson">Josh Hudson</span></h3><p class="team"><em>Semi-Pro</em> (2008)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>4–5</dd></div><div><dt>Power score</dt><dd>63.3</dd></div><div><dt>Points for</dt><dd>935.9</dd></div><div><dt>Points against</dt><dd>999.3</dd></div><div><dt>Power record</dt><dd>36–45</dd></div><div><dt>Avg score</dt><dd>104.0</dd></div></dl>
     <p>Jackie Moon was the owner, coach, player, and chief entertainer of the Flint Tropics, a basketball franchise that spent more time dreaming up ridiculous halftime promotions than figuring out how to win games. Josh Hudson has apparently been operating a similar organization, where optimism and questionable management occasionally combine to produce something resembling success.</p>
     <p>Hud defeated Shain 105.4–93.6 behind <span class="ph" aria-hidden="true">JC<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/cincinnati-bengals-jamarr-chase-min--yrnb9t9s.png"></span>Ja’Marr Chase’s ten receptions for 155 yards and a touchdown, while <span class="ph" aria-hidden="true">DP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/dallas-cowboys-dak-prescott-alternate-min--p2ywnrpx.png"></span>Dak Prescott delivered a respectable performance in Dallas’ victory over Indianapolis.</p>
@@ -249,9 +245,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p><strong>Hud is now just one victory away from his 100th career win</strong>, counting regular-season and playoff games. Jackie Moon would absolutely turn that milestone into a weeklong promotional event, complete with commemorative T-shirts, fireworks, and a guaranteed sellout at the Flint Tropics arena. Whether Josh actually gets No. 100 against Cody is another question, but at least there’s finally something legitimate worth celebrating.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">6</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/waivers.jpg" alt="DVD cover: Michael Waivers as Allen Gamble in The Other Guys" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/waivers.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/waivers.jpg" alt="DVD cover: Michael Waivers as Allen Gamble in The Other Guys" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/waivers.webp'"></figure>
+    <div class="hd"><div class="rk">6</div>
       <div><p class="champ">Allen Gamble</p><h3><span class="mgr mgr-waivers">Michael Waivers</span></h3><p class="team"><em>The Other Guys</em> (2010)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>4–5</dd></div><div><dt>Power score</dt><dd>62.4</dd></div><div><dt>Points for</dt><dd>1,012.4</dd></div><div><dt>Points against</dt><dd>1,012.1</dd></div><div><dt>Power record</dt><dd>50–31</dd></div><div><dt>Avg score</dt><dd>112.5</dd></div></dl>
     <p>Allen Gamble was a mild-mannered forensic accountant who preferred paperwork and quiet afternoons until everyone discovered his bizarre past as Gator, a man with considerably more experience operating in the criminal underworld than anybody expected.</p>
     <p>Nobody in this league saw Waivers as a threat after he opened 1-4, which is exactly how Gator likes it. He’s won three of four since, most recently beating Wood 120.8–102.6. <span class="ph" aria-hidden="true">CL<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/dallas-cowboys-ceedee-lamb-min--xmogsawz.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4241389.png"></span>CeeDee Lamb led the NFL with 195 receiving yards on ten catches, <span class="ph" aria-hidden="true">CM<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-christian-mccaffrey-min--l1p0cmsu.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3117251.png"></span>Christian McCaffrey continued producing in the backfield, and <span class="ph" aria-hidden="true">RO<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="this.remove()" src="/statmuse/img/nfl/players/chicago-bears-rome-odunze--vka9yc71.png"></span>Rome Odunze provided additional support. Waivers didn’t need <span class="ph" aria-hidden="true">JA<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/buffalo-bills-josh-allen2022-min--eywxinbm.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/3918298.png"></span>Josh Allen to have a spectacular afternoon because the rest of the offense was finally doing its fucking job.</p>
@@ -260,9 +257,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Next week brings Shain, giving Waivers an opportunity to reach .500 and put himself directly into the battle for the fourth playoff spot.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">7</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/galt.jpg" alt="DVD cover: Lee Galt as Buddy the Elf in Elf" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/galt.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/galt.jpg" alt="DVD cover: Lee Galt as Buddy the Elf in Elf" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/galt.webp'"></figure>
+    <div class="hd"><div class="rk">7</div>
       <div><p class="champ">Buddy the Elf</p><h3><span class="mgr mgr-galt">Lee Galt</span></h3><p class="team"><em>Elf</em> (2003)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>3–6</dd></div><div><dt>Power score</dt><dd>56.3</dd></div><div><dt>Points for</dt><dd>912.9</dd></div><div><dt>Points against</dt><dd>985.0</dd></div><div><dt>Power record</dt><dd>35–46</dd></div><div><dt>Avg score</dt><dd>101.4</dd></div></dl>
     <p>Buddy the Elf arrived in New York City convinced that everything was wonderful, everybody was his friend, and there was absolutely no reason to question his understanding of the world. He was a grown man behaving like a child who’d consumed approximately six pounds of sugar and discovered the concept of traffic for the first time.</p>
     <p>Galt finally found somebody willing to participate in his version of reality, defeating E 110.5–61.5. <span class="ph" aria-hidden="true">BP<img loading="lazy" alt="" referrerpolicy="no-referrer" onerror="if(this.dataset.alt){this.src=this.dataset.alt;this.removeAttribute('data-alt')}else{this.remove()}" data-alt="/statmuse/img/nfl/players/san-francisco-49ers-brock-purdy-min--cc0hh0oy.png" src="https://a.espncdn.com/i/headshots/nfl/players/full/4361741.png"></span>Brock Purdy threw for 232 yards and two touchdowns, <span class="ph" aria-hidden="true">JC</span>Jonah Coleman contributed in the backfield, and the Bears defense helped offset a zero from <span class="ph" aria-hidden="true">AM</span>Adonai Mitchell despite seven targets. Lee scored enough to finish in the top half of the league while his opponent managed the lowest total of the week.</p>
@@ -271,9 +269,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Unfortunately, Lee’s next opponent is Trey, who’s sitting at 8-1 despite an offense that hasn’t exactly been terrifying anybody. Reaching 100 wins by knocking off one of the league leaders would be a much better accomplishment than celebrating a 49-point victory over a team that barely remembered to score.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">8</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/clod.jpg" alt="DVD cover: Cody Clodfelter as Ashley Schaeffer in Eastbound &amp; Down" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/clod.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/clod.jpg" alt="DVD cover: Cody Clodfelter as Ashley Schaeffer in Eastbound &amp; Down" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/clod.webp'"></figure>
+    <div class="hd"><div class="rk">8</div>
       <div><p class="champ">Ashley Schaeffer</p><h3><span class="mgr mgr-clod">Cody Clodfelter</span></h3><p class="team"><em>Eastbound &amp; Down</em> (2009–2013)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>3–6</dd></div><div><dt>Power score</dt><dd>51.0</dd></div><div><dt>Points for</dt><dd>851.8</dd></div><div><dt>Points against</dt><dd>1,039.3</dd></div><div><dt>Power record</dt><dd>29–52</dd></div><div><dt>Avg score</dt><dd>94.6</dd></div></dl>
     <p>Ashley Schaeffer was an obnoxiously wealthy BMW dealership owner with ridiculous white hair, an unhealthy obsession with Kenny Powers, and the confidence of a man who’d never been told to shut the fuck up. He spent his days showing off expensive German automobiles and convincing everybody that Ashley Schaeffer BMW was the finest establishment on the planet.</p>
     <p>Cody is still walking around with last year’s championship trophy while his current franchise looks like a used-car lot full of flood-damaged vehicles.</p>
@@ -282,9 +281,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>The championship trophy might still be sitting in Cody’s showroom, but the inventory has gone downhill considerably. Another loss against Hud could leave Ashley Schaeffer explaining to prospective customers that he used to operate a prestigious establishment before everything went to absolute shit.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">9</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/baro.jpg" alt="DVD cover: Ian Baro as Steve Butabi in A Night at the Roxbury" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/baro.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/baro.jpg" alt="DVD cover: Ian Baro as Steve Butabi in A Night at the Roxbury" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/baro.webp'"></figure>
+    <div class="hd"><div class="rk">9</div>
       <div><p class="champ">Steve Butabi</p><h3><span class="mgr mgr-baro">Ian Baro</span></h3><p class="team"><em>A Night at the Roxbury</em> (1998)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>3–6</dd></div><div><dt>Power score</dt><dd>48.1</dd></div><div><dt>Points for</dt><dd>824.2</dd></div><div><dt>Points against</dt><dd>999.5</dd></div><div><dt>Power record</dt><dd>25–56</dd></div><div><dt>Avg score</dt><dd>91.6</dd></div></dl>
     <p>Steve Butabi spent most of <em>A Night at the Roxbury</em> trying to get into exclusive nightclubs with his brother Doug, repeatedly getting rejected by bouncers who had absolutely no interest in letting two hopeless assholes through the front door.</p>
     <p>E’s season has been one long night standing outside the velvet rope.</p>
@@ -293,9 +293,10 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>The worst part is that E has enough recognizable names on his roster to convince himself that a turnaround is coming. Unfortunately, Steve Butabi spent an entire movie convincing himself he was moments away from becoming a nightclub legend, and we all saw how that worked out. Potter awaits in Week 10, and E might want to stop practicing his head-bobbing dance long enough to figure out how his offense is supposed to score points.</p>
   </article>
   <article class="entry">
-    <div class="hd"><div class="rk">10</div><span class="dvd"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/collins.jpg" alt="DVD cover: Shain Collins as Mugatu in Zoolander" width="1024" height="1536" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/collins.webp'"></span>
+    <figure class="poster"><img src="img/week9-2026-will-ferrell-cinematic-universe/dvd/collins.jpg" alt="DVD cover: Shain Collins as Mugatu in Zoolander" width="400" height="600" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='img/managers/collins.webp'"></figure>
+    <div class="hd"><div class="rk">10</div>
       <div><p class="champ">Mugatu</p><h3><span class="mgr mgr-collins">Shain Collins</span></h3><p class="team"><em>Zoolander</em> (2001)</p></div>
-      <svg class="belt" viewBox="0 0 120 90" role="img" aria-label="Clapperboard"><use href="#clap"/></svg></div>
+    </div>
     <dl class="chy"><div><dt>Record</dt><dd>1–8</dd></div><div><dt>Power score</dt><dd>40.3</dd></div><div><dt>Points for</dt><dd>826.9</dd></div><div><dt>Points against</dt><dd>996.1</dd></div><div><dt>Power record</dt><dd>20–61</dd></div><div><dt>Avg score</dt><dd>91.9</dd></div></dl>
     <p>Jacobim Mugatu was a lunatic fashion designer with enormous confidence, ridiculous ideas, and a remarkable inability to understand why the rest of the world didn’t appreciate his genius. This was, after all, the man who invented the <strong>keyboard necktie</strong>, a fashion accessory that somehow combined the functionality of a computer keyboard with the timeless elegance of looking like a complete fucking idiot.</p>
     <p>Shain has spent nine weeks producing the fantasy football equivalent of Mugatu’s latest collection: expensive, confusing, and completely fucking useless.</p>
