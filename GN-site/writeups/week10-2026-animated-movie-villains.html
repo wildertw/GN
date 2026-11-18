@@ -97,6 +97,12 @@ h3{font-family:var(--disp);font-weight:900;font-size:clamp(28px,6.5vw,38px);line
   .chy div{border-bottom:1px solid color-mix(in srgb,var(--chip-ink) 30%,transparent);}
   .chy div:nth-child(3n){border-right:0;}}
 
+/* Looping clip, a GIF in mp4 form: silent, so it autoplays like one */
+.loop{margin:26px auto 30px;width:min(340px,80vw);}
+.loop video{display:block;width:100%;height:auto;border:4px solid var(--rule);
+  background:#0b1b63;box-shadow:0 12px 28px rgba(0,0,0,.3);}
+.loop figcaption{margin:8px 0 0;font-size:14px;color:var(--muted);text-align:center;}
+
 /* The road home: per-entry playoff / Caddy Bowl panel */
 .road{border:3px solid var(--rule);background:var(--panel);margin:22px 0 4px;}
 .road .lbl{margin:0;padding:7px 12px;background:var(--chip-bg);color:var(--chip-ink);
@@ -185,6 +191,14 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
   <p>Three weeks left, boys, and apparently Rex and I needed a reminder that nobody gives a shit about your record. Galt beat me, and <strong>T Wood absolutely dominated Rex in the Taylor Bowl, 169–57.6</strong>, taking the Taylor 1 title by a humiliating 111.4 points. Now I have to publish a set of power rankings with Wood at number one. Tough week for the commissioner. Meanwhile, Waivers has won four straight, Hud is back to .500, and Potter is discovering that having a better team on paper doesn’t stop Ian from lighting that paper on fire. Nine teams are still mathematically alive for the playoffs. Clod is doing some heavy lifting on the word “mathematically.”</p>
     <p>Twelve years ago, I compared this same group to supervillains. You would think somewhere between then and now, marriage, children and approaching forty would have given us some character development. Instead, I’m still writing insults about the same nine assholes while convincing myself that maintaining a spreadsheet counts as a public service. This time we’re doing animated movie villains. A group of jealous, manipulative, emotionally unstable men who cannot handle somebody else getting what they want. I barely had to research the characters. I’ve been in a group chat with them for years.</p>
     <p>We’ve got a commissioner trying to seize ultimate power, a man who believes an entire village should sing about how great he is, and several managers whose plans could be improved by putting a small animal in charge. Below that, the playoff race is getting tight enough that some of you are about to become very invested in teams you’ve spent ten weeks calling dog shit. Shain is officially out of championship contention, but escaping the Caddy Bowl is still technically possible. Even his happy ending now requires other people to suffer. Finally, a theme that understands this league.</p>
+  <figure class="loop">
+    <video width="320" height="320" autoplay loop muted playsinline preload="metadata"
+      aria-label="Animated clip: the Disney opening logo, the castle morphing into a crude shape as the arc of stars spells out Go Fuck Yourself in the Disney script.">
+      <source src="img/week10-2026-animated-movie-villains/go-fuck-yourself.mp4" type="video/mp4">
+      <source src="img/week10-2026-animated-movie-villains/go-fuck-yourself.webm" type="video/webm">
+    </video>
+    <figcaption>Now showing before every feature.</figcaption>
+  </figure>
 </section>
 <section aria-labelledby="rankings">
   <h2 id="rankings">Power rankings: the villains<small>Ten managers, ten animated villains, ranked by power score after Week 10.</small></h2>
@@ -412,6 +426,14 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
 </footer>
 
 <a class="backlink" href="./">&larr; All write-ups</a>
+
+<script>
+// Respect a reduced-motion preference: stop the loop and offer controls instead.
+try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  document.querySelectorAll('video[autoplay]').forEach(function(v){
+    v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();});
+}}catch(e){}
+</script>
 
 </main>
 </body>
