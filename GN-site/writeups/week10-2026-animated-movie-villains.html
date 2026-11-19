@@ -201,7 +201,7 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
     <p>Congratulations to <strong>Galt and Hud on reaching 100 all-time wins</strong>. Galt decided his milestone needed to come at my expense, while Hud used Clod’s lineup as the ceremonial ribbon. <strong>Shain, Ian and Clod are tied at 97 with three games remaining</strong>, so any could become the next member to reach 100 by winning out. For Shain, that means winning three games after spending ten weeks winning one. Nine teams remain mathematically alive for the playoffs, with Clod doing some heavy lifting on “mathematically.” Shain’s remaining happy ending involves escaping the Caddy Bowl, and even that requires other people to suffer.</p>
     <p>Twelve years ago, I compared this same group to supervillains. You would think marriage, children and approaching forty would have produced some character development. Instead, I’m still insulting the same nine assholes while convincing myself that maintaining a spreadsheet counts as a public service. This time we’re doing animated movie villains: jealous, manipulative, emotionally unstable men who cannot handle somebody else getting what they want. I barely had to research the characters. I’ve been in a group chat with them for years. Now some of you need help from teams you’ve spent ten weeks calling dog shit. Finally, a theme that understands this league.</p>
   <figure class="loop">
-    <video width="320" height="320" autoplay loop muted playsinline preload="metadata"
+    <video width="320" height="320" autoplay loop muted playsinline preload="auto"
       aria-label="Animated clip: the Disney opening logo, the castle morphing into a crude shape as the arc of stars spells out Go Fuck Yourself in the Disney script.">
       <source src="img/week10-2026-animated-movie-villains/go-fuck-yourself.mp4" type="video/mp4">
       <source src="img/week10-2026-animated-movie-villains/go-fuck-yourself.webm" type="video/webm">
@@ -456,11 +456,28 @@ h3 .mgr{font-size:.82em;vertical-align:.06em;}
 <a class="backlink" href="./">&larr; All write-ups</a>
 
 <script>
-// Respect a reduced-motion preference: stop the loop and offer controls instead.
-try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){
-  document.querySelectorAll('video[autoplay]').forEach(function(v){
-    v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();});
-}}catch(e){}
+// Keep the loop running. Chrome will hold a muted autoplay until the element is
+// on screen, and some setups need an explicit play() call, so nudge it. A
+// reduced-motion preference stops it and offers controls instead.
+try{
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.querySelectorAll('video[autoplay]').forEach(function(v){
+  if(reduce){v.removeAttribute('autoplay');v.removeAttribute('loop');v.controls=true;v.pause();return;}
+  v.muted=true;v.defaultMuted=true;v.playsInline=true;
+  function nudge(){if(v.paused){var p=v.play();if(p&&p.catch){p.catch(function(){});}}}
+  v.addEventListener('loadeddata',nudge);
+  v.addEventListener('canplay',nudge);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)nudge();});},
+      {threshold:0.15}).observe(v);
+  }
+  ['pointerdown','keydown','touchstart'].forEach(function(ev){
+    document.addEventListener(ev,nudge,{once:true,passive:true});});
+  // Still stopped after a few seconds? Give the reader a play button.
+  setTimeout(function(){if(v.paused&&!v.ended){v.controls=true;}},4000);
+  nudge();
+});
+}catch(e){}
 </script>
 
 </main>
