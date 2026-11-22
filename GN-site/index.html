@@ -1117,10 +1117,14 @@ function fitDraftCardImg(img) {
     const imgRatio = img.naturalWidth / img.naturalHeight;
     const boxRatio = box.clientWidth / box.clientHeight;
     if (Math.abs(imgRatio - boxRatio) / boxRatio < 0.25) return; // headshot-like, keep cover
-    img.style.inset = '4px 0 30px 0';
-    img.style.height = 'calc(100% - 34px)';
+    // Fill the whole cell height; the card's full face stays visible. Only a
+    // short shade behind the name strip so the card isn't darkened.
+    img.style.inset = '0';
+    img.style.height = '100%';
     img.style.objectFit = 'contain';
     img.style.objectPosition = 'center';
+    const shade = img.nextElementSibling;
+    if (shade) shade.style.background = 'linear-gradient(to top,rgba(0,0,0,0.85) 0%,rgba(0,0,0,0.5) 22%,rgba(0,0,0,0) 34%)';
   } catch (e) {}
 }
 
